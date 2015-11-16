@@ -31,7 +31,7 @@ export default class App extends React.Component {
   }
 
   showAlert(){
-    this.alert.show('Some text or component', {
+    this.msg.show('Some text or component', {
       time: 2000,
       type: 'success',
       icon: <img src="path/to/some/img/32x32.png" />
@@ -41,7 +41,7 @@ export default class App extends React.Component {
   render(){
     return(
       <div>
-        <AlertContainer ref={(a) => this.alert = a} {...this.alertOptions} />
+        <AlertContainer ref={(a) => this.msg = a} {...this.alertOptions} />
         <button onClick={this.showAlert}>Show Alert</button>
       </div>
     );
@@ -77,7 +77,7 @@ When you call the `show` method, you can include the following options as a seco
 You can also call the `info`, the `success` or the `error` method directly to set the alert type automatically, like this:
 
 ```js
-this.alert.info('Some info message!');
-this.alert.success('Some success message!');
-this.alert.error('Some error message!');
+this.msg.info('Some info message!');
+this.msg.success('Some success message!');
+this.msg.error('Some error message!');
 ```
