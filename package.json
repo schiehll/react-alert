@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "author": "Reinaldo Schiehll <rn.schiehll@gmail.com>",
   "main": "./dist/alert.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/schiehll/react-alert.git"
+  },
   "keywords": [
     "react",
     "alert",
