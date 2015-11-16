@@ -1,13 +1,12 @@
 import React from 'react';
-import Config from '../config/Config';
-import {ALERT} from '../config/Events';
+import EventEmitter from 'events';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import AlertMessage from './AlertMessage';
 
 class AlertContainer extends React.Component {
   constructor(props){
-    new Config();
     super(props);
+    global.reactAlertEvents = new EventEmitter();
     this.state = {
       alerts: []
     };
@@ -64,7 +63,7 @@ class AlertContainer extends React.Component {
   }
 
   _eventListners(){
-    events.on(ALERT.REMOVE, (alert) => {
+    reactAlertEvents.on('ALERT.REMOVE', (alert) => {
       this.setState({alerts: this._removeAlert(alert)});
     });
   }

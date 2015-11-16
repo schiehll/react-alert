@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
-import {ALERT} from '../config/Events';
 
 class AlertMessage extends React.Component {
   constructor(props){
@@ -34,7 +33,7 @@ class AlertMessage extends React.Component {
   }
 
   _removeSelf(){
-    events.emit(ALERT.REMOVE, this);
+    reactAlertEvents.emit('ALERT.REMOVE', this);
   }
 
   componentDidMount(){
