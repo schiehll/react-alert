@@ -68,16 +68,25 @@ When you call the `show` method, you can include the following options as a seco
 
 ```js
 {
-  time: 0, //the time in miliseconds to the alert close itself, use 0 to prevent auto close (apply to this alert only)
-  type: 'info', //the alert type, can be [info, success, error]
+  time: 0, //the time in miliseconds to the alert close itself, use 0 to prevent auto close (apply to this alert only), default is 5000
+  type: 'info', //the alert type, can be [info, success, error], default is info
   icon: <img src="path/to/some/img/32x32.png" /> //the icon to show in the alert, if none is given the default of each type will be showed
 }
 ```
 
-You can also call the `info`, the `success` or the `error` method directly to set the alert type automatically, like this:
+## Api
+
+Once you have the reference of the `AlertContainer` you can call the following methods:
 
 ```js
+//show an alert
+this.msg.show('Some message or component');
+//show a info alert
 this.msg.info('Some info message!');
+//show a success alert
 this.msg.success('Some success message!');
+//show an error alert
 this.msg.error('Some error message!');
+//removes all alerts from the page
+this.msg.removeAll();
 ```
