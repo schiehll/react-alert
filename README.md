@@ -1,6 +1,6 @@
 # react-alert
 
-A simple alert component for react
+A simple react alert component
 
 ## Installation
 
