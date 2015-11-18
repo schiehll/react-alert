@@ -1,7 +1,6 @@
-# react-alert
+# react-alert [![npm](https://badge.fury.io/js/react-alert.svg)](http://badge.fury.io/js/react-alert) [![Build Status](https://travis-ci.org/schiehll/react-alert.svg?branch=master)](https://travis-ci.org/schiehll/react-alert)
 
 A simple react alert component
-[![Build Status](https://travis-ci.org/schiehll/react-alert.svg?branch=master)](https://travis-ci.org/schiehll/react-alert)
 
 ## Installation
 
