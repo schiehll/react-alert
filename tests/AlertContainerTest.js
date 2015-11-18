@@ -31,7 +31,7 @@ describe('AlertContainer', () => {
     it('should have the default props if none is given', () => {
       var alerts = TestUtils.renderIntoDocument(<AlertContainer />);
       expect(alerts.props).toEqual({
-        offset: 20,
+        offset: 14,
         position: 'bottom left',
         theme: 'dark',
         time: 5000,
