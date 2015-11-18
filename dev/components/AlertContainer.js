@@ -14,33 +14,59 @@ class AlertContainer extends React.Component {
     this.theme = this._setTheme();
     this._eventListners();
   }
-
+  /**
+   * Show the alert in the page with success type
+   * @param  {string} message 
+   * @param  {Object} options 
+   * @return {void}         
+   */
   success(message, options = {}){
     options.type = 'success';
     this.show(message, options);
   }
-
+  /**
+   * Show the alert in the page with error type
+   * @param  {string} message 
+   * @param  {Object} options 
+   * @return {void}
+   */
   error(message, options = {}){
     options.type = 'error';
     this.show(message, options);
   }
-
+  /**
+   * Show the alert in the page with info type 
+   * @param  {string} message
+   * @param  {Object} options
+   * @return {void}
+   */
   info(message, options = {}){
     options.type = 'info';
     this.show(message, options);
   }
-
-  removeAll(){
-    this.setState({alerts: []});
-  }
-
+  /**
+   * Show the alert in the page
+   * @param  {string} message
+   * @param  {Object} options
+   * @return {void}
+   */
   show(message, options = {}){
     let alert = {};
     alert.message = message;
     alert = Object.assign(alert, options);
     this.setState({alerts: this._addAlert(alert)});
   }
-
+  /**
+   * Remove all tasks from the page
+   * @return {void}
+   */
+  removeAll(){
+    this.setState({alerts: []});
+  }
+  /**
+   * Add an alert
+   * @param {Object} alert
+   */
   _addAlert(alert){
     alert.uniqueKey = this._genUniqueKey();
     alert.style = this.theme;
@@ -51,23 +77,35 @@ class AlertContainer extends React.Component {
     this.state.alerts.push(alert);
     return this.state.alerts;
   }
-
+  /**
+   * Generate a key
+   * @return {string}
+   */
   _genUniqueKey(){
     return new Date().getTime().toString() + Math.random().toString(36).substr(2, 5);
   }
-
+  /**
+   * Remove an AlertMessage from the container
+   * @param  {AlertMessage} alert
+   * @return {void}
+   */
   _removeAlert(alert){
     return this.state.alerts.filter((a) => {
       return a.uniqueKey != alert.props.uniqueKey;
     });
   }
-
+  /**
+   * Listen to alert events
+   * @return {void}
+   */
   _eventListners(){
     reactAlertEvents.on('ALERT.REMOVE', (alert) => {
       this.setState({alerts: this._removeAlert(alert)});
     });
   }
-
+  /**
+   * Set the alert position on the page
+   */
   _setStyle(){
     let position = {};
     switch(this.props.position){
@@ -113,7 +151,9 @@ class AlertContainer extends React.Component {
       left: position.left,
     };
   }
-
+  /**
+   * Set the style of the alert based on the chosen theme
+   */
   _setTheme(){
     let theme = {};
     switch(this.props.theme){

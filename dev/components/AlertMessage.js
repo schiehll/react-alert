@@ -9,11 +9,17 @@ class AlertMessage extends React.Component {
       closeButtonStyle: {}
     };
   }
-
+  /**
+   * Handle the close button click
+   * @return {void} 
+   */
   _handleCloseClick(){
     this._removeSelf();
   }
-
+  /**
+   * Include the given icon or use the default one
+   * @return {React.Component}
+   */
   _showIcon(){
     let icon = '';
     if(this.props.icon){
@@ -25,17 +31,23 @@ class AlertMessage extends React.Component {
 
     return icon;
   }
-
+  /**
+   * Remove the alert after the given time
+   * @return {void} 
+   */
   _countdown(){
     setTimeout(() => {
       this._removeSelf();
     }, this.props.time);
   }
-
+  /**
+   * Emit a event to AlertContainer remove this alert from page
+   * @return {void}
+   */
   _removeSelf(){
     reactAlertEvents.emit('ALERT.REMOVE', this);
   }
-
+  
   componentDidMount(){
     this.domNode = ReactDOM.findDOMNode(this);
     this.setState({
