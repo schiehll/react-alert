@@ -149,8 +149,8 @@ class AlertContainer extends React.Component {
       <div style={this.style} className="react-alerts">
         <ReactCSSTransitionGroup 
           transitionName={this.props.transition} 
-          transitionEnterTimeout={300} 
-          transitionLeaveTimeout={300}>
+          transitionEnterTimeout={250} 
+          transitionLeaveTimeout={250}>
           {this.state.alerts.map((alert, index) => {
             return <AlertMessage key={alert.uniqueKey} {...alert} />
           })}
