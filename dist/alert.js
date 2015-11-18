@@ -489,6 +489,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this._eventListners();
 	  }
 
+	  /**
+	   * Show the alert in the page with success type
+	   * @param  {string} message 
+	   * @param  {Object} options 
+	   * @return {void}         
+	   */
+
 	  _createClass(AlertContainer, [{
 	    key: 'success',
 	    value: function success(message) {
@@ -497,6 +504,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      options.type = 'success';
 	      this.show(message, options);
 	    }
+
+	    /**
+	     * Show the alert in the page with error type
+	     * @param  {string} message 
+	     * @param  {Object} options 
+	     * @return {void}
+	     */
 	  }, {
 	    key: 'error',
 	    value: function error(message) {
@@ -505,6 +519,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      options.type = 'error';
 	      this.show(message, options);
 	    }
+
+	    /**
+	     * Show the alert in the page with info type 
+	     * @param  {string} message
+	     * @param  {Object} options
+	     * @return {void}
+	     */
 	  }, {
 	    key: 'info',
 	    value: function info(message) {
@@ -513,11 +534,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      options.type = 'info';
 	      this.show(message, options);
 	    }
-	  }, {
-	    key: 'removeAll',
-	    value: function removeAll() {
-	      this.setState({ alerts: [] });
-	    }
+
+	    /**
+	     * Show the alert in the page
+	     * @param  {string} message
+	     * @param  {Object} options
+	     * @return {void}
+	     */
 	  }, {
 	    key: 'show',
 	    value: function show(message) {
@@ -528,6 +551,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	      alert = Object.assign(alert, options);
 	      this.setState({ alerts: this._addAlert(alert) });
 	    }
+
+	    /**
+	     * Remove all tasks from the page
+	     * @return {void}
+	     */
+	  }, {
+	    key: 'removeAll',
+	    value: function removeAll() {
+	      this.setState({ alerts: [] });
+	    }
+
+	    /**
+	     * Add an alert
+	     * @param {Object} alert
+	     */
 	  }, {
 	    key: '_addAlert',
 	    value: function _addAlert(alert) {
@@ -540,11 +578,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this.state.alerts.push(alert);
 	      return this.state.alerts;
 	    }
+
+	    /**
+	     * Generate a key
+	     * @return {string}
+	     */
 	  }, {
 	    key: '_genUniqueKey',
 	    value: function _genUniqueKey() {
 	      return new Date().getTime().toString() + Math.random().toString(36).substr(2, 5);
 	    }
+
+	    /**
+	     * Remove an AlertMessage from the container
+	     * @param  {AlertMessage} alert
+	     * @return {void}
+	     */
 	  }, {
 	    key: '_removeAlert',
 	    value: function _removeAlert(alert) {
@@ -552,6 +601,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return a.uniqueKey != alert.props.uniqueKey;
 	      });
 	    }
+
+	    /**
+	     * Listen to alert events
+	     * @return {void}
+	     */
 	  }, {
 	    key: '_eventListners',
 	    value: function _eventListners() {
@@ -561,6 +615,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this.setState({ alerts: _this._removeAlert(alert) });
 	      });
 	    }
+
+	    /**
+	     * Set the alert position on the page
+	     */
 	  }, {
 	    key: '_setStyle',
 	    value: function _setStyle() {
@@ -608,6 +666,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        left: position.left
 	      };
 	    }
+
+	    /**
+	     * Set the style of the alert based on the chosen theme
+	     */
 	  }, {
 	    key: '_setTheme',
 	    value: function _setTheme() {
@@ -1036,11 +1098,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  }
 
+	  /**
+	   * Handle the close button click
+	   * @return {void} 
+	   */
+
 	  _createClass(AlertMessage, [{
 	    key: '_handleCloseClick',
 	    value: function _handleCloseClick() {
 	      this._removeSelf();
 	    }
+
+	    /**
+	     * Include the given icon or use the default one
+	     * @return {React.Component}
+	     */
 	  }, {
 	    key: '_showIcon',
 	    value: function _showIcon() {
@@ -1053,6 +1125,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      return icon;
 	    }
+
+	    /**
+	     * Remove the alert after the given time
+	     * @return {void} 
+	     */
 	  }, {
 	    key: '_countdown',
 	    value: function _countdown() {
@@ -1062,6 +1139,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this._removeSelf();
 	      }, this.props.time);
 	    }
+
+	    /**
+	     * Emit a event to AlertContainer remove this alert from page
+	     * @return {void}
+	     */
 	  }, {
 	    key: '_removeSelf',
 	    value: function _removeSelf() {
