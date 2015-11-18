@@ -201,7 +201,7 @@ class AlertContainer extends React.Component {
 }
 
 AlertContainer.defaultProps = {
-  offset: 20,
+  offset: 14,
   position: 'bottom left',
   theme: 'dark',
   time: 5000,

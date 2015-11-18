@@ -22,7 +22,7 @@ export default class App extends React.Component {
   constructor(props){
     super(props);
     this.alertOptions = {
-      offset: 20,
+      offset: 14,
       position: 'bottom left',
       theme: 'dark',
       time: 5000,
@@ -56,7 +56,7 @@ The `AlertContainer` component accepts the following options:
 ```js
 {
   //defaults
-  offset: 20, //the offset of the alert from the page border, can be any number
+  offset: 14, //the offset of the alert from the page border, can be any number
   position: 'bottom left', //the position of the alert, can be [bottom left, bottom right, top left, top right]
   theme: 'dark', //the color theme of the alert, can be [dark, light]
   time: 5000, //the time in miliseconds to the alert close itself, use 0 to prevent auto close (apply to all alerts)
