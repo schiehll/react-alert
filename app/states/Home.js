@@ -5,7 +5,8 @@ class Home extends React.Component {
   constructor(props){
     super(props);
     this.alertOptions = {
-      theme: 'dark'
+      theme: 'dark',
+      offset: 14
     };
   }
 
