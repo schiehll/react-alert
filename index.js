@@ -1,7 +1,11 @@
 //load styles
-import './dev/assets/styles/index';
-//load js
+import './app/assets/styles/app';
+//render app
 import React from 'react';
-import AlertContainer from './dev/components/AlertContainer';
+import ReactDOM from 'react-dom';
+import Home from './app/states/Home';
 
-export default AlertContainer;
+ReactDOM.render(
+  <Home />, 
+  document.getElementById('app')
+);

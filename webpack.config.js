@@ -1,21 +1,23 @@
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var paths = {
   public: '/dist',
   dist: path.resolve(__dirname, 'dist'),
   js: {
     index: path.resolve(__dirname, './index.js'),
-    dev: path.resolve(__dirname, './dev')
+    app: path.resolve(__dirname, './app')
   },
-  styles: path.resolve(__dirname, './dev/assets/styles'),
-  images: path.resolve(__dirname, './dev/assets/img'),
-  modules: path.resolve(__dirname, './node_modules')
+  styles: path.resolve(__dirname, './app/assets/styles'),
+  images: path.resolve(__dirname, './app/assets/img'),
+  modules: path.resolve(__dirname, './node_modules'),
+  vendor: path.resolve(__dirname, './vendor')
 }
 
 module.exports = {  
   entry: {
-    alert: [
+    app: [
       paths.js.index
     ]
   },
@@ -24,38 +26,61 @@ module.exports = {
     path: paths.dist,
     filename: '[name].js',
     publicPath: paths.public,
-    devtoolModuleFilenameTemplate: '../[resource-path]',
-    libraryTarget: 'umd',
-    library: 'react-alert'
+    devtoolModuleFilenameTemplate: '../[resource-path]'
   },
 
   module: {
     loaders: [
       {
         test: /\.js$/,
-        include: [paths.js.index, paths.js.dev],
-        loader: 'babel'
+        include: [paths.js.index, paths.js.app, paths.vendor],
+        loader: 'react-hot!babel'
+      },
+      {
+        test: /\.css$/,
+        include: [paths.styles, paths.modules, paths.vendor],
+        loader: ExtractTextPlugin.extract('style','css')
       },
       { 
         test: /\.styl$/,
         include: paths.styles,
-        loader: 'style!css!stylus'
+        loader: ExtractTextPlugin.extract('style','css!stylus') 
+      },
+      {
+        test: /\.(svg|woff|woff2|eot|ttf)$/,
+        loader: 'url-loader?limit=100000'
       },
       {
         test: /\.(jpg|png|gif)$/,
         include: paths.images,
-        loader: 'url?limit=80000'
+        loader: 'file'
+      },
+      {
+        test: /\.json$/,
+        loader: 'json'
       }
     ]
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css', '.styl']
+    fallback: path.join(__dirname, 'node_modules'),
+    extensions: ['', '.js', '.jsx', '.css', '.styl'],
+    alias: {
+      react: path.resolve('./node_modules/react')
+    }
   },
 
-  externals: {
-    'react': 'react',
-    'react-dom': 'react-dom',
-    'react-addons-css-transition-group': 'react-addons-css-transition-group'
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin("[name].css")
+  ],
+
+  devServer: {
+    publicPath: paths.public,
+    noInfo: true,
+    hot: true,
+    inline: true,
+    historyApiFallback: true
   }
 };
