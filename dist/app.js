@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bf61dfaf293263277922"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3ce8a0e868212d44fc0f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -20653,7 +20653,7 @@
 	  _createClass(Home, [{
 	    key: 'addAlert',
 	    value: function addAlert() {
-	      message.info('mensagem de teste comprida em duas linhas mensagem de teste comprida em duas linhas');
+	      message.info('Some info message');
 	    }
 	  }, {
 	    key: 'render',
