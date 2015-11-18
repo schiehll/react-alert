@@ -10,10 +10,7 @@ class Home extends React.Component {
   }
 
   addAlert(){
-    message.show('mensagem de teste comprida em duas linhas mensagem de teste comprida em duas linhas', {
-      time: 0,
-      type: 'error'
-    });
+    message.info('Some info message');
   }
 
   render(){

@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "66ff1eaee69b97974353"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bf61dfaf293263277922"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -20653,10 +20653,7 @@
 	  _createClass(Home, [{
 	    key: 'addAlert',
 	    value: function addAlert() {
-	      message.show('mensagem de teste comprida em duas linhas mensagem de teste comprida em duas linhas', {
-	        time: 0,
-	        type: 'error'
-	      });
+	      message.info('mensagem de teste comprida em duas linhas mensagem de teste comprida em duas linhas');
 	    }
 	  }, {
 	    key: 'render',
@@ -20807,7 +20804,7 @@
 	/***/ function(module, exports, __webpack_require__) {
 
 		exports = module.exports = __webpack_require__(4)();
-		exports.push([module.id, ".react-alerts {\n  position: absolute;\n  right: 0;\n  bottom: 0;\n  margin: 20px;\n  z-index: 999999;\n}\n.react-alerts .alert {\n  width: 300px;\n  min-height: 50px;\n  margin: 10px 0 0 0;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  border-radius: 2px;\n  background-color: #333;\n  font-size: 11px;\n  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.3);\n  color: #fff;\n}\n.react-alerts .alert .content {\n  flex: 1;\n  text-align: center;\n}\n.react-alerts .alert .icon {\n  width: 32px;\n  height: 32px;\n}\n.react-alerts .alert .icon div {\n  width: 100%;\n  height: 100%;\n  background-position-x: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .icon .info-icon {\n  background-image: url("+__webpack_require__(5)+");\n}\n.react-alerts .alert .icon .error-icon {\n  background-image: url("+__webpack_require__(6)+");\n}\n.react-alerts .alert .icon .success-icon {\n  background-image: url("+__webpack_require__(7)+");\n}\n.react-alerts .alert .message {\n  flex: 3;\n  text-transform: uppercase;\n  padding: 8px 2px;\n}\n.react-alerts .alert .close {\n  height: 50px;\n  background-color: #444;\n  border-radius: 0 2px 2px 0;\n  line-height: 50px;\n  cursor: pointer;\n}\n.react-alerts .alert .close .close-light {\n  background-image: url("+__webpack_require__(8)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close .close-dark {\n  background-image: url("+__webpack_require__(9)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close:hover {\n  opacity: 0.5;\n}\n.react-alerts .alert.hidden {\n  display: none;\n}\n.react-alerts .scale-enter {\n  transform: scale(0);\n}\n.react-alerts .scale-enter.scale-enter-active {\n  transform: scale(1);\n  transition: all 400ms cubic-bezier(0, 0, 0.5, 1.5);\n}\n.react-alerts .scale-leave {\n  transform: scale(1);\n}\n.react-alerts .scale-leave.scale-leave-active {\n  transform: scale(0);\n  transition: all 400ms ease-in-out;\n}\n.react-alerts .fade-enter {\n  opacity: 0.1;\n}\n.react-alerts .fade-enter.fade-enter-active {\n  opacity: 1;\n  transition: all 400ms ease-out;\n}\n.react-alerts .fade-leave {\n  opacity: 1;\n}\n.react-alerts .fade-leave.fade-leave-active {\n  opacity: 0.1;\n  transition: all 400ms ease-in;\n}\n", ""]);
+		exports.push([module.id, ".react-alerts {\n  position: absolute;\n  right: 0;\n  bottom: 0;\n  margin: 20px;\n  z-index: 999999;\n}\n.react-alerts .alert {\n  width: 300px;\n  min-height: 50px;\n  margin: 10px 0 0 0;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  border-radius: 2px;\n  background-color: #333;\n  font-size: 11px;\n  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.3);\n  color: #fff;\n}\n.react-alerts .alert .content {\n  flex: 1;\n  text-align: center;\n}\n.react-alerts .alert .icon {\n  width: 32px;\n  height: 32px;\n}\n.react-alerts .alert .icon div {\n  width: 100%;\n  height: 100%;\n  background-position-x: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .icon .info-icon {\n  background-image: url("+__webpack_require__(5)+");\n}\n.react-alerts .alert .icon .error-icon {\n  background-image: url("+__webpack_require__(6)+");\n}\n.react-alerts .alert .icon .success-icon {\n  background-image: url("+__webpack_require__(7)+");\n}\n.react-alerts .alert .message {\n  flex: 3;\n  text-transform: uppercase;\n  padding: 8px 2px;\n}\n.react-alerts .alert .close {\n  height: 50px;\n  background-color: #444;\n  border-radius: 0 2px 2px 0;\n  line-height: 50px;\n  cursor: pointer;\n}\n.react-alerts .alert .close .close-light {\n  background-image: url("+__webpack_require__(8)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close .close-dark {\n  background-image: url("+__webpack_require__(9)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close:hover {\n  opacity: 0.5;\n}\n.react-alerts .alert.hidden {\n  display: none;\n}\n.react-alerts .scale-enter {\n  transform: scale(0);\n}\n.react-alerts .scale-enter.scale-enter-active {\n  transform: scale(1);\n  transition: all 250ms cubic-bezier(0, 0, 0.5, 1.5);\n}\n.react-alerts .scale-leave {\n  transform: scale(1);\n}\n.react-alerts .scale-leave.scale-leave-active {\n  transform: scale(0);\n  transition: all 250ms ease-in-out;\n}\n.react-alerts .fade-enter {\n  opacity: 0.1;\n}\n.react-alerts .fade-enter.fade-enter-active {\n  opacity: 1;\n  transition: all 250ms ease-out;\n}\n.react-alerts .fade-leave {\n  opacity: 1;\n}\n.react-alerts .fade-leave.fade-leave-active {\n  opacity: 0.1;\n  transition: all 250ms ease-in;\n}\n", ""]);
 
 	/***/ },
 	/* 4 */
@@ -21180,6 +21177,13 @@
 		    this._eventListners();
 		  }
 
+		  /**
+		   * Show the alert in the page with success type
+		   * @param  {string} message 
+		   * @param  {Object} options 
+		   * @return {void}         
+		   */
+
 		  _createClass(AlertContainer, [{
 		    key: 'success',
 		    value: function success(message) {
@@ -21188,6 +21192,13 @@
 		      options.type = 'success';
 		      this.show(message, options);
 		    }
+
+		    /**
+		     * Show the alert in the page with error type
+		     * @param  {string} message 
+		     * @param  {Object} options 
+		     * @return {void}
+		     */
 		  }, {
 		    key: 'error',
 		    value: function error(message) {
@@ -21196,6 +21207,13 @@
 		      options.type = 'error';
 		      this.show(message, options);
 		    }
+
+		    /**
+		     * Show the alert in the page with info type 
+		     * @param  {string} message
+		     * @param  {Object} options
+		     * @return {void}
+		     */
 		  }, {
 		    key: 'info',
 		    value: function info(message) {
@@ -21204,11 +21222,13 @@
 		      options.type = 'info';
 		      this.show(message, options);
 		    }
-		  }, {
-		    key: 'removeAll',
-		    value: function removeAll() {
-		      this.setState({ alerts: [] });
-		    }
+
+		    /**
+		     * Show the alert in the page
+		     * @param  {string} message
+		     * @param  {Object} options
+		     * @return {void}
+		     */
 		  }, {
 		    key: 'show',
 		    value: function show(message) {
@@ -21219,6 +21239,21 @@
 		      alert = Object.assign(alert, options);
 		      this.setState({ alerts: this._addAlert(alert) });
 		    }
+
+		    /**
+		     * Remove all tasks from the page
+		     * @return {void}
+		     */
+		  }, {
+		    key: 'removeAll',
+		    value: function removeAll() {
+		      this.setState({ alerts: [] });
+		    }
+
+		    /**
+		     * Add an alert
+		     * @param {Object} alert
+		     */
 		  }, {
 		    key: '_addAlert',
 		    value: function _addAlert(alert) {
@@ -21231,11 +21266,22 @@
 		      this.state.alerts.push(alert);
 		      return this.state.alerts;
 		    }
+
+		    /**
+		     * Generate a key
+		     * @return {string}
+		     */
 		  }, {
 		    key: '_genUniqueKey',
 		    value: function _genUniqueKey() {
 		      return new Date().getTime().toString() + Math.random().toString(36).substr(2, 5);
 		    }
+
+		    /**
+		     * Remove an AlertMessage from the container
+		     * @param  {AlertMessage} alert
+		     * @return {void}
+		     */
 		  }, {
 		    key: '_removeAlert',
 		    value: function _removeAlert(alert) {
@@ -21243,6 +21289,11 @@
 		        return a.uniqueKey != alert.props.uniqueKey;
 		      });
 		    }
+
+		    /**
+		     * Listen to alert events
+		     * @return {void}
+		     */
 		  }, {
 		    key: '_eventListners',
 		    value: function _eventListners() {
@@ -21252,6 +21303,10 @@
 		        _this.setState({ alerts: _this._removeAlert(alert) });
 		      });
 		    }
+
+		    /**
+		     * Set the alert position on the page
+		     */
 		  }, {
 		    key: '_setStyle',
 		    value: function _setStyle() {
@@ -21299,6 +21354,10 @@
 		        left: position.left
 		      };
 		    }
+
+		    /**
+		     * Set the style of the alert based on the chosen theme
+		     */
 		  }, {
 		    key: '_setTheme',
 		    value: function _setTheme() {
@@ -21340,8 +21399,8 @@
 		          _reactAddonsCssTransitionGroup2['default'],
 		          {
 		            transitionName: this.props.transition,
-		            transitionEnterTimeout: 400,
-		            transitionLeaveTimeout: 400 },
+		            transitionEnterTimeout: 250,
+		            transitionLeaveTimeout: 250 },
 		          this.state.alerts.map(function (alert, index) {
 		            return _react2['default'].createElement(_AlertMessage2['default'], _extends({ key: alert.uniqueKey }, alert));
 		          })
@@ -21727,11 +21786,21 @@
 		    };
 		  }
 
+		  /**
+		   * Handle the close button click
+		   * @return {void} 
+		   */
+
 		  _createClass(AlertMessage, [{
 		    key: '_handleCloseClick',
 		    value: function _handleCloseClick() {
 		      this._removeSelf();
 		    }
+
+		    /**
+		     * Include the given icon or use the default one
+		     * @return {React.Component}
+		     */
 		  }, {
 		    key: '_showIcon',
 		    value: function _showIcon() {
@@ -21744,6 +21813,11 @@
 
 		      return icon;
 		    }
+
+		    /**
+		     * Remove the alert after the given time
+		     * @return {void} 
+		     */
 		  }, {
 		    key: '_countdown',
 		    value: function _countdown() {
@@ -21753,6 +21827,11 @@
 		        _this._removeSelf();
 		      }, this.props.time);
 		    }
+
+		    /**
+		     * Emit a event to AlertContainer remove this alert from page
+		     * @return {void}
+		     */
 		  }, {
 		    key: '_removeSelf',
 		    value: function _removeSelf() {
