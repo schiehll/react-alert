@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 import AlertContainer from 'react-alert';
 import Colors from 'material-ui/lib/styles/colors';
@@ -8,12 +10,17 @@ import Toolbar from 'material-ui/lib/toolbar/toolbar';
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
 import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator';
 import FontIcon from 'material-ui/lib/font-icon';
+//theme
+import ThemeManager from 'material-ui/lib/styles/theme-manager';
+import MaterialUITheme from '../MaterialUITheme';
 
 class Home extends React.Component {
   constructor(props){
     super(props);
-    this.alertOptions = {
-      theme: 'dark'
+    this.state = {
+      alertOptions: {
+        theme: 'light'
+      }
     };
     this.themeOptions = [
       {payload: 'dark', text: 'DARK THEME'},
@@ -21,14 +28,28 @@ class Home extends React.Component {
     ];
   }
 
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(MaterialUITheme),
+    };
+  }
+
   addAlert(){
     message.info('Some info message');
+  }
+
+  handleThemeChange(event, selectedIndex, menuItem){
+    this.setState({
+      alertOptions: {
+        theme: menuItem.payload
+      }
+    });
   }
 
   render(){
     return(
       <div>
-        <AlertContainer ref={(a) => global.message = a} {...this.alertOptions} />
+        <AlertContainer ref={(a) => global.message = a} {...this.state.alertOptions} />
         <div className="react-alert-toolbar">
           <Toolbar>
             <ToolbarGroup key={0} float="left">
@@ -41,9 +62,9 @@ class Home extends React.Component {
                 <FontIcon style={{margin: '5px 0 0 10px', float: 'left', color: Colors.fullWhite}} className="mdi mdi-github-circle" />
               </RaisedButton>
               <ToolbarSeparator />
-              <DropDownMenu menuItems={this.themeOptions} />
+              <DropDownMenu onChange={this.handleThemeChange.bind(this)} menuItems={this.themeOptions} />
               <RaisedButton 
-                label="SHOW ALERT"
+                label="show alert"
                 primary={true}
                 onClick={this.addAlert.bind(this)} 
               />
@@ -53,6 +74,10 @@ class Home extends React.Component {
       </div>
     );
   }
+}
+
+Home.childContextTypes = {
+  muiTheme: React.PropTypes.object
 }
 
 export default Home;
