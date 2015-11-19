@@ -702,6 +702,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return theme;
 	    }
 	  }, {
+	    key: 'componentWillUpdate',
+	    value: function componentWillUpdate() {
+	      this.style = this._setStyle();
+	      this.theme = this._setTheme();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
