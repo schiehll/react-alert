@@ -2,6 +2,10 @@
 
 A simple react alert (toaster style) component
 
+## Demo
+
+You can see a live demo [here](http://schiehll.github.io/react-alert/).
+
 ## Installation
 
 ```bash
