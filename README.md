@@ -81,7 +81,7 @@ Once you have the reference of the `AlertContainer` you can call the following m
 ```js
 //show an alert
 msg.show('Some message or component');
-//show a info alert
+//show an info alert
 msg.info('Some info message or component');
 //show a success alert
 msg.success('Some success message or component');
@@ -89,4 +89,12 @@ msg.success('Some success message or component');
 msg.error('Some error message or component');
 //removes all alerts from the page
 msg.removeAll();
+```
+## Using React Components as alert content
+
+You can also use a React Component to show a alert message, like this:
+
+```js
+//show an alert with a React Component as content
+msg.show(<AComponent aProp="some message" />);
 ```
