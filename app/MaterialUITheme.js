@@ -10,12 +10,12 @@ export default {
     primary1Color: Colors.cyan500,
     primary2Color: Colors.cyan700,
     primary3Color: Colors.grey400,
-    accent1Color: Colors.indigo400,
-    accent2Color: Colors.grey100,
+    accent1Color: Colors.deepPurple300,
+    accent2Color: Colors.grey700,
     accent3Color: Colors.grey500,
-    textColor: Colors.darkBlack,
+    textColor: Colors.grey900,
     alternateTextColor: Colors.white,
     canvasColor: Colors.white,
-    borderColor: Colors.grey300,
+    borderColor: Colors.grey300
   }
 };
