@@ -184,7 +184,7 @@ class AlertContainer extends React.Component {
     return theme;
   }
 
-  componentWillUpdate(){
+  componentDidUpdate(){
     this.style = this._setStyle();
     this.theme = this._setTheme();
   }

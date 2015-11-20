@@ -1,6 +1,6 @@
 # react-alert [![npm](https://badge.fury.io/js/react-alert.svg)](http://badge.fury.io/js/react-alert) [![Build Status](https://travis-ci.org/schiehll/react-alert.svg?branch=master)](https://travis-ci.org/schiehll/react-alert)
 
-A simple react alert component
+A simple react alert (toaster style) component
 
 ## Installation
 
@@ -31,7 +31,7 @@ export default class App extends React.Component {
   }
 
   showAlert(){
-    this.msg.show('Some text or component', {
+    msg.show('Some text or component', {
       time: 2000,
       type: 'success',
       icon: <img src="path/to/some/img/32x32.png" />
@@ -41,7 +41,7 @@ export default class App extends React.Component {
   render(){
     return(
       <div>
-        <AlertContainer ref={(a) => this.msg = a} {...this.alertOptions} />
+        <AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
         <button onClick={this.showAlert}>Show Alert</button>
       </div>
     );
@@ -80,13 +80,13 @@ Once you have the reference of the `AlertContainer` you can call the following m
 
 ```js
 //show an alert
-this.msg.show('Some message or component');
+msg.show('Some message or component');
 //show a info alert
-this.msg.info('Some info message!');
+msg.info('Some info message or component');
 //show a success alert
-this.msg.success('Some success message!');
+msg.success('Some success message or component');
 //show an error alert
-this.msg.error('Some error message!');
+msg.error('Some error message or component');
 //removes all alerts from the page
-this.msg.removeAll();
+msg.removeAll();
 ```
