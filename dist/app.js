@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "115f8e9c09f36eb003da"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "024d9e7b965269745a8a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -20683,9 +20683,9 @@
 
 	var _materialUiLibFontIcon2 = _interopRequireDefault(_materialUiLibFontIcon);
 
-	var _materialUiLibIconButton = __webpack_require__(253);
+	var _materialUiLibTextField = __webpack_require__(253);
 
-	var _materialUiLibIconButton2 = _interopRequireDefault(_materialUiLibIconButton);
+	var _materialUiLibTextField2 = _interopRequireDefault(_materialUiLibTextField);
 
 	//theme
 
@@ -20705,6 +20705,8 @@
 
 	    _get(Object.getPrototypeOf(Home.prototype), 'constructor', this).call(this, props);
 	    this.state = {
+	      msgText: 'Some Cool Alert Message',
+	      type: 'info',
 	      alertOptions: {
 	        theme: 'dark',
 	        position: 'bottom left',
@@ -20717,6 +20719,8 @@
 	    this.positonOptions = [{ payload: 'bottom left', text: 'BOTTOM LEFT' }, { payload: 'top left', text: 'TOP LEFT' }, { payload: 'top right', text: 'TOP RIGHT' }, { payload: 'bottom right', text: 'BOTTOM RIGHT' }];
 
 	    this.transitionOptions = [{ payload: 'scale', text: 'SCALE' }, { payload: 'fade', text: 'FADE' }];
+
+	    this.typeOptions = [{ payload: 'info', text: 'INFO' }, { payload: 'success', text: 'SUCCESS' }, { payload: 'error', text: 'ERROR' }];
 	  }
 
 	  _createClass(Home, [{
@@ -20729,7 +20733,9 @@
 	  }, {
 	    key: 'addAlert',
 	    value: function addAlert() {
-	      message.info('Some info message');
+	      message.show(this.state.msgText, {
+	        type: this.state.type
+	      });
 	    }
 	  }, {
 	    key: 'removeAll',
@@ -20767,6 +20773,20 @@
 	          position: this.state.alertOptions.position,
 	          transition: menuItem.payload
 	        }
+	      });
+	    }
+	  }, {
+	    key: 'handleTypeChange',
+	    value: function handleTypeChange(event, selectedIndex, menuItem) {
+	      this.setState({
+	        type: menuItem.payload
+	      });
+	    }
+	  }, {
+	    key: 'handleMessageChange',
+	    value: function handleMessageChange(event) {
+	      this.setState({
+	        msgText: event.target.value
 	      });
 	    }
 	  }, {
@@ -20840,27 +20860,22 @@
 	          ),
 	          _react2['default'].createElement(
 	            _materialUiLibToolbarToolbar2['default'],
-	            { style: { backgroundColor: _materialUiLibStylesColors2['default'].brown300 } },
+	            { style: { backgroundColor: _materialUiLibStylesColors2['default'].grey600 } },
 	            _react2['default'].createElement(
 	              _materialUiLibToolbarToolbarGroup2['default'],
 	              { key: 1, float: 'left' },
-	              _react2['default'].createElement(_materialUiLibDropDownMenu2['default'], {
-	                style: { marginRight: '0' },
-	                labelStyle: { color: _materialUiLibStylesColors2['default'].grey50 },
-	                onChange: this.handleThemeChange.bind(this),
-	                menuItems: this.themeOptions
+	              _react2['default'].createElement(_materialUiLibTextField2['default'], {
+	                value: this.state.msgText,
+	                onChange: this.handleMessageChange.bind(this),
+	                underlineFocusStyle: { borderColor: _materialUiLibStylesColors2['default'].grey50 },
+	                inputStyle: { textTransform: 'uppercase', color: _materialUiLibStylesColors2['default'].grey50 },
+	                style: { height: '55px', width: '580px', marginLeft: '20px' }
 	              }),
 	              _react2['default'].createElement(_materialUiLibDropDownMenu2['default'], {
 	                style: { marginRight: '0' },
 	                labelStyle: { color: _materialUiLibStylesColors2['default'].grey50 },
-	                onChange: this.handlePositionChange.bind(this),
-	                menuItems: this.positonOptions
-	              }),
-	              _react2['default'].createElement(_materialUiLibDropDownMenu2['default'], {
-	                style: { marginRight: '0' },
-	                labelStyle: { color: _materialUiLibStylesColors2['default'].grey50 },
-	                onChange: this.handleTransitionChange.bind(this),
-	                menuItems: this.transitionOptions
+	                onChange: this.handleTypeChange.bind(this),
+	                menuItems: this.typeOptions
 	              })
 	            )
 	          )
@@ -20989,8 +21004,8 @@
 		if(false) {
 			// When the styles change, update the <style> tags
 			if(!content.locals) {
-				module.hot.accept("!!./../../../../css-loader/index.js!./../../../../stylus-loader/index.js!./index.styl", function() {
-					var newContent = require("!!./../../../../css-loader/index.js!./../../../../stylus-loader/index.js!./index.styl");
+				module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js!./index.styl", function() {
+					var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js!./index.styl");
 					if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 					update(newContent);
 				});
@@ -21004,7 +21019,7 @@
 	/***/ function(module, exports, __webpack_require__) {
 
 		exports = module.exports = __webpack_require__(4)();
-		exports.push([module.id, ".react-alerts {\n  position: absolute;\n  right: 0;\n  bottom: 0;\n  margin: 14px;\n  z-index: 999999;\n}\n.react-alerts .alert {\n  width: 300px;\n  min-height: 50px;\n  margin: 10px 0 0 0;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  border-radius: 2px;\n  background-color: #333;\n  font-size: 11px;\n  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.3);\n  color: #fff;\n}\n.react-alerts .alert .content {\n  flex: 1;\n  text-align: center;\n}\n.react-alerts .alert .icon {\n  width: 32px;\n  height: 32px;\n}\n.react-alerts .alert .icon div {\n  width: 100%;\n  height: 100%;\n  background-position-x: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .icon .info-icon {\n  background-image: url("+__webpack_require__(5)+");\n}\n.react-alerts .alert .icon .error-icon {\n  background-image: url("+__webpack_require__(6)+");\n}\n.react-alerts .alert .icon .success-icon {\n  background-image: url("+__webpack_require__(7)+");\n}\n.react-alerts .alert .message {\n  flex: 3;\n  text-transform: uppercase;\n  padding: 8px 2px;\n}\n.react-alerts .alert .close {\n  height: 50px;\n  background-color: #444;\n  border-radius: 0 2px 2px 0;\n  line-height: 50px;\n  cursor: pointer;\n}\n.react-alerts .alert .close .close-light {\n  background-image: url("+__webpack_require__(8)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close .close-dark {\n  background-image: url("+__webpack_require__(9)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close:hover {\n  opacity: 0.5;\n}\n.react-alerts .alert.hidden {\n  display: none;\n}\n.react-alerts .scale-enter {\n  transform: scale(0);\n}\n.react-alerts .scale-enter.scale-enter-active {\n  transform: scale(1);\n  transition: all 250ms cubic-bezier(0, 0, 0.5, 1.5);\n}\n.react-alerts .scale-leave {\n  transform: scale(1);\n}\n.react-alerts .scale-leave.scale-leave-active {\n  transform: scale(0);\n  transition: all 250ms ease-in-out;\n}\n.react-alerts .fade-enter {\n  opacity: 0.1;\n}\n.react-alerts .fade-enter.fade-enter-active {\n  opacity: 1;\n  transition: all 250ms ease-out;\n}\n.react-alerts .fade-leave {\n  opacity: 1;\n}\n.react-alerts .fade-leave.fade-leave-active {\n  opacity: 0.1;\n  transition: all 250ms ease-in;\n}\n", ""]);
+		exports.push([module.id, ".react-alerts {\n  position: absolute;\n  right: 0;\n  bottom: 0;\n  margin: 14px;\n  z-index: 999999;\n}\n.react-alerts .alert {\n  width: 300px;\n  min-height: 50px;\n  margin: 10px 0 0 0;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  border-radius: 2px;\n  background-color: #333;\n  font-size: 11px;\n  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.3);\n  color: #fff;\n}\n.react-alerts .alert .content {\n  flex: 1;\n  text-align: center;\n}\n.react-alerts .alert .icon {\n  width: 32px;\n  height: 32px;\n}\n.react-alerts .alert .icon div {\n  width: 100%;\n  height: 100%;\n  background-position-x: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .icon .info-icon {\n  background-image: url("+__webpack_require__(5)+");\n}\n.react-alerts .alert .icon .error-icon {\n  background-image: url("+__webpack_require__(6)+");\n}\n.react-alerts .alert .icon .success-icon {\n  background-image: url("+__webpack_require__(7)+");\n}\n.react-alerts .alert .message {\n  flex: 3;\n  text-transform: uppercase;\n  padding: 8px 10px;\n}\n.react-alerts .alert .close {\n  height: 50px;\n  background-color: #444;\n  border-radius: 0 2px 2px 0;\n  line-height: 50px;\n  cursor: pointer;\n}\n.react-alerts .alert .close .close-light {\n  background-image: url("+__webpack_require__(8)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close .close-dark {\n  background-image: url("+__webpack_require__(9)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close:hover {\n  opacity: 0.5;\n}\n.react-alerts .alert.hidden {\n  display: none;\n}\n.react-alerts .scale-enter {\n  transform: scale(0);\n}\n.react-alerts .scale-enter.scale-enter-active {\n  transform: scale(1);\n  transition: all 250ms cubic-bezier(0, 0, 0.5, 1.5);\n}\n.react-alerts .scale-leave {\n  transform: scale(1);\n}\n.react-alerts .scale-leave.scale-leave-active {\n  transform: scale(0);\n  transition: all 250ms ease-in-out;\n}\n.react-alerts .fade-enter {\n  opacity: 0.1;\n}\n.react-alerts .fade-enter.fade-enter-active {\n  opacity: 1;\n  transition: all 250ms ease-out;\n}\n.react-alerts .fade-leave {\n  opacity: 1;\n}\n.react-alerts .fade-leave.fade-leave-active {\n  opacity: 0.1;\n  transition: all 250ms ease-in;\n}\n", ""]);
 
 	/***/ },
 	/* 4 */
@@ -21592,7 +21607,6 @@
 		  }, {
 		    key: 'componentDidUpdate',
 		    value: function componentDidUpdate() {
-		      console.log('mounting');
 		      this.style = this._setStyle();
 		      this.theme = this._setTheme();
 		    }
@@ -30499,48 +30513,65 @@
 /* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 	var React = __webpack_require__(66);
+	var ReactDOM = __webpack_require__(174);
+	var ColorManipulator = __webpack_require__(205);
 	var StylePropable = __webpack_require__(186);
-	var ContextPure = __webpack_require__(230);
 	var Transitions = __webpack_require__(204);
-	var PropTypes = __webpack_require__(228);
-	var EnhancedButton = __webpack_require__(210);
-	var FontIcon = __webpack_require__(241);
-	var Tooltip = __webpack_require__(254);
-	var Children = __webpack_require__(206);
+	var UniqueId = __webpack_require__(244);
+	var EnhancedTextarea = __webpack_require__(254);
 	var DefaultRawTheme = __webpack_require__(220);
 	var ThemeManager = __webpack_require__(222);
+	var ContextPure = __webpack_require__(230);
 
-	var IconButton = React.createClass({
-	  displayName: 'IconButton',
+	/**
+	 * Check if a value is valid to be displayed inside an input.
+	 *
+	 * @param The value to check.
+	 * @returns True if the string provided is valid, false otherwise.
+	 */
+	function isValid(value) {
+	  return Boolean(value || value === 0);
+	}
 
-	  mixins: [StylePropable, ContextPure],
+	var TextField = React.createClass({
+	  displayName: 'TextField',
+
+	  mixins: [ContextPure, StylePropable],
 
 	  contextTypes: {
 	    muiTheme: React.PropTypes.object
 	  },
 
-	  statics: {
-	    getRelevantContextKeys: function getRelevantContextKeys(muiTheme) {
-	      var spacing = muiTheme.rawTheme.spacing;
-	      var palette = muiTheme.rawTheme.palette;
-
-	      return {
-	        iconSize: spacing.iconSize,
-	        textColor: palette.textColor,
-	        disabledColor: palette.disabledColor
-	      };
-	    },
-
-	    getChildrenClasses: function getChildrenClasses() {
-	      return [EnhancedButton, FontIcon, Tooltip];
-	    }
+	  propTypes: {
+	    errorStyle: React.PropTypes.object,
+	    errorText: React.PropTypes.string,
+	    floatingLabelStyle: React.PropTypes.object,
+	    floatingLabelText: React.PropTypes.string,
+	    fullWidth: React.PropTypes.bool,
+	    hintText: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.element]),
+	    hintStyle: React.PropTypes.object,
+	    id: React.PropTypes.string,
+	    inputStyle: React.PropTypes.object,
+	    multiLine: React.PropTypes.bool,
+	    onBlur: React.PropTypes.func,
+	    onChange: React.PropTypes.func,
+	    onEnterKeyDown: React.PropTypes.func,
+	    onFocus: React.PropTypes.func,
+	    onKeyDown: React.PropTypes.func,
+	    rows: React.PropTypes.number,
+	    rowsMax: React.PropTypes.number,
+	    type: React.PropTypes.string,
+	    underlineStyle: React.PropTypes.object,
+	    underlineFocusStyle: React.PropTypes.object,
+	    underlineDisabledStyle: React.PropTypes.object,
+	    style: React.PropTypes.object
 	  },
 
 	  //for passing default theme context to children
@@ -30554,192 +30585,380 @@
 	    };
 	  },
 
-	  propTypes: {
-	    className: React.PropTypes.string,
-	    disabled: React.PropTypes.bool,
-	    iconClassName: React.PropTypes.string,
-	    iconStyle: React.PropTypes.object,
-	    onBlur: React.PropTypes.func,
-	    onFocus: React.PropTypes.func,
-	    onKeyboardFocus: React.PropTypes.func,
-	    tooltip: React.PropTypes.node,
-	    tooltipStyles: React.PropTypes.object,
-	    tooltipPosition: PropTypes.cornersAndCenter,
-	    touch: React.PropTypes.bool,
-	    style: React.PropTypes.object
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      fullWidth: false,
+	      type: 'text',
+	      rows: 1
+	    };
+	  },
+
+	  statics: {
+	    getRelevantContextKeys: function getRelevantContextKeys(muiTheme) {
+	      var textFieldTheme = muiTheme.textField;
+
+	      return {
+	        floatingLabelColor: textFieldTheme.floatingLabelColor,
+	        focusColor: textFieldTheme.focusColor,
+	        borderColor: textFieldTheme.borderColor,
+	        textColor: textFieldTheme.textColor,
+	        disabledTextColor: textFieldTheme.disabledTextColor,
+	        backgroundColor: textFieldTheme.backgroundColor,
+	        hintColor: textFieldTheme.hintColor,
+	        errorColor: textFieldTheme.errorColor
+	      };
+	    },
+	    getChildrenClasses: function getChildrenClasses() {
+	      return [EnhancedTextarea];
+	    }
 	  },
 
 	  getInitialState: function getInitialState() {
+	    var props = this.props.children ? this.props.children.props : this.props;
+
 	    return {
-	      tooltipShown: false,
+	      errorText: this.props.errorText,
+	      hasValue: isValid(props.value) || isValid(props.defaultValue) || props.valueLink && isValid(props.valueLink.value),
 	      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
 	    };
 	  },
 
-	  //to update theme inside state whenever a new theme is passed down
-	  //from the parent / owner using context
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
-	    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
-	    this.setState({ muiTheme: newMuiTheme });
+	  componentDidMount: function componentDidMount() {
+	    this._uniqueId = UniqueId.generate();
 	  },
 
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      iconStyle: {},
-	      tooltipPosition: 'bottom-center'
-	    };
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+	    var newState = {};
+	    newState.muiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+
+	    newState.errorText = nextProps.errorText;
+	    if (nextProps.children && nextProps.children.props) {
+	      nextProps = nextProps.children.props;
+	    }
+
+	    var hasValueLinkProp = nextProps.hasOwnProperty('valueLink');
+	    var hasValueProp = nextProps.hasOwnProperty('value');
+	    var hasNewDefaultValue = nextProps.defaultValue !== this.props.defaultValue;
+
+	    if (hasValueLinkProp) {
+	      newState.hasValue = isValid(nextProps.valueLink.value);
+	    } else if (hasValueProp) {
+	      newState.hasValue = isValid(nextProps.value);
+	    } else if (hasNewDefaultValue) {
+	      newState.hasValue = isValid(nextProps.defaultValue);
+	    }
+
+	    if (newState) this.setState(newState);
 	  },
 
 	  getStyles: function getStyles() {
+	    var props = this.props;
+
 	    var _constructor$getRelevantContextKeys = this.constructor.getRelevantContextKeys(this.state.muiTheme);
 
-	    var iconSize = _constructor$getRelevantContextKeys.iconSize;
+	    var floatingLabelColor = _constructor$getRelevantContextKeys.floatingLabelColor;
+	    var focusColor = _constructor$getRelevantContextKeys.focusColor;
+	    var borderColor = _constructor$getRelevantContextKeys.borderColor;
 	    var textColor = _constructor$getRelevantContextKeys.textColor;
-	    var disabledColor = _constructor$getRelevantContextKeys.disabledColor;
+	    var disabledTextColor = _constructor$getRelevantContextKeys.disabledTextColor;
+	    var backgroundColor = _constructor$getRelevantContextKeys.backgroundColor;
+	    var hintColor = _constructor$getRelevantContextKeys.hintColor;
+	    var errorColor = _constructor$getRelevantContextKeys.errorColor;
 
 	    var styles = {
 	      root: {
+	        fontSize: 16,
+	        lineHeight: '24px',
+	        width: props.fullWidth ? '100%' : 256,
+	        height: (props.rows - 1) * 24 + (props.floatingLabelText ? 72 : 48),
+	        display: 'inline-block',
 	        position: 'relative',
-	        boxSizing: 'border-box',
+	        backgroundColor: backgroundColor,
+	        fontFamily: this.state.muiTheme.rawTheme.fontFamily,
+	        transition: Transitions.easeOut('200ms', 'height')
+	      },
+	      error: {
+	        position: 'relative',
+	        bottom: 5,
+	        fontSize: 12,
+	        lineHeight: '12px',
+	        color: errorColor,
+	        transition: Transitions.easeOut()
+	      },
+	      hint: {
+	        position: 'absolute',
+	        lineHeight: '22px',
+	        opacity: 1,
+	        color: hintColor,
 	        transition: Transitions.easeOut(),
-	        padding: iconSize / 2,
-	        width: iconSize * 2,
-	        height: iconSize * 2,
-	        fontSize: 0
+	        bottom: 12
 	      },
-	      tooltip: {
-	        boxSizing: 'border-box'
-	      },
-	      icon: {
-	        color: textColor,
-	        fill: textColor
-	      },
-	      overlay: {
+	      input: {
+	        tapHighlightColor: 'rgba(0,0,0,0)',
+	        padding: 0,
 	        position: 'relative',
-	        top: 0,
 	        width: '100%',
 	        height: '100%',
-	        background: disabledColor
+	        border: 'none',
+	        outline: 'none',
+	        backgroundColor: 'transparent',
+	        color: props.disabled ? disabledTextColor : textColor,
+	        font: 'inherit'
 	      },
-	      disabled: {
-	        color: disabledColor,
-	        fill: disabledColor
+	      underline: {
+	        border: 'none',
+	        borderBottom: 'solid 1px ' + borderColor,
+	        position: 'absolute',
+	        width: '100%',
+	        bottom: 8,
+	        margin: 0,
+	        MozBoxSizing: 'content-box',
+	        boxSizing: 'content-box',
+	        height: 0
+	      },
+	      underlineAfter: {
+	        position: 'absolute',
+	        width: '100%',
+	        overflow: 'hidden',
+	        userSelect: 'none',
+	        cursor: 'default',
+	        bottom: 8,
+	        borderBottom: 'dotted 2px ' + disabledTextColor
+	      },
+	      underlineFocus: {
+	        borderBottom: 'solid 2px',
+	        borderColor: focusColor,
+	        transform: 'scaleX(0)',
+	        transition: Transitions.easeOut()
 	      }
 	    };
+
+	    styles.error = this.mergeAndPrefix(styles.error, props.errorStyle);
+	    styles.underline = this.mergeAndPrefix(styles.underline, props.underlineStyle);
+	    styles.underlineAfter = this.mergeAndPrefix(styles.underlineAfter, props.underlineDisabledStyle);
+
+	    styles.floatingLabel = this.mergeStyles(styles.hint, {
+	      lineHeight: '22px',
+	      top: 38,
+	      bottom: 'none',
+	      opacity: 1,
+	      zIndex: 1, // Needed to display label above Chrome's autocomplete field background
+	      transform: 'scale(1) translate3d(0, 0, 0)',
+	      transformOrigin: 'left top'
+	    });
+
+	    styles.textarea = this.mergeStyles(styles.input, {
+	      marginTop: props.floatingLabelText ? 36 : 12,
+	      marginBottom: props.floatingLabelText ? -36 : -12,
+	      boxSizing: 'border-box',
+	      font: 'inherit'
+	    });
+
+	    styles.focusUnderline = this.mergeStyles(styles.underline, styles.underlineFocus, props.underlineFocusStyle);
+
+	    if (this.state.isFocused) {
+	      styles.floatingLabel.color = focusColor;
+	      styles.floatingLabel.transform = 'perspective(1px) scale(0.75) translate3d(2px, -28px, 0)';
+	      styles.focusUnderline.transform = 'scaleX(1)';
+	    }
+
+	    if (this.state.hasValue) {
+	      styles.floatingLabel.color = ColorManipulator.fade(props.disabled ? disabledTextColor : floatingLabelColor, 0.5);
+	      styles.floatingLabel.transform = 'perspective(1px) scale(0.75) translate3d(2px, -28px, 0)';
+	      styles.hint.opacity = 0;
+	    }
+
+	    if (props.floatingLabelText) {
+	      styles.hint.opacity = 0;
+	      styles.input.boxSizing = 'border-box';
+	      if (this.state.isFocused && !this.state.hasValue) styles.hint.opacity = 1;
+	    }
+
+	    if (props.style && props.style.height) {
+	      styles.hint.lineHeight = props.style.height;
+	    }
+
+	    if (this.state.errorText && this.state.isFocused) styles.floatingLabel.color = styles.error.color;
+	    if (props.floatingLabelText && !props.multiLine) styles.input.marginTop = 14;
+
+	    if (this.state.errorText) {
+	      styles.focusUnderline.borderColor = styles.error.color;
+	      styles.focusUnderline.transform = 'scaleX(1)';
+	    }
 
 	    return styles;
 	  },
 
 	  render: function render() {
 	    var _props = this.props;
-	    var disabled = _props.disabled;
-	    var iconClassName = _props.iconClassName;
-	    var tooltip = _props.tooltip;
-	    var touch = _props.touch;
-	    var iconStyle = _props.iconStyle;
+	    var className = _props.className;
+	    var errorStyle = _props.errorStyle;
+	    var errorText = _props.errorText;
+	    var floatingLabelText = _props.floatingLabelText;
+	    var fullWidth = _props.fullWidth;
+	    var hintText = _props.hintText;
+	    var hintStyle = _props.hintStyle;
+	    var id = _props.id;
+	    var multiLine = _props.multiLine;
+	    var onBlur = _props.onBlur;
+	    var onChange = _props.onChange;
+	    var onFocus = _props.onFocus;
+	    var type = _props.type;
+	    var rows = _props.rows;
+	    var rowsMax = _props.rowsMax;
 
-	    var other = _objectWithoutProperties(_props, ['disabled', 'iconClassName', 'tooltip', 'touch', 'iconStyle']);
-
-	    var fonticon = undefined;
+	    var other = _objectWithoutProperties(_props, ['className', 'errorStyle', 'errorText', 'floatingLabelText', 'fullWidth', 'hintText', 'hintStyle', 'id', 'multiLine', 'onBlur', 'onChange', 'onFocus', 'type', 'rows', 'rowsMax']);
 
 	    var styles = this.getStyles();
-	    var tooltipPosition = this.props.tooltipPosition.split('-');
 
-	    var tooltipElement = tooltip ? React.createElement(Tooltip, {
-	      ref: 'tooltip',
-	      label: tooltip,
-	      show: this.state.tooltipShown,
-	      touch: touch,
-	      style: this.mergeStyles(styles.tooltip, this.props.tooltipStyles),
-	      verticalPosition: tooltipPosition[0],
-	      horizontalPosition: tooltipPosition[1] }) : null;
+	    var inputId = id || this._uniqueId;
 
-	    if (iconClassName) {
-	      var iconHoverColor = iconStyle.iconHoverColor;
+	    var errorTextElement = this.state.errorText ? React.createElement(
+	      'div',
+	      { style: this.prepareStyles(styles.error) },
+	      this.state.errorText
+	    ) : null;
 
-	      var iconStyleFontIcon = _objectWithoutProperties(iconStyle, ['iconHoverColor']);
+	    var hintTextElement = hintText ? React.createElement(
+	      'div',
+	      { style: this.prepareStyles(styles.hint, hintStyle) },
+	      hintText
+	    ) : null;
 
-	      fonticon = React.createElement(
-	        FontIcon,
-	        {
-	          className: iconClassName,
-	          hoverColor: disabled ? null : iconHoverColor,
-	          style: this.mergeStyles(styles.icon, disabled ? styles.disabled : {}, iconStyleFontIcon) },
-	        this.props.children
-	      );
+	    var floatingLabelTextElement = floatingLabelText ? React.createElement(
+	      'label',
+	      {
+	        style: this.prepareStyles(styles.floatingLabel, this.props.floatingLabelStyle),
+	        htmlFor: inputId },
+	      floatingLabelText
+	    ) : null;
+
+	    var inputProps = undefined;
+	    var inputElement = undefined;
+
+	    inputProps = {
+	      id: inputId,
+	      ref: this._getRef(),
+	      onBlur: this._handleInputBlur,
+	      onFocus: this._handleInputFocus,
+	      disabled: this.props.disabled,
+	      onKeyDown: this._handleInputKeyDown
+	    };
+	    var inputStyle = this.mergeStyles(styles.input, this.props.inputStyle);
+
+	    if (!this.props.hasOwnProperty('valueLink')) {
+	      inputProps.onChange = this._handleInputChange;
+	    }
+	    if (this.props.children) {
+	      var childInputStyle = this.mergeStyles(inputStyle, this.props.children.style);
+	      inputElement = React.cloneElement(this.props.children, _extends({}, inputProps, this.props.children.props, { style: childInputStyle }));
+	    } else {
+	      inputElement = multiLine ? React.createElement(EnhancedTextarea, _extends({}, other, inputProps, {
+	        style: inputStyle,
+	        rows: rows,
+	        rowsMax: rowsMax,
+	        onHeightChange: this._handleTextAreaHeightChange,
+	        textareaStyle: this.mergeAndPrefix(styles.textarea) })) : React.createElement('input', _extends({}, other, inputProps, {
+	        style: this.prepareStyles(inputStyle),
+	        type: type }));
 	    }
 
-	    var childrenStyle = disabled ? this.mergeStyles(iconStyle, styles.disabled) : iconStyle;
+	    var underlineElement = this.props.disabled ? React.createElement('div', { style: this.prepareStyles(styles.underlineAfter) }) : React.createElement('hr', { style: this.prepareStyles(styles.underline) });
+	    var focusUnderlineElement = React.createElement('hr', { style: this.prepareStyles(styles.focusUnderline) });
 
 	    return React.createElement(
-	      EnhancedButton,
-	      _extends({}, other, {
-	        ref: 'button',
-	        centerRipple: true,
-	        disabled: disabled,
-	        style: this.mergeStyles(styles.root, this.props.style),
-	        onBlur: this._handleBlur,
-	        onFocus: this._handleFocus,
-	        onMouseLeave: this._handleMouseLeave,
-	        onMouseEnter: this._handleMouseEnter,
-	        onKeyboardFocus: this._handleKeyboardFocus }),
-	      tooltipElement,
-	      fonticon,
-	      Children.extend(this.props.children, {
-	        style: childrenStyle
-	      })
+	      'div',
+	      { className: className, style: this.prepareStyles(styles.root, this.props.style) },
+	      floatingLabelTextElement,
+	      hintTextElement,
+	      inputElement,
+	      underlineElement,
+	      focusUnderlineElement,
+	      errorTextElement
 	    );
 	  },
 
-	  setKeyboardFocus: function setKeyboardFocus() {
-	    this.refs.button.setKeyboardFocus();
+	  blur: function blur() {
+	    if (this.isMounted()) this._getInputNode().blur();
 	  },
 
-	  _showTooltip: function _showTooltip() {
-	    if (!this.props.disabled && this.props.tooltip) {
-	      this.setState({ tooltipShown: true });
+	  clearValue: function clearValue() {
+	    this.setValue('');
+	  },
+
+	  focus: function focus() {
+	    if (this.isMounted()) this._getInputNode().focus();
+	  },
+
+	  getValue: function getValue() {
+	    return this.isMounted() ? this._getInputNode().value : undefined;
+	  },
+
+	  setErrorText: function setErrorText(newErrorText) {
+	    if (process.env.NODE_ENV !== 'production' && this.props.hasOwnProperty('errorText')) {
+	      console.error('Cannot call TextField.setErrorText when errorText is defined as a property.');
+	    } else if (this.isMounted()) {
+	      this.setState({ errorText: newErrorText });
 	    }
 	  },
 
-	  _hideTooltip: function _hideTooltip() {
-	    if (this.props.tooltip) this.setState({ tooltipShown: false });
+	  setValue: function setValue(newValue) {
+	    if (process.env.NODE_ENV !== 'production' && this._isControlled()) {
+	      console.error('Cannot call TextField.setValue when value or valueLink is defined as a property.');
+	    } else if (this.isMounted()) {
+	      if (this.props.multiLine) {
+	        this.refs[this._getRef()].setValue(newValue);
+	      } else {
+	        this._getInputNode().value = newValue;
+	      }
+
+	      this.setState({ hasValue: isValid(newValue) });
+	    }
 	  },
 
-	  _handleBlur: function _handleBlur(e) {
-	    this._hideTooltip();
+	  _getRef: function _getRef() {
+	    return this.props.ref ? this.props.ref : 'input';
+	  },
+
+	  _getInputNode: function _getInputNode() {
+	    return this.props.children || this.props.multiLine ? this.refs[this._getRef()].getInputNode() : ReactDOM.findDOMNode(this.refs[this._getRef()]);
+	  },
+
+	  _handleInputBlur: function _handleInputBlur(e) {
+	    this.setState({ isFocused: false });
 	    if (this.props.onBlur) this.props.onBlur(e);
 	  },
 
-	  _handleFocus: function _handleFocus(e) {
-	    this._showTooltip();
+	  _handleInputChange: function _handleInputChange(e) {
+	    this.setState({ hasValue: isValid(e.target.value) });
+	    if (this.props.onChange) this.props.onChange(e);
+	  },
+
+	  _handleInputFocus: function _handleInputFocus(e) {
+	    if (this.props.disabled) return;
+	    this.setState({ isFocused: true });
 	    if (this.props.onFocus) this.props.onFocus(e);
 	  },
 
-	  _handleMouseLeave: function _handleMouseLeave(e) {
-	    if (!this.refs.button.isKeyboardFocused()) this._hideTooltip();
-	    if (this.props.onMouseLeave) this.props.onMouseLeave(e);
+	  _handleInputKeyDown: function _handleInputKeyDown(e) {
+	    if (e.keyCode === 13 && this.props.onEnterKeyDown) this.props.onEnterKeyDown(e);
+	    if (this.props.onKeyDown) this.props.onKeyDown(e);
 	  },
 
-	  _handleMouseEnter: function _handleMouseEnter(e) {
-	    this._showTooltip();
-	    if (this.props.onMouseEnter) this.props.onMouseEnter(e);
+	  _handleTextAreaHeightChange: function _handleTextAreaHeightChange(e, height) {
+	    var newHeight = height + 24;
+	    if (this.props.floatingLabelText) newHeight += 24;
+	    ReactDOM.findDOMNode(this).style.height = newHeight + 'px';
 	  },
 
-	  _handleKeyboardFocus: function _handleKeyboardFocus(e, keyboardFocused) {
-	    if (keyboardFocused && !this.props.disabled) {
-	      this._showTooltip();
-	      if (this.props.onFocus) this.props.onFocus(e);
-	    } else if (!this.state.hovered) {
-	      this._hideTooltip();
-	      if (this.props.onBlur) this.props.onBlur(e);
-	    }
-
-	    if (this.props.onKeyboardFocus) this.props.onKeyboardFocus(e, keyboardFocused);
+	  _isControlled: function _isControlled() {
+	    return this.props.hasOwnProperty('value') || this.props.hasOwnProperty('valueLink');
 	  }
 
 	});
 
-	module.exports = IconButton;
+	module.exports = TextField;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14)))
 
 /***/ },
 /* 254 */
@@ -30754,28 +30973,39 @@
 	var React = __webpack_require__(66);
 	var ReactDOM = __webpack_require__(174);
 	var StylePropable = __webpack_require__(186);
-	var Transitions = __webpack_require__(204);
-	var Colors = __webpack_require__(184);
 	var DefaultRawTheme = __webpack_require__(220);
 	var ThemeManager = __webpack_require__(222);
 
-	var Tooltip = React.createClass({
-	  displayName: 'Tooltip',
+	var rowsHeight = 24;
+
+	var styles = {
+	  textarea: {
+	    width: '100%',
+	    resize: 'none',
+	    font: 'inherit',
+	    padding: 0
+	  },
+	  shadow: {
+	    width: '100%',
+	    resize: 'none',
+	    // Overflow also needed to here to remove the extra row
+	    // added to textareas in Firefox.
+	    overflow: 'hidden',
+	    // Visibility needed to hide the extra text area on ipads
+	    visibility: 'hidden',
+	    font: 'inherit',
+	    padding: 0,
+	    position: 'absolute'
+	  }
+	};
+
+	var EnhancedTextarea = React.createClass({
+	  displayName: 'EnhancedTextarea',
 
 	  mixins: [StylePropable],
 
 	  contextTypes: {
 	    muiTheme: React.PropTypes.object
-	  },
-
-	  propTypes: {
-	    className: React.PropTypes.string,
-	    label: React.PropTypes.node.isRequired,
-	    show: React.PropTypes.bool,
-	    touch: React.PropTypes.bool,
-	    verticalPosition: React.PropTypes.oneOf(['top', 'bottom']),
-	    horizontalPosition: React.PropTypes.oneOf(['left', 'right', 'center']),
-	    style: React.PropTypes.object
 	  },
 
 	  //for passing default theme context to children
@@ -30789,134 +31019,134 @@
 	    };
 	  },
 
-	  componentDidMount: function componentDidMount() {
-	    this._setRippleSize();
-	    this._setTooltipPosition();
+	  propTypes: {
+	    onChange: React.PropTypes.func,
+	    onHeightChange: React.PropTypes.func,
+	    textareaStyle: React.PropTypes.object,
+	    rows: React.PropTypes.number,
+	    rowsMax: React.PropTypes.number,
+	    style: React.PropTypes.object
 	  },
 
-	  //to update theme inside state whenever a new theme is passed down
-	  //from the parent / owner using context
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
-	    this._setTooltipPosition();
-
-	    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
-	    this.setState({ muiTheme: newMuiTheme });
-	  },
-
-	  componentDidUpdate: function componentDidUpdate() {
-	    this._setRippleSize();
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      rows: 1
+	    };
 	  },
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      offsetWidth: null,
+	      height: this.props.rows * rowsHeight,
 	      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
 	    };
 	  },
 
-	  getStyles: function getStyles() {
-	    var verticalPosition = this.props.verticalPosition;
-	    var horizontalPosition = this.props.horizontalPosition;
-	    var touchMarginOffset = this.props.touch ? 10 : 0;
-	    var touchOffsetTop = this.props.touch ? -20 : -10;
-	    var offset = verticalPosition === 'bottom' ? 14 + touchMarginOffset : -14 - touchMarginOffset;
-
-	    var styles = {
-	      root: {
-	        position: 'absolute',
-	        fontFamily: this.state.muiTheme.rawTheme.fontFamily,
-	        fontSize: '10px',
-	        lineHeight: '22px',
-	        padding: '0 8px',
-	        color: Colors.white,
-	        overflow: 'hidden',
-	        top: -10000,
-	        borderRadius: 2,
-	        userSelect: 'none',
-	        opacity: 0,
-	        right: horizontalPosition === 'left' ? 12 : null,
-	        left: horizontalPosition === 'center' ? (this.state.offsetWidth - 48) / 2 * -1 : null,
-	        transition: Transitions.easeOut('0ms', 'top', '450ms') + ',' + Transitions.easeOut('450ms', 'transform', '0ms') + ',' + Transitions.easeOut('450ms', 'opacity', '0ms')
-	      },
-	      label: {
-	        position: 'relative',
-	        whiteSpace: 'nowrap'
-	      },
-	      ripple: {
-	        position: 'absolute',
-	        left: horizontalPosition === 'center' ? '50%' : horizontalPosition === 'left' ? '100%' : '0%',
-	        top: verticalPosition === 'bottom' ? 0 : '100%',
-	        transform: 'translate(-50%, -50%)',
-	        borderRadius: '50%',
-	        backgroundColor: 'transparent',
-	        transition: Transitions.easeOut('0ms', 'width', '450ms') + ',' + Transitions.easeOut('0ms', 'height', '450ms') + ',' + Transitions.easeOut('450ms', 'backgroundColor', '0ms')
-	      },
-	      rootWhenShown: {
-	        top: verticalPosition === 'top' ? touchOffsetTop : 36,
-	        opacity: 0.9,
-	        transform: 'translate3d(0px, ' + offset + 'px, 0px)',
-	        transition: Transitions.easeOut('0ms', 'top', '0ms') + ',' + Transitions.easeOut('450ms', 'transform', '0ms') + ',' + Transitions.easeOut('450ms', 'opacity', '0ms')
-	      },
-	      rootWhenTouched: {
-	        fontSize: '14px',
-	        lineHeight: '32px',
-	        padding: '0 16px'
-	      },
-	      rippleWhenShown: {
-	        backgroundColor: Colors.grey700,
-	        transition: Transitions.easeOut('450ms', 'width', '0ms') + ',' + Transitions.easeOut('450ms', 'height', '0ms') + ',' + Transitions.easeOut('450ms', 'backgroundColor', '0ms')
-	      }
-	    };
-
-	    return styles;
+	  componentDidMount: function componentDidMount() {
+	    this._syncHeightWithShadow();
 	  },
 
 	  render: function render() {
 	    var _props = this.props;
-	    var label = _props.label;
+	    var onChange = _props.onChange;
+	    var onHeightChange = _props.onHeightChange;
+	    var rows = _props.rows;
+	    var style = _props.style;
+	    var textareaStyle = _props.textareaStyle;
+	    var valueLink = _props.valueLink;
 
-	    var other = _objectWithoutProperties(_props, ['label']);
+	    var other = _objectWithoutProperties(_props, ['onChange', 'onHeightChange', 'rows', 'style', 'textareaStyle', 'valueLink']);
 
-	    var styles = this.getStyles();
+	    var textareaStyles = this.mergeStyles(styles.textarea, textareaStyle, {
+	      height: this.state.height
+	    });
+
+	    var shadowStyles = styles.shadow;
+
+	    if (this.props.hasOwnProperty('valueLink')) {
+	      other.value = this.props.valueLink.value;
+	    }
+
+	    if (this.props.disabled) {
+	      style.cursor = 'default';
+	    }
+
 	    return React.createElement(
 	      'div',
-	      _extends({}, other, {
-	        style: this.prepareStyles(styles.root, this.props.show && styles.rootWhenShown, this.props.touch && styles.rootWhenTouched, this.props.style) }),
-	      React.createElement('div', {
-	        ref: 'ripple',
-	        style: this.prepareStyles(styles.ripple, this.props.show && styles.rippleWhenShown) }),
-	      React.createElement(
-	        'span',
-	        { style: this.prepareStyles(styles.label) },
-	        this.props.label
-	      )
+	      { style: this.prepareStyles(this.props.style) },
+	      React.createElement('textarea', {
+	        ref: 'shadow',
+	        style: this.prepareStyles(shadowStyles),
+	        tabIndex: '-1',
+	        rows: this.props.rows,
+	        defaultValue: this.props.defaultValue,
+	        readOnly: true,
+	        value: this.props.value,
+	        valueLink: this.props.valueLink }),
+	      React.createElement('textarea', _extends({}, other, {
+	        ref: 'input',
+	        rows: this.props.rows,
+	        style: this.prepareStyles(textareaStyles),
+	        onChange: this._handleChange }))
 	    );
 	  },
 
-	  _setRippleSize: function _setRippleSize() {
-	    var ripple = ReactDOM.findDOMNode(this.refs.ripple);
-	    var tooltip = window.getComputedStyle(ReactDOM.findDOMNode(this));
-	    var tooltipWidth = parseInt(tooltip.getPropertyValue("width"), 10) / (this.props.horizontalPosition === 'center' ? 2 : 1);
-	    var tooltipHeight = parseInt(tooltip.getPropertyValue("height"), 10);
+	  getInputNode: function getInputNode() {
+	    return ReactDOM.findDOMNode(this.refs.input);
+	  },
 
-	    var rippleDiameter = Math.ceil(Math.sqrt(Math.pow(tooltipHeight, 2) + Math.pow(tooltipWidth, 2)) * 2);
-	    if (this.props.show) {
-	      ripple.style.height = rippleDiameter + 'px';
-	      ripple.style.width = rippleDiameter + 'px';
-	    } else {
-	      ripple.style.width = '0px';
-	      ripple.style.height = '0px';
+	  setValue: function setValue(value) {
+	    this.getInputNode().value = value;
+	    this._syncHeightWithShadow(value);
+	  },
+
+	  _syncHeightWithShadow: function _syncHeightWithShadow(newValue, e) {
+	    var shadow = ReactDOM.findDOMNode(this.refs.shadow);
+
+	    if (newValue !== undefined) {
+	      shadow.value = newValue;
+	    }
+
+	    var newHeight = shadow.scrollHeight;
+
+	    if (this.props.rowsMax > this.props.rows) {
+	      newHeight = Math.min(this.props.rowsMax * rowsHeight, newHeight);
+	    }
+
+	    newHeight = Math.max(newHeight, rowsHeight);
+
+	    if (this.state.height !== newHeight) {
+	      this.setState({
+	        height: newHeight
+	      });
+
+	      if (this.props.onHeightChange) {
+	        this.props.onHeightChange(e, newHeight);
+	      }
 	    }
 	  },
 
-	  _setTooltipPosition: function _setTooltipPosition() {
-	    var tooltip = ReactDOM.findDOMNode(this);
-	    this.setState({ offsetWidth: tooltip.offsetWidth });
-	  }
+	  _handleChange: function _handleChange(e) {
+	    this._syncHeightWithShadow(e.target.value);
 
+	    if (this.props.hasOwnProperty('valueLink')) {
+	      this.props.valueLink.requestChange(e.target.value);
+	    }
+
+	    if (this.props.onChange) {
+	      this.props.onChange(e);
+	    }
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+	    if (nextProps.value !== this.props.value) {
+	      this._syncHeightWithShadow(nextProps.value);
+	    }
+	    var newState = {};
+	    newState.muiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+	  }
 	});
 
-	module.exports = Tooltip;
+	module.exports = EnhancedTextarea;
 
 /***/ },
 /* 255 */
