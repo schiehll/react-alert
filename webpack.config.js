@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var autoprefixer = require('autoprefixer-core');
 
 var paths = {
   public: '/dist',
@@ -39,12 +40,12 @@ module.exports = {
       {
         test: /\.css$/,
         include: [paths.styles, paths.modules, paths.vendor],
-        loader: ExtractTextPlugin.extract('style','css')
+        loader: ExtractTextPlugin.extract('style','css!postcss')
       },
       { 
         test: /\.styl$/,
         include: paths.styles,
-        loader: ExtractTextPlugin.extract('style','css!stylus') 
+        loader: ExtractTextPlugin.extract('style','css!postcss!stylus') 
       },
       {
         test: /\.(svg|woff|woff2|eot|ttf)$/,
@@ -60,6 +61,10 @@ module.exports = {
         loader: 'json'
       }
     ]
+  },
+
+  postcss: function(){
+    return [autoprefixer]
   },
 
   resolve: {
