@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var autoprefixer = require('autoprefixer-core');
 
 var paths = {
   public: '/dist',
@@ -29,6 +30,10 @@ module.exports = {
     library: 'react-alert'
   },
 
+  postcss: function(){
+    return [autoprefixer]
+  },
+
   module: {
     loaders: [
       {
@@ -39,7 +44,7 @@ module.exports = {
       { 
         test: /\.styl$/,
         include: paths.styles,
-        loader: 'style!css!stylus'
+        loader: 'style!css!postcss!stylus'
       },
       {
         test: /\.(jpg|png|gif)$/,
