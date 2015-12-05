@@ -1,1 +1,15 @@
-body{margin:0;padding:0;font-family:Roboto,sans-serif;overflow-x:hidden;background-color:#b39ddb}.react-alert-content{width:870px;margin:40vh auto 0}.react-alert-content .title{text-align:left;margin:0 0 -5px}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
+  background-color: #b39ddb;
+}
+.react-alert-content {
+  width: 870px;
+  margin: 40vh auto 0 auto;
+}
+.react-alert-content .title {
+  text-align: left;
+  margin: 0 0 -5px 0;
+}
