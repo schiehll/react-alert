@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "material-ui": "^0.13.3",
-    "react-alert": "^1.0.13",
+    "react-alert": "^1.0.14",
     "react-tap-event-plugin": "^0.2.1"
   }
 }
