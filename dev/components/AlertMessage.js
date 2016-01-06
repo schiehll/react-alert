@@ -81,7 +81,6 @@ class AlertMessage extends React.Component {
 } 
 
 AlertMessage.defaultProps = {
-  reactKey: '',
   icon: '',
   message: '',
   type: 'info'
