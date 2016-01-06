@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer-core');
+var webpackUMDExternal = require('webpack-umd-external');
 
 var paths = {
   public: '/dist',
@@ -58,9 +59,9 @@ module.exports = {
     extensions: ['', '.js', '.jsx', '.css', '.styl']
   },
 
-  externals: {
+  externals: webpackUMDExternal({
     'react': 'react',
     'react-dom': 'react-dom',
     'react-addons-css-transition-group': 'react-addons-css-transition-group'
-  }
+  })
 };
