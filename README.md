@@ -46,7 +46,7 @@ export default class App extends React.Component {
     return(
       <div>
         <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
-        <button onClick={this.showAlert}>Show Alert</button>
+        <button onClick={this.showAlert.bind(this)}>Show Alert</button>
       </div>
     );
   }
