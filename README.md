@@ -35,7 +35,7 @@ export default class App extends React.Component {
   }
 
   showAlert(){
-    msg.show('Some text or component', {
+    this.msg.show('Some text or component', {
       time: 2000,
       type: 'success',
       icon: <img src="path/to/some/img/32x32.png" />
@@ -45,7 +45,7 @@ export default class App extends React.Component {
   render(){
     return(
       <div>
-        <AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
+        <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
         <button onClick={this.showAlert}>Show Alert</button>
       </div>
     );
@@ -84,15 +84,15 @@ Once you have the reference of the `AlertContainer` you can call the following m
 
 ```js
 //show an alert
-msg.show('Some message or component');
+this.msg.show('Some message or component');
 //show an info alert
-msg.info('Some info message or component');
+this.msg.info('Some info message or component');
 //show a success alert
-msg.success('Some success message or component');
+this.msg.success('Some success message or component');
 //show an error alert
-msg.error('Some error message or component');
+this.msg.error('Some error message or component');
 //removes all alerts from the page
-msg.removeAll();
+this.msg.removeAll();
 ```
 ## Using React Components as alert content
 
@@ -100,5 +100,5 @@ You can also use a React Component to show a alert message, like this:
 
 ```js
 //show an alert with a React Component as content
-msg.show(<AComponent aProp="some message" />);
+this.msg.show(<AComponent aProp="some message" />);
 ```
