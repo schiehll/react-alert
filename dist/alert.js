@@ -7,7 +7,7 @@
 		exports["react-alert"] = factory(require("react"), require("react-addons-css-transition-group"), require("react-dom"));
 	else
 		root["react-alert"] = factory(root["react"], root["react-addons-css-transition-group"], root["react-dom"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_14__, __WEBPACK_EXTERNAL_MODULE_16__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_15__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -116,7 +116,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
-	exports.push([module.id, ".react-alerts {\n  position: fixed;\n  right: 0;\n  bottom: 0;\n  margin: 14px;\n  z-index: 999999;\n}\n.react-alerts .alert {\n  width: 300px;\n  min-height: 50px;\n  margin: 10px 0 0 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  border-radius: 2px;\n  background-color: #333;\n  font-size: 11px;\n  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.3);\n  color: #fff;\n}\n.react-alerts .alert .content {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  text-align: center;\n}\n.react-alerts .alert .icon {\n  width: 32px;\n  height: 32px;\n}\n.react-alerts .alert .icon div {\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .icon .info-icon {\n  background-image: url("+__webpack_require__(5)+");\n}\n.react-alerts .alert .icon .error-icon {\n  background-image: url("+__webpack_require__(6)+");\n}\n.react-alerts .alert .icon .success-icon {\n  background-image: url("+__webpack_require__(7)+");\n}\n.react-alerts .alert .message {\n  -webkit-box-flex: 3;\n  -webkit-flex: 3;\n      -ms-flex: 3;\n          flex: 3;\n  text-transform: uppercase;\n  padding: 8px 10px;\n}\n.react-alerts .alert .close {\n  height: 50px;\n  background-color: #444;\n  border-radius: 0 2px 2px 0;\n  line-height: 50px;\n  cursor: pointer;\n}\n.react-alerts .alert .close .close-light {\n  background-image: url("+__webpack_require__(8)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close .close-dark {\n  background-image: url("+__webpack_require__(9)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close:hover {\n  opacity: 0.5;\n}\n.react-alerts .alert.hidden {\n  display: none;\n}\n.react-alerts .scale-enter {\n  -webkit-transform: scale(0);\n          transform: scale(0);\n}\n.react-alerts .scale-enter.scale-enter-active {\n  -webkit-transform: scale(1);\n          transform: scale(1);\n  -webkit-transition: all 250ms cubic-bezier(0, 0, 0.5, 1.5);\n          transition: all 250ms cubic-bezier(0, 0, 0.5, 1.5);\n}\n.react-alerts .scale-leave {\n  -webkit-transform: scale(1);\n          transform: scale(1);\n}\n.react-alerts .scale-leave.scale-leave-active {\n  -webkit-transform: scale(0);\n          transform: scale(0);\n  -webkit-transition: all 250ms ease-in-out;\n          transition: all 250ms ease-in-out;\n}\n.react-alerts .fade-enter {\n  opacity: 0.1;\n}\n.react-alerts .fade-enter.fade-enter-active {\n  opacity: 1;\n  -webkit-transition: all 250ms ease-out;\n          transition: all 250ms ease-out;\n}\n.react-alerts .fade-leave {\n  opacity: 1;\n}\n.react-alerts .fade-leave.fade-leave-active {\n  opacity: 0.1;\n  -webkit-transition: all 250ms ease-in;\n          transition: all 250ms ease-in;\n}\n", ""]);
+	exports.push([module.id, ".react-alerts {\n  position: fixed;\n  right: 0;\n  bottom: 0;\n  margin: 14px;\n  z-index: 999999;\n}\n.react-alerts .alert {\n  width: 300px;\n  min-height: 50px;\n  margin: 10px 0 0 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  border-radius: 2px;\n  background-color: #333;\n  font-size: 11px;\n  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.3);\n  color: #fff;\n}\n.react-alerts .alert .content {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  text-align: center;\n}\n.react-alerts .alert .icon {\n  width: 32px;\n  height: 32px;\n}\n.react-alerts .alert .icon div {\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .icon .info-icon {\n  background-image: url("+__webpack_require__(5)+");\n}\n.react-alerts .alert .icon .error-icon {\n  background-image: url("+__webpack_require__(6)+");\n}\n.react-alerts .alert .icon .success-icon {\n  background-image: url("+__webpack_require__(7)+");\n}\n.react-alerts .alert .message {\n  -webkit-box-flex: 3;\n      -ms-flex: 3;\n          flex: 3;\n  text-transform: uppercase;\n  padding: 8px 10px;\n}\n.react-alerts .alert .close {\n  height: 50px;\n  background-color: #444;\n  border-radius: 0 2px 2px 0;\n  line-height: 50px;\n  cursor: pointer;\n}\n.react-alerts .alert .close .close-light {\n  background-image: url("+__webpack_require__(8)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close .close-dark {\n  background-image: url("+__webpack_require__(9)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close:hover {\n  opacity: 0.5;\n}\n.react-alerts .alert.hidden {\n  display: none;\n}\n.react-alerts .scale-enter {\n  -webkit-transform: scale(0);\n          transform: scale(0);\n}\n.react-alerts .scale-enter.scale-enter-active {\n  -webkit-transform: scale(1);\n          transform: scale(1);\n  -webkit-transition: all 250ms cubic-bezier(0, 0, 0.5, 1.5);\n          transition: all 250ms cubic-bezier(0, 0, 0.5, 1.5);\n}\n.react-alerts .scale-leave {\n  -webkit-transform: scale(1);\n          transform: scale(1);\n}\n.react-alerts .scale-leave.scale-leave-active {\n  -webkit-transform: scale(0);\n          transform: scale(0);\n  -webkit-transition: all 250ms ease-in-out;\n          transition: all 250ms ease-in-out;\n}\n.react-alerts .fade-enter {\n  opacity: 0.1;\n}\n.react-alerts .fade-enter.fade-enter-active {\n  opacity: 1;\n  -webkit-transition: all 250ms ease-out;\n          transition: all 250ms ease-out;\n}\n.react-alerts .fade-leave {\n  opacity: 1;\n}\n.react-alerts .fade-leave.fade-leave-active {\n  opacity: 0.1;\n  -webkit-transition: all 250ms ease-in;\n          transition: all 250ms ease-in;\n}\n", ""]);
 
 /***/ },
 /* 4 */
@@ -439,7 +439,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -461,17 +461,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _events = __webpack_require__(13);
-
-	var _events2 = _interopRequireDefault(_events);
-
-	var _reactAddonsCssTransitionGroup = __webpack_require__(14);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(13);
 
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 
-	var _AlertMessage = __webpack_require__(15);
+	var _AlertMessage = __webpack_require__(14);
 
 	var _AlertMessage2 = _interopRequireDefault(_AlertMessage);
+
+	var _reactAlertEvents = __webpack_require__(17);
+
+	var _reactAlertEvents2 = _interopRequireDefault(_reactAlertEvents);
 
 	var AlertContainer = (function (_React$Component) {
 	  _inherits(AlertContainer, _React$Component);
@@ -480,7 +480,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _classCallCheck(this, AlertContainer);
 
 	    _get(Object.getPrototypeOf(AlertContainer.prototype), 'constructor', this).call(this, props);
-	    global.reactAlertEvents = new _events2['default']();
 	    this.state = {
 	      alerts: []
 	    };
@@ -491,9 +490,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  /**
 	   * Show the alert in the page with success type
-	   * @param  {string} message 
-	   * @param  {Object} options 
-	   * @return {void}         
+	   * @param  {string} message
+	   * @param  {Object} options
+	   * @return {void}
 	   */
 
 	  _createClass(AlertContainer, [{
@@ -507,8 +506,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * Show the alert in the page with error type
-	     * @param  {string} message 
-	     * @param  {Object} options 
+	     * @param  {string} message
+	     * @param  {Object} options
 	     * @return {void}
 	     */
 	  }, {
@@ -521,7 +520,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
-	     * Show the alert in the page with info type 
+	     * Show the alert in the page with info type
 	     * @param  {string} message
 	     * @param  {Object} options
 	     * @return {void}
@@ -611,7 +610,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function _eventListners() {
 	      var _this = this;
 
-	      reactAlertEvents.on('ALERT.REMOVE', function (alert) {
+	      _reactAlertEvents2['default'].on('ALERT.REMOVE', function (alert) {
 	        _this.setState({ alerts: _this._removeAlert(alert) });
 	      });
 	    }
@@ -748,10 +747,252 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports['default'] = AlertContainer;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 13 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_13__;
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(11);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(15);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _classnames = __webpack_require__(16);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _reactAlertEvents = __webpack_require__(17);
+
+	var _reactAlertEvents2 = _interopRequireDefault(_reactAlertEvents);
+
+	var AlertMessage = (function (_React$Component) {
+	  _inherits(AlertMessage, _React$Component);
+
+	  function AlertMessage(props) {
+	    _classCallCheck(this, AlertMessage);
+
+	    _get(Object.getPrototypeOf(AlertMessage.prototype), 'constructor', this).call(this, props);
+	    this.state = {
+	      closeButtonStyle: {}
+	    };
+	  }
+
+	  /**
+	   * Handle the close button click
+	   * @return {void}
+	   */
+
+	  _createClass(AlertMessage, [{
+	    key: '_handleCloseClick',
+	    value: function _handleCloseClick() {
+	      this._removeSelf();
+	    }
+
+	    /**
+	     * Include the given icon or use the default one
+	     * @return {React.Component}
+	     */
+	  }, {
+	    key: '_showIcon',
+	    value: function _showIcon() {
+	      var icon = '';
+	      if (this.props.icon) {
+	        icon = this.props.icon;
+	      } else {
+	        icon = _react2['default'].createElement('div', { className: this.props.type + '-icon' });
+	      }
+
+	      return icon;
+	    }
+
+	    /**
+	     * Remove the alert after the given time
+	     * @return {void}
+	     */
+	  }, {
+	    key: '_countdown',
+	    value: function _countdown() {
+	      var _this = this;
+
+	      setTimeout(function () {
+	        _this._removeSelf();
+	      }, this.props.time);
+	    }
+
+	    /**
+	     * Emit a event to AlertContainer remove this alert from page
+	     * @return {void}
+	     */
+	  }, {
+	    key: '_removeSelf',
+	    value: function _removeSelf() {
+	      _reactAlertEvents2['default'].emit('ALERT.REMOVE', this);
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.domNode = _reactDom2['default'].findDOMNode(this);
+	      this.setState({
+	        closeButtonStyle: {
+	          height: this.domNode.offsetHeight + 'px',
+	          lineHeight: this.domNode.offsetHeight + 'px',
+	          backgroundColor: this.props.style.closeButton.bg
+	        }
+	      });
+
+	      if (this.props.time > 0) {
+	        this._countdown();
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        { style: this.props.style.alert, className: (0, _classnames2['default'])('alert', this.props.type) },
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'content icon' },
+	          this._showIcon.bind(this)()
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'content message' },
+	          this.props.message
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          { onClick: this._handleCloseClick.bind(this), style: this.state.closeButtonStyle, className: 'content close' },
+	          _react2['default'].createElement('div', { className: this.props.closeIconClass })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return AlertMessage;
+	})(_react2['default'].Component);
+
+	AlertMessage.defaultProps = {
+	  icon: '',
+	  message: '',
+	  type: 'info'
+	};
+
+	AlertMessage.propTypes = {
+	  type: _react2['default'].PropTypes.oneOf(['info', 'success', 'error'])
+	};
+
+	exports['default'] = AlertMessage;
+	module.exports = exports['default'];
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_15__;
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+
+	(function () {
+		'use strict';
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames () {
+			var classes = [];
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+
+			return classes.join(' ');
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _events = __webpack_require__(18);
+
+	var _events2 = _interopRequireDefault(_events);
+
+	var alertEvent = new _events2['default']();
+	var reactAlertEvents = alertEvent;
+	exports['default'] = reactAlertEvents;
+	module.exports = exports['default'];
+
+/***/ },
+/* 18 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -813,8 +1054,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      er = arguments[1];
 	      if (er instanceof Error) {
 	        throw er; // Unhandled 'error' event
+	      } else {
+	        // At least give some kind of context to the user
+	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+	        err.context = er;
+	        throw err;
 	      }
-	      throw TypeError('Uncaught, unspecified "error" event.');
 	    }
 	  }
 
@@ -1052,224 +1297,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isUndefined(arg) {
 	  return arg === void 0;
 	}
-
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_14__;
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(11);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(16);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _classnames = __webpack_require__(17);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var AlertMessage = (function (_React$Component) {
-	  _inherits(AlertMessage, _React$Component);
-
-	  function AlertMessage(props) {
-	    _classCallCheck(this, AlertMessage);
-
-	    _get(Object.getPrototypeOf(AlertMessage.prototype), 'constructor', this).call(this, props);
-	    this.state = {
-	      closeButtonStyle: {}
-	    };
-	  }
-
-	  /**
-	   * Handle the close button click
-	   * @return {void} 
-	   */
-
-	  _createClass(AlertMessage, [{
-	    key: '_handleCloseClick',
-	    value: function _handleCloseClick() {
-	      this._removeSelf();
-	    }
-
-	    /**
-	     * Include the given icon or use the default one
-	     * @return {React.Component}
-	     */
-	  }, {
-	    key: '_showIcon',
-	    value: function _showIcon() {
-	      var icon = '';
-	      if (this.props.icon) {
-	        icon = this.props.icon;
-	      } else {
-	        icon = _react2['default'].createElement('div', { className: this.props.type + '-icon' });
-	      }
-
-	      return icon;
-	    }
-
-	    /**
-	     * Remove the alert after the given time
-	     * @return {void} 
-	     */
-	  }, {
-	    key: '_countdown',
-	    value: function _countdown() {
-	      var _this = this;
-
-	      setTimeout(function () {
-	        _this._removeSelf();
-	      }, this.props.time);
-	    }
-
-	    /**
-	     * Emit a event to AlertContainer remove this alert from page
-	     * @return {void}
-	     */
-	  }, {
-	    key: '_removeSelf',
-	    value: function _removeSelf() {
-	      reactAlertEvents.emit('ALERT.REMOVE', this);
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.domNode = _reactDom2['default'].findDOMNode(this);
-	      this.setState({
-	        closeButtonStyle: {
-	          height: this.domNode.offsetHeight + 'px',
-	          lineHeight: this.domNode.offsetHeight + 'px',
-	          backgroundColor: this.props.style.closeButton.bg
-	        }
-	      });
-
-	      if (this.props.time > 0) {
-	        this._countdown();
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2['default'].createElement(
-	        'div',
-	        { style: this.props.style.alert, className: (0, _classnames2['default'])('alert', this.props.type) },
-	        _react2['default'].createElement(
-	          'div',
-	          { className: 'content icon' },
-	          this._showIcon.bind(this)()
-	        ),
-	        _react2['default'].createElement(
-	          'div',
-	          { className: 'content message' },
-	          this.props.message
-	        ),
-	        _react2['default'].createElement(
-	          'div',
-	          { onClick: this._handleCloseClick.bind(this), style: this.state.closeButtonStyle, className: 'content close' },
-	          _react2['default'].createElement('div', { className: this.props.closeIconClass })
-	        )
-	      );
-	    }
-	  }]);
-
-	  return AlertMessage;
-	})(_react2['default'].Component);
-
-	AlertMessage.defaultProps = {
-	  icon: '',
-	  message: '',
-	  type: 'info'
-	};
-
-	AlertMessage.propTypes = {
-	  type: _react2['default'].PropTypes.oneOf(['info', 'success', 'error'])
-	};
-
-	exports['default'] = AlertMessage;
-	module.exports = exports['default'];
-
-/***/ },
-/* 16 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_16__;
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2016 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-	/* global define */
-
-	(function () {
-		'use strict';
-
-		var hasOwn = {}.hasOwnProperty;
-
-		function classNames () {
-			var classes = [];
-
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-
-				var argType = typeof arg;
-
-				if (argType === 'string' || argType === 'number') {
-					classes.push(arg);
-				} else if (Array.isArray(arg)) {
-					classes.push(classNames.apply(null, arg));
-				} else if (argType === 'object') {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes.push(key);
-						}
-					}
-				}
-			}
-
-			return classes.join(' ');
-		}
-
-		if (typeof module !== 'undefined' && module.exports) {
-			module.exports = classNames;
-		} else if (true) {
-			// register as 'classnames', consistent with npm package name
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return classNames;
-			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else {
-			window.classNames = classNames;
-		}
-	}());
 
 
 /***/ }

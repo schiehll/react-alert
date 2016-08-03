@@ -1,12 +1,12 @@
 import React from 'react';
-import EventEmitter from 'events';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import AlertMessage from './AlertMessage';
+import reactAlertEvents from '../reactAlertEvents';
 
 class AlertContainer extends React.Component {
+
   constructor(props){
     super(props);
-    global.reactAlertEvents = new EventEmitter();
     this.state = {
       alerts: []
     };
@@ -16,9 +16,9 @@ class AlertContainer extends React.Component {
   }
   /**
    * Show the alert in the page with success type
-   * @param  {string} message 
-   * @param  {Object} options 
-   * @return {void}         
+   * @param  {string} message
+   * @param  {Object} options
+   * @return {void}
    */
   success(message, options = {}){
     options.type = 'success';
@@ -26,8 +26,8 @@ class AlertContainer extends React.Component {
   }
   /**
    * Show the alert in the page with error type
-   * @param  {string} message 
-   * @param  {Object} options 
+   * @param  {string} message
+   * @param  {Object} options
    * @return {void}
    */
   error(message, options = {}){
@@ -35,7 +35,7 @@ class AlertContainer extends React.Component {
     this.show(message, options);
   }
   /**
-   * Show the alert in the page with info type 
+   * Show the alert in the page with info type
    * @param  {string} message
    * @param  {Object} options
    * @return {void}
@@ -192,9 +192,9 @@ class AlertContainer extends React.Component {
   render(){
     return(
       <div style={this.style} className="react-alerts">
-        <ReactCSSTransitionGroup 
-          transitionName={this.props.transition} 
-          transitionEnterTimeout={250} 
+        <ReactCSSTransitionGroup
+          transitionName={this.props.transition}
+          transitionEnterTimeout={250}
           transitionLeaveTimeout={250}>
           {this.state.alerts.map((alert, index) => {
             return <AlertMessage key={alert.uniqueKey} {...alert} />
@@ -216,8 +216,8 @@ AlertContainer.defaultProps = {
 AlertContainer.propTypes = {
   offset: React.PropTypes.number,
   position: React.PropTypes.oneOf([
-    'bottom left', 
-    'bottom right', 
+    'bottom left',
+    'bottom right',
     'top right',
     'top left',
   ]),
