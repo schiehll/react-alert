@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
+import reactAlertEvents from '../reactAlertEvents';
 
 class AlertMessage extends React.Component {
   constructor(props){
@@ -11,7 +12,7 @@ class AlertMessage extends React.Component {
   }
   /**
    * Handle the close button click
-   * @return {void} 
+   * @return {void}
    */
   _handleCloseClick(){
     this._removeSelf();
@@ -33,7 +34,7 @@ class AlertMessage extends React.Component {
   }
   /**
    * Remove the alert after the given time
-   * @return {void} 
+   * @return {void}
    */
   _countdown(){
     setTimeout(() => {
@@ -47,7 +48,7 @@ class AlertMessage extends React.Component {
   _removeSelf(){
     reactAlertEvents.emit('ALERT.REMOVE', this);
   }
-  
+
   componentDidMount(){
     this.domNode = ReactDOM.findDOMNode(this);
     this.setState({
@@ -78,7 +79,7 @@ class AlertMessage extends React.Component {
       </div>
     );
   }
-} 
+}
 
 AlertMessage.defaultProps = {
   icon: '',
