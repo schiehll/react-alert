@@ -36,12 +36,16 @@ module.exports = {
       {
         test: /\.js$/,
         include: [paths.js.index, paths.js.dev],
-        use: 'babel-loader'
+        loader: 'babel-loader',
+        query:
+        {
+          presets: ['react']
+        }
       },
       {
         test: /\.styl$/,
         include: paths.styles,
-        use: [
+        loader: [
           'style-loader',
           'css-loader',
           {
@@ -60,7 +64,7 @@ module.exports = {
       {
         test: /\.(jpg|png|gif)$/,
         include: paths.images,
-        use: 'url-loader?limit=80000'
+        loader: 'url-loader?limit=80000'
       }
     ]
   },
