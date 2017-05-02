@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 
-class AlertMessage extends React.Component {
+export class AlertMessage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -87,7 +88,5 @@ AlertMessage.defaultProps = {
 }
 
 AlertMessage.propTypes = {
-  type: React.PropTypes.oneOf(['info', 'success', 'error'])
+  type: PropTypes.oneOf(['info', 'success', 'error'])
 }
-
-export default AlertMessage;

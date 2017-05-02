@@ -4,12 +4,12 @@ jest.dontMock('events');
 jest.dontMock('path');
 var path = require('path');
 var EventEmitter = require('events');
-var TestUtils = require('react-addons-test-utils');
+var TestUtils = require('react-dom/test-utils');
 var React = require('react');
-var AlertContainer = require('../dev/components/AlertContainer');
-var AlertMessage = require('../dev/components/AlertMessage');
+import { AlertMessage } from '../dev/components/AlertMessage';
+import { AlertContainer } from '../dev/components/AlertContainer';
 
-const shallowRenderer = TestUtils.createRenderer();
+const shallowRenderer = require('react-test-renderer/shallow').createRenderer();
 
 describe('AlertContainer', () => {
   beforeEach(() =>{

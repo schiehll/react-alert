@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-var autoprefixer = require('autoprefixer-core');
+var autoprefixer = require('autoprefixer');
 var webpackUMDExternal = require('webpack-umd-external');
 
 var paths = {
@@ -15,7 +15,7 @@ var paths = {
   modules: path.resolve(__dirname, './node_modules')
 }
 
-module.exports = {  
+module.exports = {
   entry: {
     alert: [
       paths.js.index
@@ -31,32 +31,46 @@ module.exports = {
     library: 'react-alert'
   },
 
-  postcss: function(){
-    return [autoprefixer]
-  },
-
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: [paths.js.index, paths.js.dev],
-        loader: 'babel'
+        loader: 'babel-loader',
+        query:
+        {
+          presets: ['react']
+        }
       },
-      { 
+      {
         test: /\.styl$/,
         include: paths.styles,
-        loader: 'style!css!postcss!stylus'
+        loader: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: function () {
+                return [
+                  require('autoprefixer')
+                ];
+              }
+            }
+          },
+          'stylus-loader'
+        ]
       },
       {
         test: /\.(jpg|png|gif)$/,
         include: paths.images,
-        loader: 'url?limit=80000'
+        loader: 'url-loader?limit=80000'
       }
     ]
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css', '.styl']
+    extensions: ['.js', '.jsx', '.css', '.styl']
   },
 
   externals: webpackUMDExternal({
