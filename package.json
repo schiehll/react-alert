@@ -26,8 +26,7 @@
     "demo:watch": "webpack --config demo/webpack.config.js --watch"
   },
   "peerDependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react": "^15.5.4"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
