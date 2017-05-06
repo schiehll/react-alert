@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlertContainer should set its position based on the given position prop 1`] = `
+<div
+  className="css-9xlrwr"
+>
+  <span />
+</div>
+`;
+
+exports[`AlertContainer should set its position based on the given position prop 2`] = `
+<div
+  className="css-132hx50"
+>
+  <span />
+</div>
+`;
+
+exports[`AlertContainer should set its position based on the given position prop 3`] = `
+<div
+  className="css-15ol66j"
+>
+  <span />
+</div>
+`;
+
+exports[`AlertContainer should set its position based on the given position prop 4`] = `
+<div
+  className="css-1bdcmy7"
+>
+  <span />
+</div>
+`;
