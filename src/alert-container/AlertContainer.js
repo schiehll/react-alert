@@ -31,22 +31,22 @@ class AlertContainer extends Component {
     alerts: []
   }
 
-  success = (message, options = {}) => {
+  success = (message = '', options = {}) => {
     options.type = 'success'
     this.show(message, options)
   }
 
-  error = (message, options = {}) => {
+  error = (message = '', options = {}) => {
     options.type = 'error'
     this.show(message, options)
   }
 
-  info = (message, options = {}) => {
+  info = (message = '', options = {}) => {
     options.type = 'info'
     this.show(message, options)
   }
 
-  show = (message, options = {}) => {
+  show = (message = '', options = {}) => {
     const {theme, time} = this.props
 
     const alert = {

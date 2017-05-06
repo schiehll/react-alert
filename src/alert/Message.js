@@ -1,4 +1,4 @@
-import glamorous from 'glamorous/dist/glamorous.es.tiny'
+import glamorous from 'glamorous/dist/glamorous.cjs.tiny'
 
 const Message = glamorous('div')({
   flex: 3,

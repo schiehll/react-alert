@@ -1,4 +1,4 @@
-import glamorous from 'glamorous/dist/glamorous.es.tiny'
+import glamorous from 'glamorous/dist/glamorous.cjs.tiny'
 
 const Close = glamorous('div')({
   width: '50px',

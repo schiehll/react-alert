@@ -1,4 +1,4 @@
-import glamorous from 'glamorous/dist/glamorous.es.tiny'
+import glamorous from 'glamorous/dist/glamorous.cjs.tiny'
 
 const Container = glamorous('div')({
   position: 'fixed',
@@ -7,48 +7,39 @@ const Container = glamorous('div')({
   margin: '14px',
   zIndex: 999999
 }, props => {
-  let position = {}
-
   switch (props.glam.position) {
     case 'top left':
-      position = {
+      return {
+        margin: `${props.glam.offset}px`,
         top: 0,
         right: 'auto',
         bottom: 'auto',
         left: 0
       }
-      break
     case 'top right':
-      position = {
+      return {
+        margin: `${props.glam.offset}px`,
         top: 0,
         right: 0,
         bottom: 'auto',
         left: 'auto'
       }
-      break
     case 'bottom left':
-      position = {
+      return {
+        margin: `${props.glam.offset}px`,
         top: 'auto',
         right: 'auto',
         bottom: 0,
         left: 0
       }
-      break
     case 'bottom right':
-      position = {
+      return {
+        margin: `${props.glam.offset}px`,
         top: 'auto',
         right: 0,
         bottom: 0,
         left: 'auto'
       }
-  }
-
-  return {
-    margin: `${props.glam.offset}px`,
-    top: position.top,
-    right: position.right,
-    bottom: position.bottom,
-    left: position.left
   }
 })
 

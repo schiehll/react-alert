@@ -1,4 +1,4 @@
-import glamorous from 'glamorous/dist/glamorous.es.tiny'
+import glamorous from 'glamorous/dist/glamorous.cjs.tiny'
 
 const Icon = glamorous('div')({
   width: '32px',
