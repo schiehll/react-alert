@@ -44,7 +44,6 @@
     "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",
     "standard": "^10.0.2",
-    "url-loader": "^0.5.8",
     "webpack": "^2.4.1"
   },
   "babel": {
