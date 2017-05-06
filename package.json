@@ -36,6 +36,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "coveralls": "^2.13.1",
     "enzyme": "^2.8.2",
     "jest-cli": "^19.0.2",
     "prop-types": "^15.5.8",
