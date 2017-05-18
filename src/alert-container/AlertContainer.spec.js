@@ -57,6 +57,12 @@ describe('AlertContainer', () => {
       instance.error('Some message')
 
       expect(instance.show).toHaveBeenCalledTimes(3)
+      expect(instance.show.mock.calls[0][0]).toBe('Some message')
+      expect(instance.show.mock.calls[0][1]).toEqual({ type: 'success' })
+      expect(instance.show.mock.calls[1][0]).toBe('Some message')
+      expect(instance.show.mock.calls[1][1]).toEqual({ type: 'info' })
+      expect(instance.show.mock.calls[2][0]).toBe('Some message')
+      expect(instance.show.mock.calls[2][1]).toEqual({ type: 'error' })
     })
 
     test('should add an alert object to state', () => {
@@ -66,6 +72,48 @@ describe('AlertContainer', () => {
       expect(instance.state.alerts).toHaveLength(0)
       instance.show('Some message')
       expect(instance.state.alerts).toHaveLength(1)
+    })
+
+    test('should be called with default method params', () => {
+      const wrapper = shallow(<AlertContainer />)
+      const instance = wrapper.instance()
+      instance.show = jest.fn()
+
+      instance.success()
+      instance.info()
+      instance.error()
+
+      expect(instance.show).toHaveBeenCalledTimes(3)
+      expect(instance.show.mock.calls[0][0]).toBe('')
+      expect(instance.show.mock.calls[0][1]).toEqual({ type: 'success' })
+      expect(instance.show.mock.calls[1][0]).toBe('')
+      expect(instance.show.mock.calls[1][1]).toEqual({ type: 'info' })
+      expect(instance.show.mock.calls[2][0]).toBe('')
+      expect(instance.show.mock.calls[2][1]).toEqual({ type: 'error' })
+    })
+
+    test('should work with default options', () => {
+      const wrapper = shallow(<AlertContainer />)
+      const instance = wrapper.instance()
+
+      instance.show()
+      expect(instance.state.alerts[0].id).toBeDefined()
+      expect(instance.state.alerts[0].message).toBe('')
+      expect(instance.state.alerts[0].time).toBe(5000)
+      expect(instance.state.alerts[0].theme).toBe('dark')
+    })
+
+    test('should work with custom options', () => {
+      const wrapper = shallow(<AlertContainer time={123} theme='light' />)
+      const instance = wrapper.instance()
+
+      instance.show('custom message', { foo: 1, bar: 2 })
+      expect(instance.state.alerts[0].id).toBeDefined()
+      expect(instance.state.alerts[0].message).toBe('custom message')
+      expect(instance.state.alerts[0].time).toBe(123)
+      expect(instance.state.alerts[0].theme).toBe('light')
+      expect(instance.state.alerts[0].foo).toBe(1)
+      expect(instance.state.alerts[0].bar).toBe(2)
     })
   })
 
