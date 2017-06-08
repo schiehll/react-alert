@@ -118,16 +118,20 @@ describe('AlertContainer', () => {
   })
 
   describe('removeAll', () => {
-    test('should remove all alerts from state', () => {
+    test('should remove all alerts from state, calling onClose function', () => {
       const wrapper = shallow(<AlertContainer />)
       const instance = wrapper.instance()
+      const onCloseFn1 = jest.fn()
+      const onCloseFn2 = jest.fn()
 
       expect(instance.state.alerts).toHaveLength(0)
-      instance.show('Some message')
-      instance.show('Some message')
+      instance.show('Some message', { onClose: onCloseFn1 })
+      instance.show('Some message', { onClose: onCloseFn2 })
       expect(instance.state.alerts).toHaveLength(2)
       instance.removeAll()
       expect(instance.state.alerts).toHaveLength(0)
+      expect(onCloseFn1).toHaveBeenCalled()
+      expect(onCloseFn2).toHaveBeenCalled()
     })
   })
 
@@ -135,12 +139,14 @@ describe('AlertContainer', () => {
     test('should remove a given alert from state', () => {
       const wrapper = shallow(<AlertContainer />)
       const instance = wrapper.instance()
+      const onCloseFn = jest.fn()
 
       expect(instance.state.alerts).toHaveLength(0)
-      instance.show('Some message')
+      instance.show('Some message', { onClose: onCloseFn })
       expect(instance.state.alerts).toHaveLength(1)
       instance._removeAlert(instance.state.alerts[0].id)
       expect(instance.state.alerts).toHaveLength(0)
+      expect(onCloseFn).toHaveBeenCalled()
     })
   })
 })
