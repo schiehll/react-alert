@@ -84,13 +84,21 @@ The `AlertContainer` component accepts the following props:
 }
 ```
 
-When you call the `show` method, you can include the following options as a second parameter:
+When you call `show`, `info`, `success` and `error` method, you can include the following options as a second parameter:
 
 ```js
 {
   time: 0, // the time in miliseconds to the alert close itself, use 0 to prevent auto close (apply to this alert only), default is 5000
-  type: 'info', // the alert type, can be [info, success, error], default is info
-  icon: <img src="path/to/some/img/32x32.png" /> // the icon to show in the alert, if none is given the default of each type will be showed
+  icon: <img src="path/to/some/img/32x32.png" />, // the icon to show in the alert, if none is given the default of each type will be showed
+  onClose: () => {} // the function called when message is closed
+}
+```
+
+When you call the `show` method, you can additionally include the `info` option:
+
+```js
+{
+  type: 'info' // the alert type, can be [info, success, error], default is info
 }
 ```
 
