@@ -148,5 +148,22 @@ describe('AlertContainer', () => {
       expect(instance.state.alerts).toHaveLength(0)
       expect(onCloseFn).toHaveBeenCalled()
     })
+
+    test('should not call close function if alert is manually closed', () => {
+      const wrapper = shallow(<AlertContainer />)
+      const instance = wrapper.instance()
+      const onCloseFn = jest.fn()
+
+      expect(instance.state.alerts).toHaveLength(0)
+      instance.show('Some message', { onClose: onCloseFn })
+      expect(instance.state.alerts).toHaveLength(1)
+      instance._removeAlert(instance.state.alerts[0].id)
+
+      onCloseFn.mockReset()
+      
+      instance._removeAlert('deleted id')
+      expect(instance.state.alerts).toHaveLength(0)
+      expect(onCloseFn).not.toHaveBeenCalled()
+    })
   })
 })
