@@ -73,7 +73,7 @@ class AlertContainer extends Component {
     this.setState(prevState => ({
       alerts: prevState.alerts.filter(alert => alert.id !== id)
     }))
-    alertRemoved.onClose && alertRemoved.onClose()
+    alertRemoved && alertRemoved.onClose && alertRemoved.onClose()
   }
 
   render () {
