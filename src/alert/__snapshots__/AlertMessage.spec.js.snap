@@ -17,7 +17,7 @@ exports[`AlertMessage should change the icon based on the given type prop 1`] = 
     
   </div>
   <div
-    className="css-1lf6zld"
+    className="css-glk0q1"
     onClick={[Function]}
   />
 </div>
@@ -40,7 +40,7 @@ exports[`AlertMessage should change the icon based on the given type prop 2`] = 
     
   </div>
   <div
-    className="css-1lf6zld"
+    className="css-glk0q1"
     onClick={[Function]}
   />
 </div>
@@ -63,7 +63,7 @@ exports[`AlertMessage should change the icon based on the given type prop 3`] = 
     
   </div>
   <div
-    className="css-1lf6zld"
+    className="css-glk0q1"
     onClick={[Function]}
   />
 </div>
@@ -86,7 +86,7 @@ exports[`AlertMessage should render the given icon if any 1`] = `
     
   </div>
   <div
-    className="css-1lf6zld"
+    className="css-glk0q1"
     onClick={[Function]}
   />
 </div>
@@ -109,7 +109,7 @@ exports[`AlertMessage should render the given message 1`] = `
     Some important message
   </div>
   <div
-    className="css-1lf6zld"
+    className="css-glk0q1"
     onClick={[Function]}
   />
 </div>
@@ -132,7 +132,7 @@ exports[`AlertMessage should use the given theme 1`] = `
     
   </div>
   <div
-    className="css-vkgwmy"
+    className="css-exhbb1"
     onClick={[Function]}
   />
 </div>
