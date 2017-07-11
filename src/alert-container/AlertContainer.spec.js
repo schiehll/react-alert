@@ -135,7 +135,7 @@ describe('AlertContainer', () => {
     })
   })
 
-  describe('_removeAlert', () => {
+  describe('removeAlert', () => {
     test('should remove a given alert from state', () => {
       const wrapper = shallow(<AlertContainer />)
       const instance = wrapper.instance()
@@ -144,7 +144,7 @@ describe('AlertContainer', () => {
       expect(instance.state.alerts).toHaveLength(0)
       instance.show('Some message', { onClose: onCloseFn })
       expect(instance.state.alerts).toHaveLength(1)
-      instance._removeAlert(instance.state.alerts[0].id)
+      instance.removeAlert(instance.state.alerts[0].id)
       expect(instance.state.alerts).toHaveLength(0)
       expect(onCloseFn).toHaveBeenCalled()
     })
@@ -157,11 +157,11 @@ describe('AlertContainer', () => {
       expect(instance.state.alerts).toHaveLength(0)
       instance.show('Some message', { onClose: onCloseFn })
       expect(instance.state.alerts).toHaveLength(1)
-      instance._removeAlert(instance.state.alerts[0].id)
+      instance.removeAlert(instance.state.alerts[0].id)
 
       onCloseFn.mockReset()
       
-      instance._removeAlert('deleted id')
+      instance.removeAlert('deleted id')
       expect(instance.state.alerts).toHaveLength(0)
       expect(onCloseFn).not.toHaveBeenCalled()
     })
