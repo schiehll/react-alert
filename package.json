@@ -68,6 +68,7 @@
     ]
   },
   "dependencies": {
+    "babel": "^6.23.0",
     "glamor": "^2.20.24",
     "glamorous": "^3.13.1",
     "react-transition-group": "^1.1.2",
