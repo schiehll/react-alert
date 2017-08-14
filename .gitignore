@@ -1,4 +1,5 @@
 /node_modules
+dist
 demo
 coverage
 .DS_Store
