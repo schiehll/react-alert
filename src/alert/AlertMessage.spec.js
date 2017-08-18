@@ -1,5 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
+import {shallow} from 'enzyme'
 import AlertMessage from './AlertMessage'
 
 jest.useFakeTimers()
@@ -89,6 +90,18 @@ describe('AlertMessage', () => {
       }, props.time)
 
       jest.runOnlyPendingTimers()
+    })
+
+    test('should call the default onRemoveAlert', () => {
+      const props = {
+        time: 3
+      }
+
+      const wrapper = shallow(<AlertMessage {...props} />)
+      const instance = wrapper.instance()
+
+      expect(typeof (instance.props.onRemoveAlert)).toBe('function')
+      expect(instance.props.onRemoveAlert()).toBe(undefined)
     })
   })
 })

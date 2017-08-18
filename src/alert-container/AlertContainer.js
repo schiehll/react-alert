@@ -33,17 +33,17 @@ class AlertContainer extends Component {
 
   success = (message = '', options = {}) => {
     options.type = 'success'
-    this.show(message, options)
+    return this.show(message, options)
   }
 
   error = (message = '', options = {}) => {
     options.type = 'error'
-    this.show(message, options)
+    return this.show(message, options)
   }
 
   info = (message = '', options = {}) => {
     options.type = 'info'
-    this.show(message, options)
+    return this.show(message, options)
   }
 
   show = (message = '', options = {}) => {
@@ -60,18 +60,21 @@ class AlertContainer extends Component {
     this.setState(prevState => ({
       alerts: prevState.alerts.concat(alert)
     }))
+    return alert.id;
   }
 
   removeAll = () => {
+    const alertsRemoved = this.state.alerts
     this.setState({alerts: []})
+    alertsRemoved.forEach(alert => alert.onClose && alert.onClose())
   }
 
-  _removeAlert = id => {
+  removeAlert = id => {
+    const alertRemoved = this.state.alerts.filter(alert => alert.id === id)[0]
     this.setState(prevState => ({
-      alerts: prevState.alerts.filter(alert => {
-        return alert.id !== id
-      })
+      alerts: prevState.alerts.filter(alert => alert.id !== id)
     }))
+    alertRemoved && alertRemoved.onClose && alertRemoved.onClose()
   }
 
   render () {
@@ -89,7 +92,7 @@ class AlertContainer extends Component {
               <AlertMessage
                 key={alert.id}
                 {...alert}
-                onRemoveAlert={this._removeAlert}
+                onRemoveAlert={this.removeAlert}
               />
             )
           })}
