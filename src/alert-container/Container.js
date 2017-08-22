@@ -40,6 +40,15 @@ const Container = glamorous('div')({
         bottom: 0,
         left: 'auto'
       }
+    case 'top center':
+      return {
+        margin: `${props.glam.offset}px`,
+        top: 0,
+        right: 'auto',
+        bottom: 'auto',
+        left: '50%',
+        transform: 'translate(-50%,0%)'
+      }
   }
 })
 
