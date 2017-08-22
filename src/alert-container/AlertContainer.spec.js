@@ -44,6 +44,26 @@ describe('AlertContainer', () => {
 
     tree = component.toJSON()
     expect(tree).toMatchSnapshot()
+
+    props = {
+      position: 'top center'
+    }
+    component = renderer.create(
+      <AlertContainer {...props} />
+    )
+
+    tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+
+    props = {
+      position: 'bottom center'
+    }
+    component = renderer.create(
+      <AlertContainer {...props} />
+    )
+
+    tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
   })
 
   describe('show', () => {
@@ -160,7 +180,7 @@ describe('AlertContainer', () => {
       instance.removeAlert(instance.state.alerts[0].id)
 
       onCloseFn.mockReset()
-      
+
       instance.removeAlert('deleted id')
       expect(instance.state.alerts).toHaveLength(0)
       expect(onCloseFn).not.toHaveBeenCalled()
