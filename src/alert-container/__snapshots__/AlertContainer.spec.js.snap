@@ -31,3 +31,19 @@ exports[`AlertContainer should set its position based on the given position prop
   <span />
 </div>
 `;
+
+exports[`AlertContainer should set its position based on the given position prop 5`] = `
+<div
+  className="css-1e2jhbr"
+>
+  <span />
+</div>
+`;
+
+exports[`AlertContainer should set its position based on the given position prop 6`] = `
+<div
+  className="css-r7ps70"
+>
+  <span />
+</div>
+`;
