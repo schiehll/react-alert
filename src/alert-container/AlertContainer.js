@@ -62,7 +62,7 @@ class AlertContainer extends Component {
     this.setState(prevState => ({
       alerts: prevState.alerts.concat(alert)
     }))
-    return alert.id;
+    return alert.id
   }
 
   removeAll = () => {
