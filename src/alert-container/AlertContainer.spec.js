@@ -166,7 +166,7 @@ describe('AlertContainer', () => {
       expect(instance.state.alerts).toHaveLength(1)
       instance.removeAlert(instance.state.alerts[0].id)
       expect(instance.state.alerts).toHaveLength(1)
-      expect(onCloseFn).toHaveBeenCalled()
+      expect(onCloseFn).not.toHaveBeenCalled()
     })
 
     test('should not call close function if alert is manually closed', () => {
