@@ -165,7 +165,7 @@ describe('AlertContainer', () => {
       instance.show('Some message', { onClose: onCloseFn })
       expect(instance.state.alerts).toHaveLength(1)
       instance.removeAlert(instance.state.alerts[0].id)
-      expect(instance.state.alerts).toHaveLength(0)
+      expect(instance.state.alerts).toHaveLength(1)
       expect(onCloseFn).toHaveBeenCalled()
     })
 
@@ -182,7 +182,7 @@ describe('AlertContainer', () => {
       onCloseFn.mockReset()
 
       instance.removeAlert('deleted id')
-      expect(instance.state.alerts).toHaveLength(0)
+      expect(instance.state.alerts).toHaveLength(1)
       expect(onCloseFn).not.toHaveBeenCalled()
     })
   })
