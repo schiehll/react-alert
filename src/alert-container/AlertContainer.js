@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {CSSTransitionGroup} from 'react-transition-group'
-import shortid from 'shortid'
+import nanoid from 'nanoid'
 import Container from './Container'
 import AlertMessage from '../alert'
 
@@ -52,7 +52,7 @@ class AlertContainer extends Component {
     const {theme, time} = this.props
 
     const alert = {
-      id: shortid.generate(),
+      id: nanoid(7),
       message,
       time,
       theme,
