@@ -71,12 +71,12 @@ class AlertContainer extends Component {
     alertsRemoved.forEach(alert => alert.onClose && alert.onClose())
   }
 
-  removeAlert = id => {
+  removeAlert = (event, id) => {
     const alertRemoved = this.state.alerts.filter(alert => alert.id === id)[0]
     this.setState(prevState => ({
       alerts: prevState.alerts.filter(alert => alert.id !== id)
     }))
-    alertRemoved && alertRemoved.onClose && alertRemoved.onClose()
+    alertRemoved && alertRemoved.onClose && alertRemoved.onClose(event)
   }
 
   render () {

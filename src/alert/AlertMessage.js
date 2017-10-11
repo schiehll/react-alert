@@ -29,9 +29,9 @@ class AlertMessage extends Component {
     onRemoveAlert: PropTypes.func
   }
 
-  _removeItself = () => {
+  _removeItself = (event) => {
     const {onRemoveAlert, id} = this.props
-    onRemoveAlert(id)
+    onRemoveAlert(event, id)
   }
 
   componentDidMount () {
@@ -58,7 +58,7 @@ class AlertMessage extends Component {
         </Message>
         <Close
           glam={{dark}}
-          onClick={this._removeItself}
+          onClick={(event) => this._removeItself(event)}
         />
       </Alert>
     )
