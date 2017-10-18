@@ -15,7 +15,10 @@ class AlertContainer extends Component {
   }
 
   static propTypes = {
-    offset: PropTypes.number,
+    offset: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
     position: PropTypes.oneOf([
       'bottom left',
       'bottom right',
