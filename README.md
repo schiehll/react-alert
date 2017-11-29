@@ -1,4 +1,7 @@
 # react-alert
+THIS IS AN SMALL MODIFICATION OF THE ORIGINAL PACKAGE,
+WE ADDED 3 MORE DEFAULT THEMES: "green", "yellow" AND "red"
+you can see the original package at: https://github.com/schiehll/react-alert
 
 > A simple react alert (toaster style) component.
 
@@ -11,10 +14,6 @@
 
 You can see a live demo [here](http://schiehll.github.io/react-alert/).
 
-## Installation
-
-```bash
-$ npm install react-alert
 ```
 
 ## Usage
@@ -29,7 +28,7 @@ export default class App extends Component {
   alertOptions = {
     offset: 14,
     position: 'bottom left',
-    theme: 'dark',
+    theme: 'dark',  //can be dark, light, green, yellow or red
     time: 5000,
     transition: 'scale'
   }
