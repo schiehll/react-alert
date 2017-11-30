@@ -1,7 +1,16 @@
 # react-alert
-THIS IS AN SMALL MODIFICATION OF THE ORIGINAL PACKAGE,
-WE ADDED 3 MORE DEFAULT THEMES: "green", "yellow" AND "red"
-you can see the original package at: https://github.com/schiehll/react-alert
+THIS IS AN SMALL MODIFICATION OF THE ORIGINAL PACKAGE: https://github.com/schiehll/react-alert,
+CHANGES FROM THE ORIGINAL PACKAGE: 
+1) NEW THEMES ADDED:"green", "yellow" AND "red"
+2) DEFAULT ICONS CHANGED FOR OTHERS PRETTIER
+3) NEW TYPE: "success-game" COMES WITH A BEAUTIFUL ICON FOR GAMIFICATION!
+
+## Install
+
+FOR INSTALLING OUR FORKED VERSION:
+npm install https://github.com/flashcardx/react-alert/master --save
+
+
 
 > A simple react alert (toaster style) component.
 
