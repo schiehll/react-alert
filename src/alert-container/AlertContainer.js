@@ -24,7 +24,7 @@ class AlertContainer extends Component {
       'top center',
       'bottom center'
     ]),
-    theme: PropTypes.oneOf(['dark', 'light']),
+    theme: PropTypes.oneOf(['dark', 'light', 'green', 'yellow', 'red']),
     time: PropTypes.number,
     transition: PropTypes.oneOf(['scale', 'fade'])
   }

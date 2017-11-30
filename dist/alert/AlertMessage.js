@@ -84,7 +84,6 @@ var AlertMessage = function (_Component) {
           icon = _props.icon,
           type = _props.type;
 
-      console.log("theme: ", theme);
       var themes = {
         dark: theme === 'dark',
         light: theme === 'light',
@@ -130,7 +129,7 @@ AlertMessage.propTypes = {
   id: _propTypes2.default.string,
   icon: _propTypes2.default.element,
   message: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.string]),
-  type: _propTypes2.default.oneOf(['info', 'success', 'success-game', 'error']),
+  type: _propTypes2.default.oneOf(['info', 'info-game', 'success', 'success-game', 'error', 'error-game']),
   theme: _propTypes2.default.oneOf(['dark', 'light', 'green', 'yellow', 'red']),
   time: _propTypes2.default.number,
   onRemoveAlert: _propTypes2.default.func

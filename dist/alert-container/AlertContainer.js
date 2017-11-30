@@ -160,7 +160,7 @@ AlertContainer.defaultProps = {
 AlertContainer.propTypes = {
   offset: _propTypes2.default.number,
   position: _propTypes2.default.oneOf(['bottom left', 'bottom right', 'top right', 'top left', 'top center', 'bottom center']),
-  theme: _propTypes2.default.oneOf(['dark', 'light']),
+  theme: _propTypes2.default.oneOf(['dark', 'light', 'green', 'yellow', 'red']),
   time: _propTypes2.default.number,
   transition: _propTypes2.default.oneOf(['scale', 'fade'])
 };

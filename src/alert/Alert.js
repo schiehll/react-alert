@@ -11,8 +11,8 @@ const Alert = glamorous('div')({
   justifyContent: 'space-between',
   borderRadius: '2px',
   fontSize: '12px',
-  fontWeight: "bold",
-  fontFamily: "roboto",
+  fontWeight: "500",
+  fontFamily: 'Helvetica, Arial, Sans-Serif',
   boxShadow: '0 8px 12px 0 rgba(0,0,0,0.3)',
   position: 'relative',
   '&.scale-enter': {
@@ -45,7 +45,6 @@ const Alert = glamorous('div')({
   }
 }, props =>{
   var backgroundColor;
-  console.log("props.glam: ", props.glam);
   if(props.glam.dark)
       backgroundColor = '#333';
   else if(props.glam.light)

@@ -19,8 +19,8 @@ var Alert = (0, _glamorousCjs2.default)('div')({
   justifyContent: 'space-between',
   borderRadius: '2px',
   fontSize: '12px',
-  fontWeight: "bold",
-  fontFamily: "roboto",
+  fontWeight: "500",
+  fontFamily: 'Helvetica, Arial, Sans-Serif',
   boxShadow: '0 8px 12px 0 rgba(0,0,0,0.3)',
   position: 'relative',
   '&.scale-enter': {
@@ -53,7 +53,6 @@ var Alert = (0, _glamorousCjs2.default)('div')({
   }
 }, function (props) {
   var backgroundColor;
-  console.log("props.glam: ", props.glam);
   if (props.glam.dark) backgroundColor = '#333';else if (props.glam.light) backgroundColor = '#fff';else if (props.glam.green) backgroundColor = '#5cb85c';else if (props.glam.yellow) backgroundColor = '#efe22d';else if (props.glam.red) backgroundColor = '#f4424b';
   return {
     backgroundColor: backgroundColor,

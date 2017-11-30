@@ -23,7 +23,7 @@ class AlertMessage extends Component {
       PropTypes.element,
       PropTypes.string
     ]),
-    type: PropTypes.oneOf(['info', 'success', 'success-game', 'error']),
+    type: PropTypes.oneOf(['info', 'info-game','success', 'success-game', 'error', 'error-game']),
     theme: PropTypes.oneOf(['dark', 'light','green', 'yellow', 'red']),
     time: PropTypes.number,
     onRemoveAlert: PropTypes.func
@@ -46,7 +46,6 @@ class AlertMessage extends Component {
 
   render () {
     const {message, theme, icon, type} = this.props
-    console.log("theme: ", theme);
     const themes ={
         dark: theme === 'dark',
         light: theme === 'light',
