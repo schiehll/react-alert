@@ -23,8 +23,8 @@ class AlertMessage extends Component {
       PropTypes.element,
       PropTypes.string
     ]),
-    type: PropTypes.oneOf(['info', 'success', 'error']),
-    theme: PropTypes.oneOf(['dark', 'light']),
+    type: PropTypes.oneOf(['info', 'success', 'success-game', 'error']),
+    theme: PropTypes.oneOf(['dark', 'light','green', 'yellow', 'red']),
     time: PropTypes.number,
     onRemoveAlert: PropTypes.func
   }
@@ -46,10 +46,17 @@ class AlertMessage extends Component {
 
   render () {
     const {message, theme, icon, type} = this.props
-    const dark = theme === 'dark'
+    console.log("theme: ", theme);
+    const themes ={
+        dark: theme === 'dark',
+        light: theme === 'light',
+        green: theme === 'green',
+        yellow: theme === "yellow",
+        red: theme === "red"
+    } 
 
     return (
-      <Alert glam={{dark}}>
+      <Alert glam={themes}>
         <IconPlaceholder>
           {icon || <Icon glam={{type}} />}
         </IconPlaceholder>
@@ -57,7 +64,7 @@ class AlertMessage extends Component {
           {message}
         </Message>
         <Close
-          glam={{dark}}
+          glam={themes}
           onClick={this._removeItself}
         />
       </Alert>

@@ -1,5 +1,7 @@
 import glamorous from 'glamorous/dist/glamorous.cjs.tiny'
 
+
+
 const Alert = glamorous('div')({
   width: '300px',
   minHeight: '50px',
@@ -8,7 +10,9 @@ const Alert = glamorous('div')({
   alignItems: 'center',
   justifyContent: 'space-between',
   borderRadius: '2px',
-  fontSize: '11px',
+  fontSize: '12px',
+  fontWeight: "bold",
+  fontFamily: "roboto",
   boxShadow: '0 8px 12px 0 rgba(0,0,0,0.3)',
   position: 'relative',
   '&.scale-enter': {
@@ -39,9 +43,23 @@ const Alert = glamorous('div')({
     opacity: '0.1',
     transition: 'all 250ms ease-in'
   }
-}, props => ({
-  backgroundColor: `${props.glam.dark ? '#333' : '#fff'}`,
-  color: `${props.glam.dark ? '#fff' : '#333'}`
-}))
+}, props =>{
+  var backgroundColor;
+  console.log("props.glam: ", props.glam);
+  if(props.glam.dark)
+      backgroundColor = '#333';
+  else if(props.glam.light)
+      backgroundColor = '#fff';
+  else if(props.glam.green)
+      backgroundColor = '#5cb85c';
+  else if(props.glam.yellow)
+      backgroundColor = '#efe22d';
+  else if(props.glam.red)
+      backgroundColor = '#f4424b';
+  return {
+        backgroundColor: backgroundColor,
+        color: `${props.glam.dark || props.glam.green|| props.glam.red? '#fff' : '#333'}`
+      }
+})
 
 export default Alert
