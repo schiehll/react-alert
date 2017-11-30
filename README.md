@@ -8,7 +8,9 @@ CHANGES FROM THE ORIGINAL PACKAGE:
 ## Install
 
 FOR INSTALLING OUR FORKED VERSION:
-npm install https://github.com/flashcardx/react-alert/master --save
+```
+sudo npm install git+https://git@github.com/flashcardx/react-alert.git --save
+```
 
 
 
