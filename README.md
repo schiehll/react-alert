@@ -5,6 +5,13 @@ CHANGES FROM THE ORIGINAL PACKAGE:
 2) DEFAULT ICONS CHANGED FOR OTHERS PRETTIER
 3) NEW TYPE: "success-game" COMES WITH A BEAUTIFUL ICON FOR GAMIFICATION!
 
+## Install
+
+FOR INSTALLING OUR FORKED VERSION:
+npm install https://github.com/flashcardx/react-alert/master --save
+
+
+
 > A simple react alert (toaster style) component.
 
 [![travis build](https://img.shields.io/travis/schiehll/react-alert.svg?style=flat-square)](https://travis-ci.org/schiehll/react-alert)
