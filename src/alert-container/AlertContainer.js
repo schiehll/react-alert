@@ -49,7 +49,6 @@ class AlertContainer extends Component {
   }
 
   show = (message = '', options = {}) => {
-    console.log('REACT-ALERT ACTIVATE!!!!')
     const {theme, time} = this.props
 
     const alert = {
