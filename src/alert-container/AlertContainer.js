@@ -49,6 +49,7 @@ class AlertContainer extends Component {
   }
 
   show = (message = '', options = {}) => {
+    console.log('REACT-ALERT ACTIVATE!!!!')
     const {theme, time} = this.props
 
     const alert = {
@@ -61,7 +62,7 @@ class AlertContainer extends Component {
 
     this.setState(prevState => ({
       alerts: prevState.alerts.concat(alert)
-    }))
+    }), () => alert.onOpen && alert.onOpen())
     return alert.id
   }
 
