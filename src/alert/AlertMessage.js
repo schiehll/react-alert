@@ -45,15 +45,15 @@ class AlertMessage extends Component {
   }
 
   render () {
-    const {message, theme, icon, type} = this.props
+    const {message, theme, icon, type, boxShadow} = this.props
     const dark = theme === 'dark'
-
+    console.log(boxShadow)
     return (
       <Alert glam={{dark}}>
         <IconPlaceholder>
           {icon || <Icon glam={{type}} />}
         </IconPlaceholder>
-        <Message>
+        <Message glam={{boxShadow}}>
           {message}
         </Message>
         <Close
