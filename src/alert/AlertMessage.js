@@ -49,11 +49,11 @@ class AlertMessage extends Component {
     const dark = theme === 'dark'
     console.log(boxShadow)
     return (
-      <Alert glam={{dark}}>
+      <Alert glam={{dark, boxShadow}}>
         <IconPlaceholder>
           {icon || <Icon glam={{type}} />}
         </IconPlaceholder>
-        <Message glam={{boxShadow}}>
+        <Message>
           {message}
         </Message>
         <Close
