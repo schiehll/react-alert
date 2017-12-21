@@ -3,7 +3,6 @@ import glamorous from 'glamorous/dist/glamorous.cjs.tiny'
 const Alert = glamorous('div')({
   width: '300px',
   minHeight: '50px',
-  margin: '0 0 2px 0',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
