@@ -7,7 +7,6 @@ const Alert = glamorous('div')({
   alignItems: 'center',
   justifyContent: 'space-between',
   fontSize: '11px',
-  
   position: 'relative',
   '&.scale-enter': {
     transform: 'scale(0)'
@@ -40,7 +39,8 @@ const Alert = glamorous('div')({
 }, props => ({
   backgroundColor: `${props.glam.dark ? '#333' : '#fff'}`,
   color: `${props.glam.dark ? '#fff' : '#333'}`,
-  boxShadow: `${props.glam.boxShadow || '0 8px 12px 0 rgba(0,0,0,0.3)'}`
+  boxShadow: `${props.glam.boxShadow || '0 8px 12px 0 rgba(0,0,0,0.3)'}`,
+  margin: `0 0 ${+(!props.glam.lastAlert)}px 0` 
 }))
 
 export default Alert
