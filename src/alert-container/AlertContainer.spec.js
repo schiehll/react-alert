@@ -135,6 +135,17 @@ describe('AlertContainer', () => {
       expect(instance.state.alerts[0].foo).toBe(1)
       expect(instance.state.alerts[0].bar).toBe(2)
     })
+
+    test('should call custom onOpen function if provided', () => {
+      const wrapper = shallow(<AlertContainer time={123} theme='light' />)
+      const instance = wrapper.instance()
+      const onOpenFn = jest.fn()
+
+      instance.show('custom message')
+      expect(onOpenFn).toHaveBeenCalledTimes(0)
+      instance.show('custom message', { onOpen: onOpenFn })
+      expect(onOpenFn).toHaveBeenCalled()
+    })
   })
 
   describe('removeAll', () => {

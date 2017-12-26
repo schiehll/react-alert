@@ -61,7 +61,7 @@ class AlertContainer extends Component {
 
     this.setState(prevState => ({
       alerts: prevState.alerts.concat(alert)
-    }))
+    }), () => alert.onOpen && alert.onOpen())
     return alert.id
   }
 
@@ -81,7 +81,6 @@ class AlertContainer extends Component {
 
   render () {
     const {position, offset, transition} = this.props
-
     return (
       <Container glam={{position, offset}}>
         <CSSTransitionGroup
@@ -89,7 +88,7 @@ class AlertContainer extends Component {
           transitionEnterTimeout={250}
           transitionLeaveTimeout={250}
         >
-          {this.state.alerts.map(alert => {
+          {this.state.alerts.map((alert) => {
             return (
               <AlertMessage
                 key={alert.id}
