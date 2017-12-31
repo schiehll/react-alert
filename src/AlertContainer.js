@@ -27,7 +27,7 @@ class AlertContainer {
     }
 
     this.alerts.push(alert)
-    this._broadcast()
+    this._broadcastToFirstListner()
 
     return alert
   }
@@ -37,7 +37,7 @@ class AlertContainer {
     this.alerts = this.alerts.filter(a => a.id !== alert.id)
 
     if (lengthBeforeRemove > this.alerts.length) {
-      this._broadcast()
+      this._broadcastToFirstListner()
       alert.options.onClose && alert.options.onClose()
     }
   }
@@ -59,8 +59,8 @@ class AlertContainer {
 
   _getAlerts = () => this.alerts
 
-  _broadcast = () => {
-    this.listners.forEach(listener => listener(this.alerts))
+  _broadcastToFirstListner = () => {
+    this.listners.length && this.listners[0](this.alerts)
   }
 
   _subscribe = listener => {
