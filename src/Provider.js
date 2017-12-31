@@ -30,7 +30,7 @@ class Provider extends Component {
   alertRootElement = document.createElement('div')
 
   componentDidMount () {
-    document.body.insertBefore(this.alertRootElement, document.body.firstChild)
+    document.body.appendChild(this.alertRootElement)
   }
 
   componentWillUnmount () {

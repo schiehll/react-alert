@@ -46,7 +46,7 @@ const withAlert = WrappedComponent => {
           <WrappedComponent
             {...this.props}
             alert={alertContainer}
-        />
+          />
           {ReactDOM.createPortal(
             <AlertWrapper {...options}>
               <TransitionGroup>

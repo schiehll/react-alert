@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const getStyles = ({ position }) => {
+export const getStyles = ({ position }) => {
   switch (position) {
     case 'top left':
       return {
@@ -55,8 +55,14 @@ const getStyles = ({ position }) => {
   }
 }
 
-const AlertWrapper = ({ children, ...props }) => (
-  <div style={getStyles(props)} {...props}>{children}</div>
-)
+class AlertWrapper extends Component {
+  render () {
+    const { children, ...props } = this.props
+
+    return (
+      <div style={getStyles(props)} {...props}>{children}</div>
+    )
+  }
+}
 
 export default AlertWrapper
