@@ -1,4 +1,18 @@
 # react-alert
+THIS IS AN SMALL MODIFICATION OF THE ORIGINAL PACKAGE: https://github.com/schiehll/react-alert,
+CHANGES FROM THE ORIGINAL PACKAGE: 
+1) NEW THEMES ADDED:"green", "yellow" AND "red"
+2) DEFAULT ICONS CHANGED FOR OTHERS PRETTIER
+3) NEW TYPES: "success-game", "error-game", "info-game"  COMING WITH BEAUTIFUL DEFAULT ICONS FOR GAMIFICATION!
+
+## Install
+
+FOR INSTALLING OUR FORKED VERSION:
+```
+sudo npm install git+https://git@github.com/flashcardx/react-alert.git --save
+```
+
+
 
 > A simple react alert (toaster style) component.
 
@@ -11,10 +25,6 @@
 
 You can see a live demo [here](http://schiehll.github.io/react-alert/).
 
-## Installation
-
-```bash
-$ npm install react-alert
 ```
 
 ## Usage
@@ -29,7 +39,7 @@ export default class App extends Component {
   alertOptions = {
     offset: 14,
     position: 'bottom left',
-    theme: 'dark',
+    theme: 'dark',  //can be dark, light, green, yellow or red
     time: 5000,
     transition: 'scale'
   }

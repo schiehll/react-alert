@@ -8,7 +8,7 @@ import AlertMessage from '../alert'
 class AlertContainer extends Component {
   static defaultProps = {
     offset: 14,
-    position: 'bottom left',
+    position: 'top right',
     theme: 'dark',
     time: 5000,
     transition: 'scale'
@@ -24,7 +24,7 @@ class AlertContainer extends Component {
       'top center',
       'bottom center'
     ]),
-    theme: PropTypes.oneOf(['dark', 'light']),
+    theme: PropTypes.oneOf(['dark', 'light', 'green', 'yellow', 'red']),
     time: PropTypes.number,
     transition: PropTypes.oneOf(['scale', 'fade'])
   }
@@ -47,6 +47,7 @@ class AlertContainer extends Component {
     options.type = 'info'
     return this.show(message, options)
   }
+
 
   show = (message = '', options = {}) => {
     const {theme, time} = this.props

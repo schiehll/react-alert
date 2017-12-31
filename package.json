@@ -20,6 +20,7 @@
     "build": "babel src --out-dir dist --ignore *.spec.js,*.snap",
     "build:watch": "babel src --out-dir dist --watch --ignore *.spec.js,*.snap",
     "lint": "standard --fix",
+    "prepare": "prepublish",
     "test": "standard --fix && jest --coverage --no-cache",
     "test:watch": "standard --fix && jest --watch --coverage --no-cache"
   },
@@ -36,6 +37,7 @@
     "coveralls": "^2.13.1",
     "enzyme": "^2.8.2",
     "jest-cli": "^19.0.2",
+    "prepublish": "^1.5.2",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

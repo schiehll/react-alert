@@ -1,8 +1,16 @@
-import glamorous from 'glamorous/dist/glamorous.cjs.tiny'
+'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _glamorousCjs = require('glamorous/dist/glamorous.cjs.tiny');
 
-const Alert = glamorous('div')({
+var _glamorousCjs2 = _interopRequireDefault(_glamorousCjs);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Alert = (0, _glamorousCjs2.default)('div')({
   width: '300px',
   minHeight: '50px',
   margin: '10px 0 0 0',
@@ -43,22 +51,13 @@ const Alert = glamorous('div')({
     opacity: '0.1',
     transition: 'all 250ms ease-in'
   }
-}, props =>{
+}, function (props) {
   var backgroundColor;
-  if(props.glam.dark)
-      backgroundColor = '#333';
-  else if(props.glam.light)
-      backgroundColor = '#fff';
-  else if(props.glam.green)
-      backgroundColor = '#5cb85c';
-  else if(props.glam.yellow)
-      backgroundColor = '#efe22d';
-  else if(props.glam.red)
-      backgroundColor = '#f4424b';
+  if (props.glam.dark) backgroundColor = '#333';else if (props.glam.light) backgroundColor = '#fff';else if (props.glam.green) backgroundColor = '#5cb85c';else if (props.glam.yellow) backgroundColor = '#efe22d';else if (props.glam.red) backgroundColor = '#f4424b';
   return {
-        backgroundColor: backgroundColor,
-        color: `${props.glam.dark || props.glam.green|| props.glam.red? '#fff' : '#333'}`
-      }
-})
+    backgroundColor: backgroundColor,
+    color: '' + (props.glam.dark || props.glam.green || props.glam.red ? '#fff' : '#333')
+  };
+});
 
-export default Alert
+exports.default = Alert;
