@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
+import AlertWrapper from './AlertWrapper'
+import AlertTranstion from './AlertTransition'
+import TransitionGroup from 'react-transition-group/TransitionGroup'
 
 const withAlert = WrappedComponent => {
   class WithAlert extends Component {
@@ -10,39 +13,54 @@ const withAlert = WrappedComponent => {
 
     static contextTypes = {
       alertContainer: PropTypes.object.isRequired,
-      alertRoot: PropTypes.object.isRequired
+      alertRoot: PropTypes.object.isRequired,
+      alertTemplate: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
+      options: PropTypes.object.isRequired
     }
 
     state = {
       alerts: []
     }
 
-    setAlerts = alerts => {
+    syncAlerts = alerts => {
       this.setState({ alerts })
     }
 
     componentWillMount () {
-      this.setState({ alerts: this.context.alertContainer.getAlerts() })
+      this.setState({ alerts: this.context.alertContainer._getAlerts() })
     }
 
     componentDidMount () {
-      this.context.alertContainer.subscribe(this.setAlerts)
+      this.context.alertContainer._subscribe(this.syncAlerts)
     }
 
     componentWillUnmount () {
-      this.context.alertContainer.unsubscribe(this.setAlerts)
+      this.context.alertContainer._unsubscribe(this.syncAlerts)
     }
 
     render () {
+      const { alertContainer, alertTemplate, alertRoot, options } = this.context
+
       return (
         <Fragment>
           <WrappedComponent
             {...this.props}
-            alert={this.context.alertContainer}
+            alert={alertContainer}
         />
           {ReactDOM.createPortal(
-            this.state.alerts.map((alert, index) => <div key={index}>{alert}</div>),
-            this.context.alertRoot
+            <AlertWrapper {...options}>
+              <TransitionGroup>
+                {this.state.alerts.map((alert, index) => {
+                  const AlertComponent = alertTemplate
+                  return (
+                    <AlertTranstion type={options.transition} key={alert.id}>
+                      <AlertComponent style={{ margin: `${options.offset}px` }} {...alert} />
+                    </AlertTranstion>
+                  )
+                })}
+              </TransitionGroup>
+            </AlertWrapper>,
+            alertRoot
           )}
         </Fragment>
       )

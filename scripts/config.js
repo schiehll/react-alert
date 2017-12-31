@@ -44,15 +44,19 @@ const config = {
   input: 'src/index.js',
   output: {
     globals: {
-      react: 'React',
+      'react': 'React',
       'prop-types': 'PropTypes',
-      'react-dom': 'ReactDOM'
+      'react-dom': 'ReactDOM',
+      'react-transition-group/TransitionGroup': 'TransitionGroup',
+      'react-transition-group/Transition': 'Transition'
     }
   },
   external: [
     'react',
     'prop-types',
-    'react-dom'
+    'react-dom',
+    'react-transition-group/TransitionGroup',
+    'react-transition-group/Transition'
   ],
   plugins: getPlugins(process.env.BUILD_ENV)
 }
