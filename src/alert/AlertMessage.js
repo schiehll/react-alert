@@ -23,7 +23,7 @@ class AlertMessage extends Component {
       PropTypes.element,
       PropTypes.string
     ]),
-    type: PropTypes.oneOf(['info', 'info-game','success', 'success-game', 'error', 'error-game']),
+    type: PropTypes.oneOf(['info', 'warning', 'warning-game','success', 'success-game', 'error', 'error-game']),
     theme: PropTypes.oneOf(['dark', 'light','green', 'yellow', 'red']),
     time: PropTypes.number,
     onRemoveAlert: PropTypes.func
