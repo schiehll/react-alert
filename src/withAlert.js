@@ -54,7 +54,7 @@ const withAlert = WrappedComponent => {
                   const AlertComponent = alertTemplate
                   return (
                     <AlertTranstion type={options.transition} key={alert.id}>
-                      <AlertComponent style={{ margin: `${options.offset}px` }} {...alert} />
+                      <AlertComponent style={{ margin: options.offset }} {...alert} />
                     </AlertTranstion>
                   )
                 })}

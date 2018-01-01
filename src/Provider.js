@@ -4,7 +4,7 @@ import Broadcast from './Broadcast'
 
 class Provider extends Component {
   static propTypes = {
-    offset: PropTypes.number,
+    offset: PropTypes.string,
     position: PropTypes.oneOf([
       'top left',
       'top right',
@@ -16,11 +16,11 @@ class Provider extends Component {
     timeout: PropTypes.number,
     type: PropTypes.oneOf(['info', 'success', 'error']),
     transition: PropTypes.oneOf(['fade', 'scale']),
-    alertTemplate: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
+    template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
   }
 
   static defaultProps = {
-    offset: 10,
+    offset: '10px',
     position: 'top center',
     timeout: 0,
     type: 'info',
@@ -38,12 +38,12 @@ class Provider extends Component {
   }
 
   render () {
-    const { children, alertTemplate, offset, position, timeout, type, transition } = this.props
+    const { children, template, offset, position, timeout, type, transition } = this.props
 
     return (
       <Broadcast
         alertRoot={this.alertRootElement}
-        alertTemplate={alertTemplate}
+        alertTemplate={template}
         options={{ offset, position, timeout, type, transition }}
       >
         {children}
