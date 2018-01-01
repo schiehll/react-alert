@@ -39,7 +39,7 @@ describe('public api', () => {
     it('should pass alert prop down to the wrapped component with the show, info, success, error and remove funcions', () => {
       const ChildWithAlert = withAlert(Child)
       const tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate}>
+        <Provider template={AlertTemplate}>
           <ChildWithAlert />
         </Provider>
       )
@@ -57,7 +57,7 @@ describe('public api', () => {
     it('should use the given alertTemplate', () => {
       const ChildWithAlert = withAlert(Child)
       const tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate}>
+        <Provider template={AlertTemplate}>
           <ChildWithAlert />
         </Provider>
       )
@@ -75,7 +75,7 @@ describe('public api', () => {
 
       let position = 'bottom left'
       let tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate} position={position}>
+        <Provider template={AlertTemplate} position={position}>
           <ChildWithAlert />
         </Provider>
       )
@@ -85,7 +85,7 @@ describe('public api', () => {
 
       position = 'bottom center'
       tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate} position={position}>
+        <Provider template={AlertTemplate} position={position}>
           <ChildWithAlert />
         </Provider>
       )
@@ -95,7 +95,7 @@ describe('public api', () => {
 
       position = 'bottom right'
       tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate} position={position}>
+        <Provider template={AlertTemplate} position={position}>
           <ChildWithAlert />
         </Provider>
       )
@@ -105,7 +105,7 @@ describe('public api', () => {
 
       position = 'top left'
       tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate} position={position}>
+        <Provider template={AlertTemplate} position={position}>
           <ChildWithAlert />
         </Provider>
       )
@@ -115,7 +115,7 @@ describe('public api', () => {
 
       position = 'top center'
       tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate} position={position}>
+        <Provider template={AlertTemplate} position={position}>
           <ChildWithAlert />
         </Provider>
       )
@@ -125,7 +125,7 @@ describe('public api', () => {
 
       position = 'top right'
       tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate} position={position}>
+        <Provider template={AlertTemplate} position={position}>
           <ChildWithAlert />
         </Provider>
       )
@@ -139,7 +139,7 @@ describe('public api', () => {
 
       const div = document.createElement('div')
       const tree = ReactDOM.render(
-        <Provider alertTemplate={AlertTemplate}>
+        <Provider template={AlertTemplate}>
           <ChildWithAlert />
         </Provider>,
         div
@@ -157,7 +157,7 @@ describe('public api', () => {
     it('should add an alert and return the object representing it', () => {
       const ChildWithAlert = withAlert(Child)
       const tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate}>
+        <Provider template={AlertTemplate}>
           <ChildWithAlert />
         </Provider>
       )
@@ -174,7 +174,7 @@ describe('public api', () => {
     it('should accept type and timeout options', () => {
       const ChildWithAlert = withAlert(Child)
       const tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate}>
+        <Provider template={AlertTemplate}>
           <ChildWithAlert />
         </Provider>
       )
@@ -195,7 +195,7 @@ describe('public api', () => {
     it('should remove the alert after the given timeout', () => {
       const ChildWithAlert = withAlert(Child)
       const tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate}>
+        <Provider template={AlertTemplate}>
           <ChildWithAlert />
         </Provider>
       )
@@ -220,7 +220,7 @@ describe('public api', () => {
     it('should add an alert', () => {
       const ChildWithAlert = withAlert(Child)
       const tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate}>
+        <Provider template={AlertTemplate}>
           <ChildWithAlert />
         </Provider>
       )
@@ -241,7 +241,7 @@ describe('public api', () => {
     it('should accept timeout option', () => {
       const ChildWithAlert = withAlert(Child)
       const tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate}>
+        <Provider template={AlertTemplate}>
           <ChildWithAlert />
         </Provider>
       )
@@ -267,7 +267,7 @@ describe('public api', () => {
     it('should remove the alert matching the id', () => {
       const ChildWithAlert = withAlert(Child)
       const tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate}>
+        <Provider template={AlertTemplate}>
           <ChildWithAlert />
         </Provider>
       )
@@ -286,7 +286,7 @@ describe('public api', () => {
     it('should call onClose callback', () => {
       const ChildWithAlert = withAlert(Child)
       const tree = TestUtils.renderIntoDocument(
-        <Provider alertTemplate={AlertTemplate}>
+        <Provider template={AlertTemplate}>
           <ChildWithAlert />
         </Provider>
       )
