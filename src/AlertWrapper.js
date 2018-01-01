@@ -1,16 +1,10 @@
-import glamorous from 'glamorous/dist/glamorous.cjs.tiny'
+import React, { Component } from 'react'
 
-const Container = glamorous('div')({
-  position: 'fixed',
-  right: 0,
-  bottom: 0,
-  margin: '14px',
-  zIndex: 999999
-}, props => {
-  switch (props.glam.position) {
+export const getStyles = ({ position }) => {
+  switch (position) {
     case 'top left':
       return {
-        margin: `${props.glam.offset}px`,
+        position: 'fixed',
         top: 0,
         right: 'auto',
         bottom: 'auto',
@@ -18,7 +12,7 @@ const Container = glamorous('div')({
       }
     case 'top right':
       return {
-        margin: `${props.glam.offset}px`,
+        position: 'fixed',
         top: 0,
         right: 0,
         bottom: 'auto',
@@ -26,7 +20,7 @@ const Container = glamorous('div')({
       }
     case 'bottom left':
       return {
-        margin: `${props.glam.offset}px`,
+        position: 'fixed',
         top: 'auto',
         right: 'auto',
         bottom: 0,
@@ -34,7 +28,7 @@ const Container = glamorous('div')({
       }
     case 'bottom right':
       return {
-        margin: `${props.glam.offset}px`,
+        position: 'fixed',
         top: 'auto',
         right: 0,
         bottom: 0,
@@ -42,23 +36,33 @@ const Container = glamorous('div')({
       }
     case 'top center':
       return {
-        margin: `${props.glam.offset}px`,
+        position: 'fixed',
         top: 0,
         right: 'auto',
         bottom: 'auto',
         left: '50%',
-        transform: 'translate(-50%,0%)'
+        transform: 'translate(-50%, 0%)'
       }
     case 'bottom center':
       return {
-        margin: `${props.glam.offset}px`,
+        position: 'fixed',
         top: 'auto',
         right: 'auto',
         bottom: 0,
         left: '50%',
-        transform: 'translate(-50%,0%)'
+        transform: 'translate(-50%, 0%)'
       }
   }
-})
+}
 
-export default Container
+class AlertWrapper extends Component {
+  render () {
+    const { children, ...props } = this.props
+
+    return (
+      <div style={getStyles(props)} {...props}>{children}</div>
+    )
+  }
+}
+
+export default AlertWrapper

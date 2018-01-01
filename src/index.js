@@ -1,3 +1,2 @@
-import AlertContainer from './alert-container'
-
-export default AlertContainer
+export Provider from './Provider'
+export withAlert from './withAlert'

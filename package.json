@@ -1,9 +1,11 @@
 {
   "name": "react-alert",
   "description": "A simple react alert component",
-  "version": "2.4.0",
+  "version": "3.0.0",
   "author": "Reinaldo Schiehll <rn.schiehll@gmail.com>",
-  "main": "dist/index.js",
+  "main": "dist/cjs/react-alert.js",
+  "module": "dist/esm/react-alert.js",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/schiehll/react-alert.git"
@@ -17,60 +19,56 @@
     "react-component"
   ],
   "scripts": {
-    "build": "babel src --out-dir dist --ignore *.spec.js,*.snap",
-    "build:watch": "babel src --out-dir dist --watch --ignore *.spec.js,*.snap",
+    "build": "node ./scripts/build.js",
     "lint": "standard --fix",
     "test": "standard --fix && jest --coverage --no-cache",
-    "test:watch": "standard --fix && jest --watch --coverage --no-cache"
-  },
-  "peerDependencies": {
-    "react": "^15.5.4"
+    "test:watch": "jest --watch --coverage --no-cache"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-eslint": "^7.2.3",
-    "babel-jest": "^19.0.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "8.0.3",
+    "babel-jest": "^22.0.4",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "coveralls": "^2.13.1",
-    "enzyme": "^2.8.2",
-    "jest-cli": "^19.0.2",
-    "prop-types": "^15.5.8",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-test-renderer": "^15.5.4",
-    "standard": "^10.0.2"
+    "babel-preset-stage-1": "^6.24.1",
+    "jest-cli": "^22.0.4",
+    "pascal-case": "^2.0.1",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-test-renderer": "^16.2.0",
+    "react-transition-group": "^2.2.1",
+    "rollup": "^0.53.2",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-uglify": "^2.0.1",
+    "standard": "^10.0.3"
   },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react",
-      "stage-2"
-    ]
+  "peerDependencies": {
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-transition-group": "^2.2.1"
   },
   "standard": {
     "parser": "babel-eslint",
     "globals": [
-      "beforeEach",
-      "test",
+      "jest",
       "describe",
-      "expect",
-      "jest"
+      "it",
+      "expect"
     ],
     "ignore": [
       "dist"
     ]
   },
   "jest": {
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/dist/"
+    "collectCoverageFrom": [
+      "src/*.js",
+      "!src/index.js"
     ]
-  },
-  "dependencies": {
-    "glamor": "^2.20.24",
-    "glamorous": "^3.13.1",
-    "nanoid": "^0.2.2",
-    "react-transition-group": "^1.1.2"
   }
 }

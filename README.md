@@ -1,112 +1,218 @@
 # react-alert
 
-> A simple react alert (toaster style) component.
+> This is the docs for v3, if you are still using v2 (React 15) you should look [here](https://github.com/schiehll/react-alert/tree/v2)
 
 [![travis build](https://img.shields.io/travis/schiehll/react-alert.svg?style=flat-square)](https://travis-ci.org/schiehll/react-alert)
-[![Coveralls branch](https://img.shields.io/coveralls/schiehll/react-alert/master.svg?style=flat-square)](https://coveralls.io/github/schiehll/react-alert?branch=master)
 [![version](https://img.shields.io/npm/v/react-alert.svg?style=flat-square)](http://npm.im/react-alert)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard)
 
 ## Demo
 
-You can see a live demo [here](http://schiehll.github.io/react-alert/).
+[![Edit l2mo430lzq](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/l2mo430lzq)
 
 ## Installation
 
 ```bash
-$ npm install react-alert
+$ npm install --save react-alert
 ```
+
+In v3 you can now provide your own alert template, making things way more customizable. For that reason, we now have two packages, the core one `react-alert` and one with a basic implementation of an alert template, so if you don't need a custom alert you can just plug `react-alert-template-basic` in.
+
+If that's the case you will need to install it too:
+
+```bash
+$ npm install --save react-alert react-alert-template-basic
+```
+
+Also, this package expect the following peer dependencies:
+
+```js
+"prop-types": "^15.6.0"
+"react": "^16.2.0"
+"react-dom": "^16.2.0"
+"react-transition-group": "^2.2.1"
+```
+
+So make sure that you have those installed too!
 
 ## Usage
 
-To use it, you have to import the `AlertContainer` component, like this:
+First you have to wrap your app with the Provider giving it the alert template and optionally some options:
 
 ```js
-import React, {Component} from 'react'
-import AlertContainer from 'react-alert'
+// index.js
+import React, { Component } from 'react'
+import { render } from 'react-dom'
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
+import App from './App'
 
-export default class App extends Component {
-  alertOptions = {
-    offset: 14,
-    position: 'bottom left',
-    theme: 'dark',
-    time: 5000,
-    transition: 'scale'
-  }
+// optional cofiguration
+const options = {
+  position: 'bottom center',
+  timeout: 5000,
+  offset: 30,
+  transition: 'scale'
+}
 
-  showAlert = () => {
-    this.msg.show('Some text or component', {
-      time: 2000,
-      type: 'success',
-      icon: <img src="path/to/some/img/32x32.png" />
-    })
-  }
-
+class Root extends Component  {
   render () {
     return (
-      <div>
-        <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
-        <button onClick={this.showAlert}>Show Alert</button>
+      <AlertProvider template={AlertTemplate} {...options}>
+        <App />
+      </AlertProvider>
+    )
+  }
+}
+
+render(<Root />, document.getElementById('root'))
+```
+
+Then you wrap the components that you want to be able to show alerts:
+
+```js
+// App.js
+import React, { Component } from 'react'
+import { withAlert } from 'react-alert'
+
+class App extends Component  {
+  render () {
+    return (
+      <button
+        onClick={() => {
+          this.props.alert.show('Oh look, an alert!')
+        }}
+      >
+        Show Alert
+      </button>
+    )
+  }
+}
+
+export default withAlert(App)
+```
+
+And that's it!
+
+## Options
+
+You can pass the following options to `Provider`:
+
+```js
+offset: PropTypes.string // the margin of each alert
+position: PropTypes.oneOf([
+  'top left',
+  'top right',
+  'top center',
+  'bottom left',
+  'bottom right',
+  'bottom center'
+]) // the position of the alerts in the page
+timeout: PropTypes.number // timeout to alert remove itself, if  set to 0 it never removes itself
+type: PropTypes.oneOf(['info', 'success', 'error']) // the default alert type used when calling this.props.alert.show
+transition: PropTypes.oneOf(['fade', 'scale']) // the transition animation
+template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired // the alert template to be used
+```
+
+Here's the defaults:
+
+```js
+offset: '10px'
+position: 'top center'
+timeout: 0
+type: 'info'
+transition: 'fade'
+```
+
+Those options will be applied to all alerts.
+
+## Api
+
+When you wrap a component using `withAlert` you receive the `alert` prop. Here's all you can do with it:
+
+```js
+// show
+const alert = this.props.alert.show('Some message', {
+  timeout: 2000 , // custom timeout just for this one alert
+  type: 'success',
+  onClose: () => { console.log('closed') } // callback that will be executed after this alert is removed
+})
+
+// info
+// just an alias to this.props.alert.show(msg, { type: 'info' })
+const alert = this.props.alert.info('Some info', {
+  timeout: 2000 , // custom timeout just for this one alert
+  onClose: () => { console.log('closed') } // callback that will be executed after this alert is removed
+})
+
+// success
+// just an alias to this.props.alert.show(msg, { type: 'success' })
+const alert = this.props.alert.success('Some success', {
+  timeout: 2000 , // custom timeout just for this one alert
+  onClose: () => { console.log('closed') } // callback that will be executed after this alert is removed
+})
+
+// error
+// just an alias to this.props.alert.show(msg, { type: 'error' })
+const alert = this.props.alert.error('Some error', {
+  timeout: 2000 , // custom timeout just for this one alert
+  onClose: () => { console.log('closed') } // callback that will be executed after this alert is removed
+})
+
+// remove
+// use it to remove an alert programmatically
+this.props.alert.remove(alert)
+```
+
+## Using a custom alert template
+
+If you ever need to have an alert just the way you want, you can provide your own template! Here's a simple example:
+
+```js
+// index.js
+import React, { Component } from 'react'
+import { render } from 'react-dom'
+import { Provider as AlertProvider } from 'react-alert'
+import App from './App'
+
+class AlertTemplate extends Component {
+  render () {
+    // the style contains only the margin given as offset
+    // options contains all given options, obviously
+    // message is the alert message...
+    // close is a function that closes the alert
+    const { style, options, message, close } = this.props
+
+    return (
+      <div style={style}>
+        {options.type === 'info' && '!'}
+        {options.type === 'success' && ':)'}
+        {options.type === 'error' && ':('}
+        {message}
+        <button onClick={close}>X</button>
       </div>
     )
   }
 }
-```
 
-## Api
-
-Once you have the reference of the `AlertContainer` you can call the following methods:
-
-```js
-// show an alert
-this.msg.show('Some message or component')
-// show an info alert
-this.msg.info('Some info message or component')
-// show a success alert
-this.msg.success('Some success message or component')
-// show an error alert
-this.msg.error('Some error message or component')
-// removes all alerts from the page
-this.msg.removeAll()
-```
-## Options
-
-The `AlertContainer` component accepts the following props:
-
-```js
-{
-  // defaults
-  offset: 14, // the offset of the alert from the page border, can be any number
-  position: 'bottom left', // the position of the alert, can be [bottom left, bottom right, top left, top right]
-  theme: 'dark', // the color theme of the alert, can be [dark, light]
-  time: 5000, // the time in miliseconds to the alert close itself, use 0 to prevent auto close (apply to all alerts)
-  transition: 'scale' // the transition animation, can be [scale, fade]
+class Root extends Component  {
+  render () {
+    return (
+      <AlertProvider template={AlertTemplate}>
+        <App />
+      </AlertProvider>
+    )
+  }
 }
+
+render(<Root />, document.getElementById('root'))
 ```
 
-When you call `show`, `info`, `success` and `error` method, you can include the following options as a second parameter:
+Easy, right?
+
+## Using a component as a message
+
+You can also pass in a component as a message, like this:
 
 ```js
-{
-  time: 0, // the time in miliseconds to the alert close itself, use 0 to prevent auto close (apply to this alert only), default is 5000
-  icon: <img src="path/to/some/img/32x32.png" />, // the icon to show in the alert, if none is given the default of each type will be showed
-  onClose: () => {} // the function called when message is closed
-}
-```
-
-When you call the `show` method, you can additionally include the `info` option:
-
-```js
-{
-  type: 'info' // the alert type, can be [info, success, error], default is info
-}
-```
-
-## Using React Components as alert content
-
-You can also use a React Component to show an alert message, like this:
-
-```js
-// show an alert with a React Component as content
-this.msg.show(<AComponent aProp="some message" />)
+this.props.alert.show(<div style={{ color: 'blue' }}>Some Message</div>)
 ```
