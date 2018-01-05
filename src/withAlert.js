@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import AlertWrapper from './AlertWrapper'
 import AlertTranstion from './AlertTransition'
-import TransitionGroup from 'react-transition-group/TransitionGroup'
+import { TransitionGroup } from 'react-transition-group'
 
 const withAlert = WrappedComponent => {
   class WithAlert extends Component {

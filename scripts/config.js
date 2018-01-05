@@ -47,16 +47,14 @@ const config = {
       'react': 'React',
       'prop-types': 'PropTypes',
       'react-dom': 'ReactDOM',
-      'react-transition-group/TransitionGroup': 'TransitionGroup',
-      'react-transition-group/Transition': 'Transition'
+      'react-transition-group': 'ReactTransitionGroup'
     }
   },
   external: [
     'react',
     'prop-types',
     'react-dom',
-    'react-transition-group/TransitionGroup',
-    'react-transition-group/Transition'
+    'react-transition-group'
   ],
   plugins: getPlugins(process.env.BUILD_ENV)
 }
