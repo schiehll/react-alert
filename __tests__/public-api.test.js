@@ -192,6 +192,28 @@ describe('public api', () => {
       expect(timeout).toEqual(options.timeout)
     })
 
+    it('should call custom onOpen function if provided', () => {
+      const ChildWithAlert = withAlert(Child)
+      const tree = TestUtils.renderIntoDocument(
+        <Provider template={AlertTemplate}>
+          <ChildWithAlert />
+        </Provider>
+      )
+
+      const child = TestUtils.findRenderedComponentWithType(tree, Child)
+
+      const message = 'Some Message'
+      const onOpen = jest.fn()
+
+      child.props.alert.show(message)
+
+      expect(onOpen).not.toHaveBeenCalled()
+
+      child.props.alert.show(message, { onOpen })
+
+      expect(onOpen).toHaveBeenCalled()
+    })
+
     it('should remove the alert after the given timeout', () => {
       const ChildWithAlert = withAlert(Child)
       const tree = TestUtils.renderIntoDocument(
