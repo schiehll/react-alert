@@ -200,7 +200,6 @@ describe('public api', () => {
         </Provider>
       )
 
-      // const childWithAlert = TestUtils.findRenderedComponentWithType(tree, ChildWithAlert)
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
 
       const message = 'Some Message'
