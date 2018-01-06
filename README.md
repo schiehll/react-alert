@@ -110,6 +110,7 @@ position: PropTypes.oneOf([
 timeout: PropTypes.number // timeout to alert remove itself, if  set to 0 it never removes itself
 type: PropTypes.oneOf(['info', 'success', 'error']) // the default alert type used when calling this.props.alert.show
 transition: PropTypes.oneOf(['fade', 'scale']) // the transition animation
+zIndex: PropTypes.number // the z-index of alerts
 template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired // the alert template to be used
 ```
 
@@ -120,7 +121,8 @@ offset: '10px'
 position: 'top center'
 timeout: 0
 type: 'info'
-transition: 'fade'
+transition: 'fade',
+zIndex: 100
 ```
 
 Those options will be applied to all alerts.
@@ -134,6 +136,7 @@ When you wrap a component using `withAlert` you receive the `alert` prop. Here's
 const alert = this.props.alert.show('Some message', {
   timeout: 2000 , // custom timeout just for this one alert
   type: 'success',
+  onOpen: () => { console.log('hey') }, // callback that will be executed after this alert open
   onClose: () => { console.log('closed') } // callback that will be executed after this alert is removed
 })
 
@@ -141,6 +144,7 @@ const alert = this.props.alert.show('Some message', {
 // just an alias to this.props.alert.show(msg, { type: 'info' })
 const alert = this.props.alert.info('Some info', {
   timeout: 2000 , // custom timeout just for this one alert
+  onOpen: () => { console.log('hey') }, // callback that will be executed after this alert open
   onClose: () => { console.log('closed') } // callback that will be executed after this alert is removed
 })
 
@@ -148,6 +152,7 @@ const alert = this.props.alert.info('Some info', {
 // just an alias to this.props.alert.show(msg, { type: 'success' })
 const alert = this.props.alert.success('Some success', {
   timeout: 2000 , // custom timeout just for this one alert
+  onOpen: () => { console.log('hey') }, // callback that will be executed after this alert open
   onClose: () => { console.log('closed') } // callback that will be executed after this alert is removed
 })
 
@@ -155,6 +160,7 @@ const alert = this.props.alert.success('Some success', {
 // just an alias to this.props.alert.show(msg, { type: 'error' })
 const alert = this.props.alert.error('Some error', {
   timeout: 2000 , // custom timeout just for this one alert
+  onOpen: () => { console.log('hey') }, // callback that will be executed after this alert open
   onClose: () => { console.log('closed') } // callback that will be executed after this alert is removed
 })
 
