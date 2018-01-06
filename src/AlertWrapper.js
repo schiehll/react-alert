@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export const getStyles = ({ position }) => {
+export const getStyles = ({ position, zIndex }) => {
   switch (position) {
     case 'top left':
       return {
@@ -8,7 +8,8 @@ export const getStyles = ({ position }) => {
         top: 0,
         right: 'auto',
         bottom: 'auto',
-        left: 0
+        left: 0,
+        zIndex
       }
     case 'top right':
       return {
@@ -16,7 +17,8 @@ export const getStyles = ({ position }) => {
         top: 0,
         right: 0,
         bottom: 'auto',
-        left: 'auto'
+        left: 'auto',
+        zIndex
       }
     case 'bottom left':
       return {
@@ -24,7 +26,8 @@ export const getStyles = ({ position }) => {
         top: 'auto',
         right: 'auto',
         bottom: 0,
-        left: 0
+        left: 0,
+        zIndex
       }
     case 'bottom right':
       return {
@@ -32,7 +35,8 @@ export const getStyles = ({ position }) => {
         top: 'auto',
         right: 0,
         bottom: 0,
-        left: 'auto'
+        left: 'auto',
+        zIndex
       }
     case 'top center':
       return {
@@ -41,7 +45,8 @@ export const getStyles = ({ position }) => {
         right: 'auto',
         bottom: 'auto',
         left: '50%',
-        transform: 'translate(-50%, 0%)'
+        transform: 'translate(-50%, 0%)',
+        zIndex
       }
     case 'bottom center':
       return {
@@ -50,7 +55,8 @@ export const getStyles = ({ position }) => {
         right: 'auto',
         bottom: 0,
         left: '50%',
-        transform: 'translate(-50%, 0%)'
+        transform: 'translate(-50%, 0%)',
+        zIndex
       }
   }
 }
@@ -58,9 +64,10 @@ export const getStyles = ({ position }) => {
 class AlertWrapper extends Component {
   render () {
     const { children, ...props } = this.props
+    const { offset, position, timeout, type, transition, zIndex, ...rest } = props
 
     return (
-      <div style={getStyles(props)} {...props}>{children}</div>
+      <div style={getStyles(props)} {...rest}>{children}</div>
     )
   }
 }
