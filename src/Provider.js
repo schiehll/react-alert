@@ -16,6 +16,7 @@ class Provider extends Component {
     timeout: PropTypes.number,
     type: PropTypes.oneOf(['info', 'success', 'error']),
     transition: PropTypes.oneOf(['fade', 'scale']),
+    zIndex: PropTypes.number,
     template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
   }
 
@@ -24,7 +25,8 @@ class Provider extends Component {
     position: 'top center',
     timeout: 0,
     type: 'info',
-    transition: 'fade'
+    transition: 'fade',
+    zIndex: 100
   }
 
   alertRootElement = document.createElement('div')
@@ -38,13 +40,13 @@ class Provider extends Component {
   }
 
   render () {
-    const { children, template, offset, position, timeout, type, transition } = this.props
+    const { children, template, offset, position, timeout, type, transition, zIndex } = this.props
 
     return (
       <Broadcast
         alertRoot={this.alertRootElement}
         alertTemplate={template}
-        options={{ offset, position, timeout, type, transition }}
+        options={{ offset, position, timeout, type, transition, zIndex }}
       >
         {children}
       </Broadcast>
