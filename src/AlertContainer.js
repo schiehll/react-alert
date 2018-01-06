@@ -29,6 +29,8 @@ class AlertContainer {
     this.alerts.push(alert)
     this._broadcastToFirstListner()
 
+    alert.options.onOpen && alert.options.onOpen()
+
     return alert
   }
 
