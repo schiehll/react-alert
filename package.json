@@ -1,7 +1,7 @@
 {
   "name": "react-alert",
   "description": "A simple react alert component",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "author": "Reinaldo Schiehll <rn.schiehll@gmail.com>",
   "main": "dist/cjs/react-alert.js",
   "module": "dist/esm/react-alert.js",
