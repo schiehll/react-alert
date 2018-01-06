@@ -29,17 +29,29 @@ class Provider extends Component {
     zIndex: 100
   }
 
-  alertRootElement = document.createElement('div')
+  state = {
+    isClient: false
+  }
+
+  alertRootElement = null
 
   componentDidMount () {
-    document.body.appendChild(this.alertRootElement)
+    this.setState({ isClient: true })
   }
 
   componentWillUnmount () {
     document.body.removeChild(this.alertRootElement)
+    this.alertRootElement = null
   }
 
   render () {
+    if (this.state.isClient && !this.alertRootElement) {
+      this.alertRootElement = document.createElement('div')
+      document.body.appendChild(this.alertRootElement)
+    } else {
+      return null
+    }
+
     const { children, template, offset, position, timeout, type, transition, zIndex } = this.props
 
     return (
