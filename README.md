@@ -50,7 +50,7 @@ import App from './App'
 const options = {
   position: 'bottom center',
   timeout: 5000,
-  offset: 30,
+  offset: '30px',
   transition: 'scale'
 }
 
