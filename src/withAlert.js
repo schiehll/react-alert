@@ -23,11 +23,11 @@ const withAlert = WrappedComponent => {
     }
 
     syncAlerts = alerts => {
-      this.setState({ alerts })
+      this.setState({ alerts: [...alerts] })
     }
 
     componentWillMount () {
-      this.setState({ alerts: this.context.alertContainer._getAlerts() })
+      this.setState({ alerts: [...this.context.alertContainer._getAlerts()] })
     }
 
     componentDidMount () {
