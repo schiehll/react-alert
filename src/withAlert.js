@@ -39,7 +39,7 @@ const withAlert = WrappedComponent => {
     }
 
     render () {
-      const { alertContainer, alertTemplate, alertRoot, options } = this.context
+      const { alertContainer, alertTemplate: AlertComponent, alertRoot, options } = this.context
 
       return (
         <Fragment>
@@ -50,14 +50,11 @@ const withAlert = WrappedComponent => {
           {ReactDOM.createPortal(
             <AlertWrapper {...options}>
               <TransitionGroup>
-                {this.state.alerts.map((alert, index) => {
-                  const AlertComponent = alertTemplate
-                  return (
-                    <AlertTranstion type={options.transition} key={alert.id}>
-                      <AlertComponent style={{ margin: options.offset }} {...alert} />
-                    </AlertTranstion>
-                  )
-                })}
+                {this.state.alerts.map(alert => (
+                  <AlertTranstion type={options.transition} key={alert.id}>
+                    <AlertComponent style={{ margin: options.offset }} {...alert} />
+                  </AlertTranstion>
+                ))}
               </TransitionGroup>
             </AlertWrapper>,
             alertRoot
