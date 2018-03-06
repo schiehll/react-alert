@@ -20,8 +20,8 @@
   ],
   "scripts": {
     "build": "node ./scripts/build.js",
-    "lint": "standard --fix",
-    "test": "standard --fix && jest --coverage --no-cache",
+    "lint": "prettier --write src/*.js",
+    "test": "npm run lint && jest --coverage --no-cache",
     "test:watch": "jest --watch --coverage --no-cache"
   },
   "devDependencies": {
@@ -34,6 +34,7 @@
     "babel-preset-stage-1": "^6.24.1",
     "jest-cli": "^22.0.4",
     "pascal-case": "^2.0.1",
+    "prettier": "^1.11.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -44,8 +45,7 @@
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-uglify": "^2.0.1",
-    "standard": "^10.0.3"
+    "rollup-plugin-uglify": "^2.0.1"
   },
   "peerDependencies": {
     "prop-types": "^15.6.0",
@@ -53,22 +53,13 @@
     "react-dom": "^16.2.0",
     "react-transition-group": "^2.2.1"
   },
-  "standard": {
-    "parser": "babel-eslint",
-    "globals": [
-      "jest",
-      "describe",
-      "it",
-      "expect"
-    ],
-    "ignore": [
-      "dist"
-    ]
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/*.js",
       "!src/index.js"
     ]
+  },
+  "dependencies": {
+    "create-react-context": "^0.2.1"
   }
 }

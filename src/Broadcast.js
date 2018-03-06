@@ -7,20 +7,22 @@ class Broadcast extends Component {
 
   static propTypes = {
     alertRoot: PropTypes.object.isRequired,
-    alertTemplate: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
+    alertTemplate: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+      .isRequired,
     options: PropTypes.object.isRequired
   }
 
   static childContextTypes = {
     alertContainer: PropTypes.object.isRequired,
     alertRoot: PropTypes.object.isRequired,
-    alertTemplate: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
+    alertTemplate: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+      .isRequired,
     options: PropTypes.object.isRequired
   }
 
   alertContainer = new AlertContainer(this.props.options)
 
-  getChildContext () {
+  getChildContext() {
     const { alertRoot, alertTemplate, options } = this.props
 
     return {
@@ -31,7 +33,7 @@ class Broadcast extends Component {
     }
   }
 
-  render () {
+  render() {
     return this.props.children
   }
 }

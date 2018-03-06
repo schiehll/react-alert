@@ -17,7 +17,8 @@ class Provider extends Component {
     type: PropTypes.oneOf(['info', 'success', 'error']),
     transition: PropTypes.oneOf(['fade', 'scale']),
     zIndex: PropTypes.number,
-    template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
+    template: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+      .isRequired
   }
 
   static defaultProps = {
@@ -35,24 +36,33 @@ class Provider extends Component {
 
   alertRootElement = null
 
-  componentDidMount () {
+  componentDidMount() {
     this.setState({ isClient: true })
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     document.body.removeChild(this.alertRootElement)
     this.alertRootElement = null
   }
 
-  render () {
+  render() {
+    const {
+      children,
+      template,
+      offset,
+      position,
+      timeout,
+      type,
+      transition,
+      zIndex
+    } = this.props
+
     if (this.state.isClient && !this.alertRootElement) {
       this.alertRootElement = document.createElement('div')
       document.body.appendChild(this.alertRootElement)
     } else {
-      return null
+      return children
     }
-
-    const { children, template, offset, position, timeout, type, transition, zIndex } = this.props
 
     return (
       <Broadcast
