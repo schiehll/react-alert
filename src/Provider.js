@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import Broadcast from './Broadcast'
+import { Provider } from './AlertContext'
 
-class Provider extends Component {
+class AlertProvider extends React.Component {
   static propTypes = {
     offset: PropTypes.string,
     position: PropTypes.oneOf([
@@ -17,7 +17,8 @@ class Provider extends Component {
     type: PropTypes.oneOf(['info', 'success', 'error']),
     transition: PropTypes.oneOf(['fade', 'scale']),
     zIndex: PropTypes.number,
-    template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
+    template: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+      .isRequired
   }
 
   static defaultProps = {
@@ -30,40 +31,71 @@ class Provider extends Component {
   }
 
   state = {
-    isClient: false
+    isClient: false,
+    alerts: []
   }
 
   alertRootElement = null
 
-  componentDidMount () {
+  addAlert = alert => {
+    this.setState(prevState => ({
+      alerts: prevState.alerts.concat(alert)
+    }))
+  }
+
+  removeAlert = alert => {
+    this.setState(prevState => ({
+      alerts: prevState.alerts.filter(a => a.id !== alert.id)
+    }))
+  }
+
+  componentDidMount() {
     this.setState({ isClient: true })
   }
 
-  componentWillUnmount () {
-    document.body.removeChild(this.alertRootElement)
-    this.alertRootElement = null
-  }
+  render() {
+    const {
+      children,
+      template,
+      offset,
+      position,
+      timeout,
+      type,
+      transition,
+      zIndex
+    } = this.props
 
-  render () {
-    if (this.state.isClient && !this.alertRootElement) {
-      this.alertRootElement = document.createElement('div')
-      document.body.appendChild(this.alertRootElement)
+    if (this.state.isClient) {
+      if (!this.alertRootElement) {
+        this.alertRootElement = document.createElement('div')
+        document.body.appendChild(this.alertRootElement)
+      }
     } else {
       return null
     }
 
-    const { children, template, offset, position, timeout, type, transition, zIndex } = this.props
-
     return (
-      <Broadcast
-        alertRoot={this.alertRootElement}
-        alertTemplate={template}
-        options={{ offset, position, timeout, type, transition, zIndex }}
+      <Provider
+        value={{
+          alertRoot: this.alertRootElement,
+          alertTemplate: template,
+          alerts: this.state.alerts,
+          addAlert: this.addAlert,
+          removeAlert: this.removeAlert,
+          options: {
+            offset,
+            position,
+            timeout,
+            type,
+            transition,
+            zIndex
+          }
+        }}
       >
         {children}
-      </Broadcast>
+      </Provider>
     )
   }
 }
 
-export default Provider
+export default AlertProvider

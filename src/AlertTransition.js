@@ -30,10 +30,12 @@ const transitionStyles = {
 const AlertTranstion = ({ children, type, ...props }) => (
   <Transition {...props} timeout={duration}>
     {state => (
-      <div style={{
-        ...defaultStyle[type],
-        ...transitionStyles[type][state]
-      }}>
+      <div
+        style={{
+          ...defaultStyle[type],
+          ...transitionStyles[type][state]
+        }}
+      >
         {children}
       </div>
     )}

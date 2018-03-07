@@ -9,19 +9,19 @@ jest.useFakeTimers()
 
 describe('public api', () => {
   class Child extends Component {
-    render () {
+    render() {
       return <div />
     }
   }
 
   class AlertTemplate extends Component {
-    render () {
+    render() {
       return <div />
     }
   }
 
   describe('Provider', () => {
-    it('should wrap the component name to indicate that it have a global state', () => {
+    it('should wrap the component name to indicate that it have an alert', () => {
       // default name
       let ChildWithAlert = withAlert(Child)
       expect(ChildWithAlert.displayName).toBe(`WithAlert(Child)`)
@@ -32,7 +32,7 @@ describe('public api', () => {
       ChildWithAlert = withAlert(Child)
       expect(ChildWithAlert.displayName).toBe(`WithAlert(${displayName})`)
       // unamed Component
-      ChildWithAlert = withAlert(() => (<div />))
+      ChildWithAlert = withAlert(() => <div />)
       expect(ChildWithAlert.displayName).toBe(`WithAlert(Component)`)
     })
 
@@ -66,7 +66,10 @@ describe('public api', () => {
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
       child.props.alert.show(message)
 
-      const alertTemplate = TestUtils.findRenderedComponentWithType(tree, AlertTemplate)
+      const alertTemplate = TestUtils.findRenderedComponentWithType(
+        tree,
+        AlertTemplate
+      )
       expect(alertTemplate).toBeDefined()
     })
 
@@ -80,7 +83,10 @@ describe('public api', () => {
         </Provider>
       )
 
-      let alertWrapper = TestUtils.findRenderedComponentWithType(tree, AlertWrapper)
+      let alertWrapper = TestUtils.findRenderedComponentWithType(
+        tree,
+        AlertWrapper
+      )
       expect(alertWrapper.styles).toEqual(getStyles(position))
 
       position = 'bottom center'
@@ -133,24 +139,6 @@ describe('public api', () => {
       alertWrapper = TestUtils.findRenderedComponentWithType(tree, AlertWrapper)
       expect(alertWrapper.styles).toEqual(getStyles(position))
     })
-
-    it('should unsubscribe from updates on component unmount', () => {
-      const ChildWithAlert = withAlert(Child)
-
-      const div = document.createElement('div')
-      const tree = ReactDOM.render(
-        <Provider template={AlertTemplate}>
-          <ChildWithAlert />
-        </Provider>,
-        div
-      )
-
-      const childWithAlert = TestUtils.findRenderedComponentWithType(tree, ChildWithAlert)
-      childWithAlert.context.alertContainer._unsubscribe = jest.fn()
-
-      ReactDOM.unmountComponentAtNode(div)
-      expect(childWithAlert.context.alertContainer._unsubscribe).toHaveBeenCalled()
-    })
   })
 
   describe('show', () => {
@@ -163,12 +151,12 @@ describe('public api', () => {
       )
 
       const message = 'Some Message'
-      const childWithAlert = TestUtils.findRenderedComponentWithType(tree, ChildWithAlert)
+      const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
       const alert = child.props.alert.show(message)
 
-      expect(childWithAlert.context.alertContainer._getAlerts()[0].message).toEqual(message)
-      expect(childWithAlert.context.alertContainer._getAlerts()[0]).toEqual(alert)
+      expect(provider.state.alerts[0].message).toEqual(message)
+      expect(provider.state.alerts[0]).toEqual(alert)
     })
 
     it('should accept type and timeout options', () => {
@@ -182,11 +170,11 @@ describe('public api', () => {
       const message = 'Some Message'
       const options = { type: 'success', timeout: 2000 }
 
-      const childWithAlert = TestUtils.findRenderedComponentWithType(tree, ChildWithAlert)
+      const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
       child.props.alert.show(message, options)
 
-      const { type, timeout } = childWithAlert.context.alertContainer._getAlerts()[0].options
+      const { type, timeout } = provider.state.alerts[0].options
 
       expect(type).toEqual(options.type)
       expect(timeout).toEqual(options.timeout)
@@ -224,17 +212,16 @@ describe('public api', () => {
 
       const message = 'Some Message'
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
+      const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
 
       const timeout = 2000
-
-      child.props.alert.remove = jest.fn()
       const alert = child.props.alert.show(message, { timeout })
 
-      expect(child.props.alert.remove).not.toHaveBeenCalled()
+      expect(provider.state.alerts).toHaveLength(1)
 
       jest.runAllTimers()
 
-      expect(child.props.alert.remove).toHaveBeenCalledWith(alert)
+      expect(provider.state.alerts).toHaveLength(0)
     })
   })
 
@@ -247,17 +234,17 @@ describe('public api', () => {
         </Provider>
       )
 
-      const childWithAlert = TestUtils.findRenderedComponentWithType(tree, ChildWithAlert)
+      const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
 
       child.props.alert.info('info')
-      expect(childWithAlert.context.alertContainer._getAlerts()[0].message).toEqual('info')
+      expect(provider.state.alerts[0].message).toEqual('info')
 
       child.props.alert.success('success')
-      expect(childWithAlert.context.alertContainer._getAlerts()[1].message).toEqual('success')
+      expect(provider.state.alerts[1].message).toEqual('success')
 
       child.props.alert.success('error')
-      expect(childWithAlert.context.alertContainer._getAlerts()[2].message).toEqual('error')
+      expect(provider.state.alerts[2].message).toEqual('error')
     })
 
     it('should accept timeout option', () => {
@@ -271,17 +258,17 @@ describe('public api', () => {
       const message = 'Some Message'
       const options = { timeout: 2000 }
 
-      const childWithAlert = TestUtils.findRenderedComponentWithType(tree, ChildWithAlert)
+      const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
 
       child.props.alert.info(message, options)
-      expect(childWithAlert.context.alertContainer._getAlerts()[0].options.timeout).toEqual(options.timeout)
+      expect(provider.state.alerts[0].options.timeout).toEqual(options.timeout)
 
       child.props.alert.success(message, options)
-      expect(childWithAlert.context.alertContainer._getAlerts()[1].options.timeout).toEqual(options.timeout)
+      expect(provider.state.alerts[1].options.timeout).toEqual(options.timeout)
 
       child.props.alert.error(message, options)
-      expect(childWithAlert.context.alertContainer._getAlerts()[2].options.timeout).toEqual(options.timeout)
+      expect(provider.state.alerts[2].options.timeout).toEqual(options.timeout)
     })
   })
 
@@ -295,14 +282,14 @@ describe('public api', () => {
       )
 
       const message = 'Some Message'
-      const childWithAlert = TestUtils.findRenderedComponentWithType(tree, ChildWithAlert)
+      const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
 
       const alert = child.props.alert.show(message)
-      expect(childWithAlert.context.alertContainer._getAlerts()).toHaveLength(1)
+      expect(provider.state.alerts).toHaveLength(1)
 
       child.props.alert.remove(alert)
-      expect(childWithAlert.context.alertContainer._getAlerts()).toHaveLength(0)
+      expect(provider.state.alerts).toHaveLength(0)
     })
 
     it('should call onClose callback', () => {
