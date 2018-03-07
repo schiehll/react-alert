@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import Broadcast from './Broadcast'
+import { Provider } from './AlertContext'
 
-class Provider extends Component {
+class AlertProvider extends React.Component {
   static propTypes = {
     offset: PropTypes.string,
     position: PropTypes.oneOf([
@@ -31,18 +31,26 @@ class Provider extends Component {
   }
 
   state = {
-    isClient: false
+    isClient: false,
+    alerts: []
   }
 
   alertRootElement = null
 
-  componentDidMount() {
-    this.setState({ isClient: true })
+  addAlert = alert => {
+    this.setState(prevState => ({
+      alerts: prevState.alerts.concat(alert)
+    }))
   }
 
-  componentWillUnmount() {
-    document.body.removeChild(this.alertRootElement)
-    this.alertRootElement = null
+  removeAlert = alert => {
+    this.setState(prevState => ({
+      alerts: prevState.alerts.filter(a => a.id !== alert.id)
+    }))
+  }
+
+  componentDidMount() {
+    this.setState({ isClient: true })
   }
 
   render() {
@@ -57,23 +65,37 @@ class Provider extends Component {
       zIndex
     } = this.props
 
-    if (this.state.isClient && !this.alertRootElement) {
-      this.alertRootElement = document.createElement('div')
-      document.body.appendChild(this.alertRootElement)
+    if (this.state.isClient) {
+      if (!this.alertRootElement) {
+        this.alertRootElement = document.createElement('div')
+        document.body.appendChild(this.alertRootElement)
+      }
     } else {
-      return children
+      return null
     }
 
     return (
-      <Broadcast
-        alertRoot={this.alertRootElement}
-        alertTemplate={template}
-        options={{ offset, position, timeout, type, transition, zIndex }}
+      <Provider
+        value={{
+          alertRoot: this.alertRootElement,
+          alertTemplate: template,
+          alerts: this.state.alerts,
+          addAlert: this.addAlert,
+          removeAlert: this.removeAlert,
+          options: {
+            offset,
+            position,
+            timeout,
+            type,
+            transition,
+            zIndex
+          }
+        }}
       >
         {children}
-      </Broadcast>
+      </Provider>
     )
   }
 }
 
-export default Provider
+export default AlertProvider

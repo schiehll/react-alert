@@ -21,7 +21,7 @@
   "scripts": {
     "build": "node ./scripts/build.js",
     "lint": "prettier --write src/*.js",
-    "test": "npm run lint && jest --coverage --no-cache",
+    "test": "jest --coverage --no-cache",
     "test:watch": "jest --watch --coverage --no-cache"
   },
   "devDependencies": {
