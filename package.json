@@ -22,7 +22,8 @@
     "build": "node ./scripts/build.js",
     "lint": "prettier --write src/*.js",
     "test": "jest --coverage --no-cache",
-    "test:watch": "jest --watch --coverage --no-cache"
+    "test:watch": "jest --watch --coverage --no-cache",
+    "prepublish": "yarn build"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -32,6 +33,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
+    "husky": "^0.14.3",
     "jest-cli": "^22.0.4",
     "pascal-case": "^2.0.1",
     "prettier": "^1.11.1",
