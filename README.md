@@ -222,3 +222,10 @@ You can also pass in a component as a message, like this:
 ```js
 this.props.alert.show(<div style={{ color: 'blue' }}>Some Message</div>)
 ```
+
+## Templates
+
+ - [Basic](https://github.com/schiehll/react-alert-template-basic)
+ - [Dark](https://github.com/schiehll/react-alert-template-oldschool-dark)
+
+Feel free to submit a PR with your own. 
