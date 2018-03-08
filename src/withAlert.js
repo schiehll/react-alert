@@ -13,7 +13,7 @@ const withAlert = WrappedComponent => {
         <Consumer>
           {context => {
             return (
-              <AlertContainer component={WrappedComponent} context={context} />
+              <AlertContainer component={WrappedComponent} context={context} {...this.props} />
             )
           }}
         </Consumer>

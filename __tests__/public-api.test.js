@@ -54,6 +54,18 @@ describe('public api', () => {
       expect(child.props.alert.remove).toBeInstanceOf(Function)
     })
 
+    it('should pass other props down to the wrapped component', () => {
+      const ChildWithAlert = withAlert(Child)
+      const tree = TestUtils.renderIntoDocument(
+        <Provider template={AlertTemplate}>
+          <ChildWithAlert customProp={true} />
+        </Provider>
+      )
+
+      const child = TestUtils.findRenderedComponentWithType(tree, Child)
+      expect(child.props.customProp).toBe(true)
+    })
+
     it('should use the given alertTemplate', () => {
       const ChildWithAlert = withAlert(Child)
       const tree = TestUtils.renderIntoDocument(
