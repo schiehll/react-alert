@@ -1,16 +1,14 @@
-import React, { Component, Fragment } from 'react'
-import ReactDOM from 'react-dom'
-import { TransitionGroup } from 'react-transition-group'
-import AlertTransition from './AlertTransition'
-import AlertWrapper from './AlertWrapper'
+class AlertContainer {
+  constructor(defaultOptions) {
+    this.defaultOptions = defaultOptions
+    this.listners = []
+    this.alerts = []
+  }
 
-class AlertContainer extends Component {
   show = (message = '', options = {}) => {
     const id = new Date().getTime()
-    const { context } = this.props
-
     const alertOptions = {
-      ...context.options,
+      ...this.defaultOptions,
       ...options
     }
 
@@ -20,14 +18,16 @@ class AlertContainer extends Component {
       options: alertOptions
     }
 
+    alert.close = () => this.remove(alert)
+
     if (alert.options.timeout) {
       setTimeout(() => {
         this.remove(alert)
       }, alert.options.timeout)
     }
 
-    alert.close = () => this.remove(alert)
-    context.addAlert(alert)
+    this.alerts.push(alert)
+    this._broadcastToFirstListner()
 
     alert.options.onOpen && alert.options.onOpen()
 
@@ -35,11 +35,11 @@ class AlertContainer extends Component {
   }
 
   remove = alert => {
-    const { context } = this.props
-    const filteredAlerts = context.alerts.filter(a => a.id !== alert.id)
+    const lengthBeforeRemove = this.alerts.length
+    this.alerts = this.alerts.filter(a => a.id !== alert.id)
 
-    if (context.alerts.length > filteredAlerts.length) {
-      context.removeAlert(alert)
+    if (lengthBeforeRemove > this.alerts.length) {
+      this._broadcastToFirstListner()
       alert.options.onClose && alert.options.onClose()
     }
   }
@@ -59,41 +59,18 @@ class AlertContainer extends Component {
     return this.show(message, options)
   }
 
-  render() {
-    const { context, component: WrapperdComponent, ...props } = this.props
+  _getAlerts = () => this.alerts
 
-    return (
-      <Fragment>
-        <WrapperdComponent
-          {...props}
-          alert={{
-            show: this.show,
-            success: this.success,
-            info: this.info,
-            error: this.error,
-            remove: this.remove
-          }}
-        />
-        {ReactDOM.createPortal(
-          <AlertWrapper {...context.options}>
-            <TransitionGroup>
-              {context.alerts.map(alert => (
-                <AlertTransition
-                  type={context.options.transition}
-                  key={alert.id}
-                >
-                  <context.alertTemplate
-                    style={{ margin: context.options.offset }}
-                    {...alert}
-                  />
-                </AlertTransition>
-              ))}
-            </TransitionGroup>
-          </AlertWrapper>,
-          context.alertRoot
-        )}
-      </Fragment>
-    )
+  _broadcastToFirstListner = () => {
+    this.listners.length && this.listners[0](this.alerts)
+  }
+
+  _subscribe = listener => {
+    this.listners.push(listener)
+  }
+
+  _unsubscribe = listener => {
+    this.listners = this.listners.filter(item => item !== listener)
   }
 }
 
