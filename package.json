@@ -60,5 +60,8 @@
       "src/*.js",
       "!src/index.js"
     ]
+  },
+  "dependencies": {
+    "create-react-context": "^0.2.1"
   }
 }
