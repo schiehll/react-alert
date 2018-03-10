@@ -1,5 +1,5 @@
 class AlertContainer {
-  constructor (defaultOptions) {
+  constructor(defaultOptions) {
     this.defaultOptions = defaultOptions
     this.listners = []
     this.alerts = []
