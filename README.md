@@ -1,6 +1,6 @@
 # react-alert
 
-> This is the docs for v3, if you are still using v2 (React 15) you should look [here](https://github.com/schiehll/react-alert/tree/v2)
+> Alerts for React
 
 [![travis build](https://img.shields.io/travis/schiehll/react-alert.svg?style=flat-square)](https://travis-ci.org/schiehll/react-alert)
 [![version](https://img.shields.io/npm/v/react-alert.svg?style=flat-square)](http://npm.im/react-alert)
@@ -15,21 +15,30 @@
 $ npm install --save react-alert
 ```
 
-In v3 you can now provide your own alert template, making things way more customizable. For that reason, we now have two packages, the core one `react-alert` and one with a basic implementation of an alert template, so if you don't need a custom alert you can just plug `react-alert-template-basic` in.
+### Templates
 
-If that's the case you will need to install it too:
+You can provide your own alert template if you need to. Otherwise you can just plug in one of the following:
+
+- [Basic](https://github.com/schiehll/react-alert-template-basic)
+- [Dark](https://github.com/schiehll/react-alert-template-oldschool-dark)
+
+Feel free to submit a PR with the link for your own template. 
+
+To get started, try installing the basic one:
 
 ```bash
 $ npm install --save react-alert react-alert-template-basic
 ```
 
-Also, this package expect the following peer dependencies:
+### Peer dependencies
+
+This package expect the following peer dependencies:
 
 ```js
 "prop-types": "^15.6.0"
-"react": "^16.2.0"
-"react-dom": "^16.2.0"
-"react-transition-group": "^2.2.1"
+"react": "^16.3.0"
+"react-dom": "^16.3.0"
+"react-transition-group": "^2.3.0"
 ```
 
 So make sure that you have those installed too!
@@ -57,7 +66,7 @@ const options = {
 class Root extends Component  {
   render () {
     return (
-      <AlertProvider template={AlertTemplate} {...options}>
+      <AlertProvider template={AlertTemplate} options={options}>
         <App />
       </AlertProvider>
     )
@@ -93,25 +102,55 @@ export default withAlert(App)
 
 And that's it!
 
-## Options
-
-You can pass the following options to `Provider`:
+You can also use it with a render props api:
 
 ```js
-offset: PropTypes.string // the margin of each alert
-position: PropTypes.oneOf([
-  'top left',
-  'top right',
-  'top center',
-  'bottom left',
-  'bottom right',
-  'bottom center'
-]) // the position of the alerts in the page
-timeout: PropTypes.number // timeout to alert remove itself, if  set to 0 it never removes itself
-type: PropTypes.oneOf(['info', 'success', 'error']) // the default alert type used when calling this.props.alert.show
-transition: PropTypes.oneOf(['fade', 'scale']) // the transition animation
-zIndex: PropTypes.number // the z-index of alerts
-template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired // the alert template to be used
+// App.js
+import React, { Component } from 'react'
+import { Alert } from 'react-alert'
+
+class App extends Component  {
+  render () {
+    return (
+      <Alert>
+        {alert => (
+          <button
+            onClick={() => {
+              alert.show('Oh look, an alert!')
+            }}
+          >
+            Show Alert
+          </button>
+        )}
+      </Alert>
+    )
+  }
+}
+
+export default App
+```
+
+## Options
+
+You can pass the following options to the `options` prop of `Provider`:
+
+```js
+options: PropTypes.shape({
+  offset: PropTypes.string // the margin of each alert
+  position: PropTypes.oneOf([
+    'top left',
+    'top right',
+    'top center',
+    'bottom left',
+    'bottom right',
+    'bottom center'
+  ]) // the position of the alerts in the page
+  timeout: PropTypes.number // timeout to alert remove itself, if  set to 0 it never removes itself
+  type: PropTypes.oneOf(['info', 'success', 'error']) // the default alert type used when calling this.props.alert.show
+  transition: PropTypes.oneOf(['fade', 'scale']) // the transition animation
+  zIndex: PropTypes.number // the z-index of alerts
+  template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired // the alert template to be used
+})
 ```
 
 Here's the defaults:
@@ -222,10 +261,3 @@ You can also pass in a component as a message, like this:
 ```js
 this.props.alert.show(<div style={{ color: 'blue' }}>Some Message</div>)
 ```
-
-## Templates
-
- - [Basic](https://github.com/schiehll/react-alert-template-basic)
- - [Dark](https://github.com/schiehll/react-alert-template-oldschool-dark)
-
-Feel free to submit a PR with your own. 

@@ -61,25 +61,16 @@ export const getStyles = ({ position, zIndex }) => {
   }
 }
 
-class AlertWrapper extends Component {
+class Wrapper extends Component {
   render() {
-    const { children, ...props } = this.props
-    const {
-      offset,
-      position,
-      timeout,
-      type,
-      transition,
-      zIndex,
-      ...rest
-    } = props
+    const { children, options, ...props } = this.props
 
     return (
-      <div style={getStyles(props)} {...rest}>
+      <div style={getStyles(options)} {...props}>
         {children}
       </div>
     )
   }
 }
 
-export default AlertWrapper
+export default Wrapper

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Transition } from 'react-transition-group'
+import { Transition as AlertTransition } from 'react-transition-group'
 
 const duration = 250
 
@@ -27,8 +27,8 @@ const transitionStyles = {
   }
 }
 
-const AlertTranstion = ({ children, type, ...props }) => (
-  <Transition {...props} timeout={duration}>
+const Transtion = ({ children, type, ...props }) => (
+  <AlertTransition {...props} timeout={duration}>
     {state => (
       <div
         style={{
@@ -39,7 +39,7 @@ const AlertTranstion = ({ children, type, ...props }) => (
         {children}
       </div>
     )}
-  </Transition>
+  </AlertTransition>
 )
 
-export default AlertTranstion
+export default Transtion
