@@ -5,9 +5,7 @@ const commonjs = require('rollup-plugin-commonjs')
 const uglify = require('rollup-plugin-uglify')
 
 const getPlugins = env => {
-  const plugins = [
-    resolve()
-  ]
+  const plugins = [resolve()]
 
   if (env) {
     plugins.push(
@@ -21,11 +19,7 @@ const getPlugins = env => {
     babel({
       exclude: 'node_modules/**',
       babelrc: false,
-      presets: [
-        ['env', { modules: false }],
-        'stage-1',
-        'react'
-      ],
+      presets: [['env', { modules: false }], 'stage-1', 'react'],
       plugins: ['external-helpers']
     }),
     commonjs({
@@ -44,23 +38,14 @@ const config = {
   input: 'src/index.js',
   output: {
     globals: {
-      'react': 'React',
+      react: 'React',
       'prop-types': 'PropTypes',
       'react-dom': 'ReactDOM',
       'react-transition-group': 'ReactTransitionGroup'
     }
   },
-  external: [
-    'react',
-    'prop-types',
-    'react-dom',
-    'react-transition-group'
-  ],
+  external: ['react', 'prop-types', 'react-dom', 'react-transition-group'],
   plugins: getPlugins(process.env.BUILD_ENV)
-}
-
-if (process.env.BUILD_NAME) {
-  config.output.name = process.env.BUILD_NAME
 }
 
 module.exports = config

@@ -22,12 +22,20 @@ exec(`rollup -c scripts/config.js -f es -o dist/esm/${packageName}.js`)
 
 console.log('\nBuilding UMD modules...')
 
-exec(`rollup -c scripts/config.js -f umd -o dist/umd/${packageName}.js`, {
-  BUILD_NAME: pascalCase(packageName),
-  BUILD_ENV: 'development'
-})
+exec(
+  `rollup -c scripts/config.js -f umd -n ${pascalCase(
+    packageName
+  )} -o dist/umd/${packageName}.js`,
+  {
+    BUILD_ENV: 'development'
+  }
+)
 
-exec(`rollup -c scripts/config.js -f umd -o dist/umd/${packageName}.min.js`, {
-  BUILD_NAME: pascalCase(packageName),
-  BUILD_ENV: 'production'
-})
+exec(
+  `rollup -c scripts/config.js -f umd -n ${pascalCase(
+    packageName
+  )} -o dist/umd/${packageName}.min.js`,
+  {
+    BUILD_ENV: 'production'
+  }
+)
