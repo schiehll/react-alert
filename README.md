@@ -66,7 +66,7 @@ const options = {
 class Root extends Component  {
   render () {
     return (
-      <AlertProvider template={AlertTemplate} options={options}>
+      <AlertProvider template={AlertTemplate} {...options}>
         <App />
       </AlertProvider>
     )
@@ -132,25 +132,23 @@ export default App
 
 ## Options
 
-You can pass the following options to the `options` prop of `Provider`:
+You can pass the following options as props to `Provider`:
 
 ```js
-options: PropTypes.shape({
-  offset: PropTypes.string // the margin of each alert
-  position: PropTypes.oneOf([
-    'top left',
-    'top right',
-    'top center',
-    'bottom left',
-    'bottom right',
-    'bottom center'
-  ]) // the position of the alerts in the page
-  timeout: PropTypes.number // timeout to alert remove itself, if  set to 0 it never removes itself
-  type: PropTypes.oneOf(['info', 'success', 'error']) // the default alert type used when calling this.props.alert.show
-  transition: PropTypes.oneOf(['fade', 'scale']) // the transition animation
-  zIndex: PropTypes.number // the z-index of alerts
-  template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired // the alert template to be used
-})
+offset: PropTypes.string // the margin of each alert
+position: PropTypes.oneOf([
+  'top left',
+  'top right',
+  'top center',
+  'bottom left',
+  'bottom right',
+  'bottom center'
+]) // the position of the alerts in the page
+timeout: PropTypes.number // timeout to alert remove itself, if  set to 0 it never removes itself
+type: PropTypes.oneOf(['info', 'success', 'error']) // the default alert type used when calling this.props.alert.show
+transition: PropTypes.oneOf(['fade', 'scale']) // the transition animation
+zIndex: PropTypes.number // the z-index of alerts
+template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired // the alert template to be used
 ```
 
 Here's the defaults:

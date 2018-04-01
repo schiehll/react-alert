@@ -8,34 +8,30 @@ import Transition from './Transition'
 
 class Provider extends Component {
   static propTypes = {
-    options: PropTypes.shape({
-      offset: PropTypes.string,
-      position: PropTypes.oneOf([
-        'top left',
-        'top right',
-        'top center',
-        'bottom left',
-        'bottom right',
-        'bottom center'
-      ]),
-      timeout: PropTypes.number,
-      type: PropTypes.oneOf(['info', 'success', 'error']),
-      transition: PropTypes.oneOf(['fade', 'scale']),
-      zIndex: PropTypes.number
-    }),
+    offset: PropTypes.string,
+    position: PropTypes.oneOf([
+      'top left',
+      'top right',
+      'top center',
+      'bottom left',
+      'bottom right',
+      'bottom center'
+    ]),
+    timeout: PropTypes.number,
+    type: PropTypes.oneOf(['info', 'success', 'error']),
+    transition: PropTypes.oneOf(['fade', 'scale']),
+    zIndex: PropTypes.number,
     template: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
       .isRequired
   }
 
   static defaultProps = {
-    options: {
-      offset: '10px',
-      position: 'top center',
-      timeout: 0,
-      type: 'info',
-      transition: 'fade',
-      zIndex: 100
-    }
+    offset: '10px',
+    position: 'top center',
+    timeout: 0,
+    type: 'info',
+    transition: 'fade',
+    zIndex: 100
   }
 
   show = (message = '', options = {}) => {
@@ -119,8 +115,18 @@ class Provider extends Component {
   }
 
   render() {
-    const { children, options, template: AlertComponent } = this.props
     const { root, alerts } = this.state
+
+    const {
+      children,
+      offset,
+      position,
+      timeout,
+      type,
+      transition,
+      zIndex,
+      template: AlertComponent
+    } = this.props
 
     const alert = {
       ...this.state,
@@ -129,6 +135,15 @@ class Provider extends Component {
       success: this.success,
       error: this.error,
       info: this.info
+    }
+
+    const options = {
+      offset,
+      position,
+      timeout,
+      type,
+      transition,
+      zIndex
     }
 
     return (
