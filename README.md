@@ -220,7 +220,7 @@ import App from './App'
 class AlertTemplate extends Component {
   render () {
     // the style contains only the margin given as offset
-    // options contains all given options, obviously
+    // options contains all alert given options
     // message is the alert message...
     // close is a function that closes the alert
     const { style, options, message, close } = this.props

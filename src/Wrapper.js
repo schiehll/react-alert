@@ -62,11 +62,13 @@ export const getStyles = ({ position, zIndex }) => {
 }
 
 class Wrapper extends Component {
+  styles = getStyles(this.props.options)
+
   render() {
     const { children, options, ...props } = this.props
 
     return (
-      <div style={getStyles(options)} {...props}>
+      <div style={this.styles} {...props}>
         {children}
       </div>
     )

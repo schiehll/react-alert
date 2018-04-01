@@ -87,65 +87,69 @@ describe('public api', () => {
     it('should use the given position option', () => {
       const ChildWithAlert = withAlert(Child)
 
-      let position = 'bottom left'
+      const options = {
+        position: 'bottom left',
+        zIndex: 100
+      }
+
       let tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate} options={{ position }}>
+        <Provider template={AlertTemplate} {...options}>
           <ChildWithAlert />
         </Provider>
       )
 
       let alertWrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
-      expect(alertWrapper.styles).toEqual(getStyles(position))
+      expect(alertWrapper.styles).toEqual(getStyles(options))
 
-      position = 'bottom center'
+      options.position = 'bottom center'
       tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate} options={{ position }}>
+        <Provider template={AlertTemplate} {...options}>
           <ChildWithAlert />
         </Provider>
       )
 
       alertWrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
-      expect(alertWrapper.styles).toEqual(getStyles(position))
+      expect(alertWrapper.styles).toEqual(getStyles(options))
 
-      position = 'bottom right'
+      options.position = 'bottom right'
       tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate} options={{ position }}>
+        <Provider template={AlertTemplate} {...options}>
           <ChildWithAlert />
         </Provider>
       )
 
       alertWrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
-      expect(alertWrapper.styles).toEqual(getStyles(position))
+      expect(alertWrapper.styles).toEqual(getStyles(options))
 
-      position = 'top left'
+      options.position = 'top left'
       tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate} options={{ position }}>
+        <Provider template={AlertTemplate} {...options}>
           <ChildWithAlert />
         </Provider>
       )
 
       alertWrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
-      expect(alertWrapper.styles).toEqual(getStyles(position))
+      expect(alertWrapper.styles).toEqual(getStyles(options))
 
-      position = 'top center'
+      options.position = 'top center'
       tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate} options={{ position }}>
+        <Provider template={AlertTemplate} {...options}>
           <ChildWithAlert />
         </Provider>
       )
 
       alertWrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
-      expect(alertWrapper.styles).toEqual(getStyles(position))
+      expect(alertWrapper.styles).toEqual(getStyles(options))
 
-      position = 'top right'
+      options.position = 'top right'
       tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate} options={{ position }}>
+        <Provider template={AlertTemplate} {...options}>
           <ChildWithAlert />
         </Provider>
       )
 
       alertWrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
-      expect(alertWrapper.styles).toEqual(getStyles(position))
+      expect(alertWrapper.styles).toEqual(getStyles(options))
     })
   })
 

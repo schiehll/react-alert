@@ -34,13 +34,21 @@ class Provider extends Component {
     zIndex: 100
   }
 
+  state = {
+    root: null,
+    alerts: []
+  }
+
   show = (message = '', options = {}) => {
     const id = Math.random()
       .toString(36)
       .substr(2, 9)
 
+    const { timeout, type } = this.props
+
     const alertOptions = {
-      ...this.props.options,
+      timeout,
+      type,
       ...options
     }
 
@@ -98,11 +106,6 @@ class Provider extends Component {
     return this.show(message, options)
   }
 
-  state = {
-    root: null,
-    alerts: []
-  }
-
   componentDidMount() {
     const root = document.createElement('div')
     document.body.appendChild(root)
@@ -128,15 +131,6 @@ class Provider extends Component {
       template: AlertComponent
     } = this.props
 
-    const alert = {
-      ...this.state,
-      show: this.show,
-      remove: this.remove,
-      success: this.success,
-      error: this.error,
-      info: this.info
-    }
-
     const options = {
       offset,
       position,
@@ -144,6 +138,15 @@ class Provider extends Component {
       type,
       transition,
       zIndex
+    }
+
+    const alert = {
+      ...this.state,
+      show: this.show,
+      remove: this.remove,
+      success: this.success,
+      error: this.error,
+      info: this.info
     }
 
     return (
