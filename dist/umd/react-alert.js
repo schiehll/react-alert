@@ -318,7 +318,7 @@
           root: null,
           alerts: []
         }),
-        (_this.timerId = null),
+        (_this.timerId = []),
         (_this.show = function() {
           var message =
             arguments.length > 0 && arguments[0] !== undefined
@@ -356,9 +356,13 @@
           }
 
           if (alert.options.timeout) {
-            _this.timerId = setTimeout(function() {
+            var timerId = setTimeout(function() {
               _this.remove(alert)
+
+              _this.timerId.splice(_this.timerId.indexOf(timerId), 1)
             }, alert.options.timeout)
+
+            _this.timerId.push(timerId)
           }
 
           _this.setState(
@@ -445,8 +449,10 @@
       {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
-          if (this.timerId) {
-            clearTimeout(this.timerId)
+          if (this.timerId.length) {
+            this.timerId.forEach(function(timerId) {
+              return clearTimeout(timerId)
+            })
           }
           document.body.removeChild(this.state.root)
         }
