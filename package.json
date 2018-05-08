@@ -24,8 +24,7 @@
     "test": "jest --coverage --no-cache",
     "test:watch": "jest --watch --coverage --no-cache",
     "prepublish": "yarn build",
-    "precommit": "lint-staged",
-    "postinstall": "node ./scripts/build.js"
+    "precommit": "lint-staged"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
