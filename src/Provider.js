@@ -39,7 +39,7 @@ class Provider extends Component {
     alerts: []
   }
 
-  timerId = null
+  timerId = []
 
   show = (message = '', options = {}) => {
     const id = Math.random()
@@ -63,9 +63,13 @@ class Provider extends Component {
     alert.close = () => this.remove(alert)
 
     if (alert.options.timeout) {
-      this.timerId = setTimeout(() => {
+      let timerId = setTimeout(() => {
         this.remove(alert)
+
+        this.timerId.splice(this.timerId.indexOf(timerId), 1)
       }, alert.options.timeout)
+
+      this.timerId.push(timerId)
     }
 
     this.setState(
@@ -116,8 +120,8 @@ class Provider extends Component {
   }
 
   componentWillUnmount() {
-    if (this.timerId) {
-        clearTimeout(this.timerId)
+    if (this.timerId.length) {
+      this.timerId.forEach(timerId => clearTimeout(timerId))
     }
     document.body.removeChild(this.state.root)
   }
