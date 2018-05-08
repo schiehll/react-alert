@@ -39,7 +39,7 @@ class Provider extends Component {
     alerts: []
   }
 
-  timerId = null;
+  timerId = null
 
   show = (message = '', options = {}) => {
     const id = Math.random()
@@ -63,7 +63,7 @@ class Provider extends Component {
     alert.close = () => this.remove(alert)
 
     if (alert.options.timeout) {
-      timerId = setTimeout(() => {
+      this.timerId = setTimeout(() => {
         this.remove(alert)
       }, alert.options.timeout)
     }
