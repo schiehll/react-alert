@@ -63,7 +63,7 @@ class Provider extends Component {
     alert.close = () => this.remove(alert)
 
     if (alert.options.timeout) {
-      let timerId = setTimeout(() => {
+      const timerId = setTimeout(() => {
         this.remove(alert)
 
         this.timerId.splice(this.timerId.indexOf(timerId), 1)
@@ -120,9 +120,8 @@ class Provider extends Component {
   }
 
   componentWillUnmount() {
-    if (this.timerId.length) {
-      this.timerId.forEach(timerId => clearTimeout(timerId))
-    }
+    this.timerId.forEach(clearTimeout)
+
     document.body.removeChild(this.state.root)
   }
 
