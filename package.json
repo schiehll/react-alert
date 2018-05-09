@@ -60,12 +60,6 @@
     "react-transition-group": "^2.3.0"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/*.js",
-      "!src/index.js"
-    ]
-  },
-  "dependencies": {
-    "babel-core": "^6.26.3"
+    "collectCoverageFrom": ["src/*.js", "!src/index.js"]
   }
 }
