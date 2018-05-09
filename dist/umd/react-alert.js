@@ -449,11 +449,8 @@
       {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
-          if (this.timerId.length) {
-            this.timerId.forEach(function(timerId) {
-              return clearTimeout(timerId)
-            })
-          }
+          this.timerId.forEach(clearTimeout)
+
           document.body.removeChild(this.state.root)
         }
       },
