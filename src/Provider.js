@@ -122,7 +122,8 @@ class Provider extends Component {
   componentWillUnmount() {
     this.timerId.forEach(clearTimeout)
 
-    document.body.removeChild(this.state.root)
+    const { root } = this.state
+    if (root) document.body.removeChild(root)
   }
 
   render() {
