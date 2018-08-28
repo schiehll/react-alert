@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
 import ShallowRenderer from 'react-test-renderer/shallow'
 import Provider from '../src/Provider'
@@ -20,10 +21,30 @@ describe('public api', () => {
     }
   }
 
+  let ChildWithAlert
+  let tree
+
+  function getRenderedTree(AlertTemplate, options = {}) {
+    return TestUtils.renderIntoDocument(
+      <Provider template={AlertTemplate} {...options}>
+        <ChildWithAlert />
+      </Provider>
+    )
+  }
+
+  beforeEach(() => {
+    ChildWithAlert = withAlert(Child)
+    tree = getRenderedTree(AlertTemplate)
+  })
+
+  afterEach(() => {
+    ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(tree).parentNode)
+  })
+
   describe('Provider', () => {
     it('should wrap the component name to indicate that it have a global state', () => {
       // default name
-      let ChildWithAlert = withAlert(Child)
+      // ChildWithAlert = withAlert(Child)
       expect(ChildWithAlert.displayName).toBe(`WithAlert(Child)`)
       // named component
       const displayName = 'TheChildName'
@@ -37,12 +58,8 @@ describe('public api', () => {
     })
 
     it('should pass alert prop down to the wrapped component with the show, info, success, error and remove funcions', () => {
-      const ChildWithAlert = withAlert(Child)
-      const tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate}>
-          <ChildWithAlert />
-        </Provider>
-      )
+      // ChildWithAlert = withAlert(Child)
+      // tree = getRenderedTree(AlertTemplate)
 
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
       expect(child).toBeInstanceOf(Child)
@@ -55,24 +72,16 @@ describe('public api', () => {
     })
 
     it('should pass other props down to the wrapped component', () => {
-      const ChildWithAlert = withAlert(Child)
-      const tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate}>
-          <ChildWithAlert customProp={true} />
-        </Provider>
-      )
+      // ChildWithAlert = withAlert(Child)
+      // tree = getRenderedTree(AlertTemplate)
 
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
       expect(child.props.customProp).toBe(true)
     })
 
     it('should use the given alertTemplate', () => {
-      const ChildWithAlert = withAlert(Child)
-      const tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate}>
-          <ChildWithAlert />
-        </Provider>
-      )
+      // ChildWithAlert = withAlert(Child)
+      // tree = getRenderedTree(AlertTemplate)
 
       const message = 'Some Message'
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
@@ -86,13 +95,8 @@ describe('public api', () => {
     })
 
     function renderWrapper(options) {
-      const ChildWithAlert = withAlert(Child)
-
-      let tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate} {...options}>
-          <ChildWithAlert />
-        </Provider>
-      )
+      // ChildWithAlert = withAlert(Child)
+      // tree = getRenderedTree(AlertTemplate, ...options)
 
       const message = 'Some Message'
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
@@ -137,12 +141,12 @@ describe('public api', () => {
 
   describe('show', () => {
     it('should add an alert and return the object representing it', () => {
-      const ChildWithAlert = withAlert(Child)
-      const tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate}>
-          <ChildWithAlert />
-        </Provider>
-      )
+      // const ChildWithAlert = withAlert(Child)
+      // const tree = TestUtils.renderIntoDocument(
+      //   <Provider template={AlertTemplate}>
+      //     <ChildWithAlert />
+      //   </Provider>
+      // )
 
       const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
@@ -155,12 +159,12 @@ describe('public api', () => {
     })
 
     it('should accept type and timeout options', () => {
-      const ChildWithAlert = withAlert(Child)
-      const tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate}>
-          <ChildWithAlert />
-        </Provider>
-      )
+      // const ChildWithAlert = withAlert(Child)
+      // const tree = TestUtils.renderIntoDocument(
+      //   <Provider template={AlertTemplate}>
+      //     <ChildWithAlert />
+      //   </Provider>
+      // )
 
       const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
@@ -177,12 +181,12 @@ describe('public api', () => {
     })
 
     it('should call custom onOpen function if provided', () => {
-      const ChildWithAlert = withAlert(Child)
-      const tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate}>
-          <ChildWithAlert />
-        </Provider>
-      )
+      // const ChildWithAlert = withAlert(Child)
+      // const tree = TestUtils.renderIntoDocument(
+      //   <Provider template={AlertTemplate}>
+      //     <ChildWithAlert />
+      //   </Provider>
+      // )
 
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
 
@@ -199,12 +203,12 @@ describe('public api', () => {
     })
 
     it('should remove the alert after the given timeout', () => {
-      const ChildWithAlert = withAlert(Child)
-      const tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate}>
-          <ChildWithAlert />
-        </Provider>
-      )
+      // const ChildWithAlert = withAlert(Child)
+      // const tree = TestUtils.renderIntoDocument(
+      //   <Provider template={AlertTemplate}>
+      //     <ChildWithAlert />
+      //   </Provider>
+      // )
 
       const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
 
@@ -225,12 +229,12 @@ describe('public api', () => {
 
   describe('info, success and error', () => {
     it('should add an alert', () => {
-      const ChildWithAlert = withAlert(Child)
-      const tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate}>
-          <ChildWithAlert />
-        </Provider>
-      )
+      // const ChildWithAlert = withAlert(Child)
+      // const tree = TestUtils.renderIntoDocument(
+      //   <Provider template={AlertTemplate}>
+      //     <ChildWithAlert />
+      //   </Provider>
+      // )
 
       const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
@@ -246,12 +250,12 @@ describe('public api', () => {
     })
 
     it('should accept timeout option', () => {
-      const ChildWithAlert = withAlert(Child)
-      const tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate}>
-          <ChildWithAlert />
-        </Provider>
-      )
+      // const ChildWithAlert = withAlert(Child)
+      // const tree = TestUtils.renderIntoDocument(
+      //   <Provider template={AlertTemplate}>
+      //     <ChildWithAlert />
+      //   </Provider>
+      // )
 
       const message = 'Some Message'
       const options = { timeout: 2000 }
@@ -272,12 +276,12 @@ describe('public api', () => {
 
   describe('remove', () => {
     it('should remove the alert matching the id', () => {
-      const ChildWithAlert = withAlert(Child)
-      const tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate}>
-          <ChildWithAlert />
-        </Provider>
-      )
+      // const ChildWithAlert = withAlert(Child)
+      // const tree = TestUtils.renderIntoDocument(
+      //   <Provider template={AlertTemplate}>
+      //     <ChildWithAlert />
+      //   </Provider>
+      // )
 
       const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
@@ -291,12 +295,12 @@ describe('public api', () => {
     })
 
     it('should call onClose callback', () => {
-      const ChildWithAlert = withAlert(Child)
-      const tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate}>
-          <ChildWithAlert />
-        </Provider>
-      )
+      // const ChildWithAlert = withAlert(Child)
+      // const tree = TestUtils.renderIntoDocument(
+      //   <Provider template={AlertTemplate}>
+      //     <ChildWithAlert />
+      //   </Provider>
+      // )
 
       const message = 'Some Message'
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
