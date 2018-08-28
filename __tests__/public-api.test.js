@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TestUtils from 'react-dom/test-utils'
+import ShallowRenderer from 'react-test-renderer/shallow'
 import Provider from '../src/Provider'
 import withAlert from '../src/withAlert'
 import Wrapper, { getStyles } from '../src/Wrapper'
@@ -84,13 +85,8 @@ describe('public api', () => {
       expect(alertTemplate).toBeDefined()
     })
 
-    it('should use the given position option', () => {
+    function renderWrapper(options) {
       const ChildWithAlert = withAlert(Child)
-
-      const options = {
-        position: 'bottom left',
-        zIndex: 100
-      }
 
       let tree = TestUtils.renderIntoDocument(
         <Provider template={AlertTemplate} {...options}>
@@ -98,58 +94,44 @@ describe('public api', () => {
         </Provider>
       )
 
-      let alertWrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
-      expect(alertWrapper.styles).toEqual(getStyles(options))
+      const message = 'Some Message'
+      const child = TestUtils.findRenderedComponentWithType(tree, Child)
+      child.props.alert.show(message, options)
 
-      options.position = 'bottom center'
-      tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate} {...options}>
-          <ChildWithAlert />
-        </Provider>
-      )
+      return TestUtils.findRenderedComponentWithType(tree, Wrapper)
+    }
 
-      alertWrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
-      expect(alertWrapper.styles).toEqual(getStyles(options))
+    it('should use the given position option', () => {
+      const options = [
+        {
+          position: 'bottom left',
+          zIndex: 100
+        },
+        {
+          position: 'bottom right',
+          zIndex: 1
+        },
+        {
+          position: 'bottom center',
+          zIndex: 2
+        },
+        {
+          position: 'top left',
+          zIndex: 34
+        },
+        {
+          position: 'top right',
+          zIndex: 56
+        },
+        {
+          position: 'top center',
+          zIndex: 101
+        }
+      ]
 
-      options.position = 'bottom right'
-      tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate} {...options}>
-          <ChildWithAlert />
-        </Provider>
-      )
-
-      alertWrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
-      expect(alertWrapper.styles).toEqual(getStyles(options))
-
-      options.position = 'top left'
-      tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate} {...options}>
-          <ChildWithAlert />
-        </Provider>
-      )
-
-      alertWrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
-      expect(alertWrapper.styles).toEqual(getStyles(options))
-
-      options.position = 'top center'
-      tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate} {...options}>
-          <ChildWithAlert />
-        </Provider>
-      )
-
-      alertWrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
-      expect(alertWrapper.styles).toEqual(getStyles(options))
-
-      options.position = 'top right'
-      tree = TestUtils.renderIntoDocument(
-        <Provider template={AlertTemplate} {...options}>
-          <ChildWithAlert />
-        </Provider>
-      )
-
-      alertWrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
-      expect(alertWrapper.styles).toEqual(getStyles(options))
+      options.forEach(option => {
+        expect(renderWrapper(option).styles).toEqual(getStyles(option))
+      })
     })
   })
 
@@ -324,6 +306,16 @@ describe('public api', () => {
 
       child.props.alert.remove(alert)
       expect(onClose).toHaveBeenCalled()
+    })
+
+    it(`lifecycle method should have been called`, () => {
+      const componentWillUnmount = jest.fn()
+
+      const renderer = new ShallowRenderer()
+      renderer.render(<Provider template={AlertTemplate} />)
+
+      renderer.unmount()
+      expect(componentWillUnmount.mock.calls.length).toBe(0)
     })
   })
 })
