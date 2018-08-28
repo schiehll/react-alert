@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionGroup } from 'react-transition-group'
 import { createPortal } from 'react-dom'
 import { Context } from './Context'
 import Wrapper from './Wrapper'
 import Transition from './Transition'
+import groupBy from './helpers'
 
 class Provider extends Component {
   static propTypes = {
@@ -48,7 +49,10 @@ class Provider extends Component {
 
     const { timeout, type } = this.props
 
+    const position = options.position ? options.position : this.props.position
+
     const alertOptions = {
+      position,
       timeout,
       type,
       ...options
@@ -158,23 +162,32 @@ class Provider extends Component {
       info: this.info
     }
 
+    const alertsByPosition = groupBy(alerts, alert => alert.options.position)
+
     return (
       <Context.Provider value={alert}>
         {children}
         {root &&
           createPortal(
-            <Wrapper options={options}>
-              <TransitionGroup>
-                {alerts.map(alert => (
-                  <Transition type={options.transition} key={alert.id}>
-                    <AlertComponent
-                      style={{ margin: options.offset }}
-                      {...alert}
-                    />
-                  </Transition>
-                ))}
-              </TransitionGroup>
-            </Wrapper>,
+            <Fragment>
+              {Object.keys(alertsByPosition).map(position => (
+                <Wrapper
+                  options={{ position, zIndex: options.zIndex }}
+                  key={position}
+                >
+                  <TransitionGroup>
+                    {alertsByPosition[position].map(alert => (
+                      <Transition type={options.transition} key={alert.id}>
+                        <AlertComponent
+                          style={{ margin: options.offset }}
+                          {...alert}
+                        />
+                      </Transition>
+                    ))}
+                  </TransitionGroup>
+                </Wrapper>
+              ))}
+            </Fragment>,
             root
           )}
       </Context.Provider>
