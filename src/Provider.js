@@ -49,10 +49,7 @@ class Provider extends Component {
 
     const { timeout, type } = this.props
 
-    const position = options.position ? options.position : this.props.position
-
     const alertOptions = {
-      position,
       timeout,
       type,
       ...options
@@ -171,10 +168,7 @@ class Provider extends Component {
           createPortal(
             <Fragment>
               {Object.keys(alertsByPosition).map(position => (
-                <Wrapper
-                  options={{ position, zIndex: options.zIndex }}
-                  key={position}
-                >
+                <Wrapper options={{ position, zIndex }} key={position}>
                   <TransitionGroup>
                     {alertsByPosition[position].map(alert => (
                       <Transition type={options.transition} key={alert.id}>
