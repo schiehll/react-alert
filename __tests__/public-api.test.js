@@ -23,18 +23,24 @@ describe('public api', () => {
 
   let ChildWithAlert
   let tree
+  const message = 'Some Message'
+  let provider
+  let child
 
-  function getRenderedTree(AlertTemplate, options = {}) {
-    return TestUtils.renderIntoDocument(
+  function renderProviderTree(AlertTemplate, options = {}, alertProps = {}) {
+    const tree = TestUtils.renderIntoDocument(
       <Provider template={AlertTemplate} {...options}>
-        <ChildWithAlert />
+        <ChildWithAlert {...alertProps} />
       </Provider>
     )
+    provider = TestUtils.findRenderedComponentWithType(tree, Provider)
+    child = TestUtils.findRenderedComponentWithType(tree, Child)
+    return tree
   }
 
   beforeEach(() => {
     ChildWithAlert = withAlert(Child)
-    tree = getRenderedTree(AlertTemplate)
+    tree = renderProviderTree(AlertTemplate)
   })
 
   afterEach(() => {
@@ -44,24 +50,20 @@ describe('public api', () => {
   describe('Provider', () => {
     it('should wrap the component name to indicate that it have a global state', () => {
       // default name
-      // ChildWithAlert = withAlert(Child)
       expect(ChildWithAlert.displayName).toBe(`WithAlert(Child)`)
+
       // named component
       const displayName = 'TheChildName'
       Child.displayName = displayName
-
       ChildWithAlert = withAlert(Child)
       expect(ChildWithAlert.displayName).toBe(`WithAlert(${displayName})`)
+
       // unamed Component
       ChildWithAlert = withAlert(() => <div />)
       expect(ChildWithAlert.displayName).toBe(`WithAlert(Component)`)
     })
 
     it('should pass alert prop down to the wrapped component with the show, info, success, error and remove funcions', () => {
-      // ChildWithAlert = withAlert(Child)
-      // tree = getRenderedTree(AlertTemplate)
-
-      const child = TestUtils.findRenderedComponentWithType(tree, Child)
       expect(child).toBeInstanceOf(Child)
       expect(child.props.alert).toBeInstanceOf(Object)
       expect(child.props.alert.show).toBeInstanceOf(Function)
@@ -72,19 +74,11 @@ describe('public api', () => {
     })
 
     it('should pass other props down to the wrapped component', () => {
-      // ChildWithAlert = withAlert(Child)
-      // tree = getRenderedTree(AlertTemplate)
-
-      const child = TestUtils.findRenderedComponentWithType(tree, Child)
+      tree = renderProviderTree(AlertTemplate, {}, { customProp: true })
       expect(child.props.customProp).toBe(true)
     })
 
     it('should use the given alertTemplate', () => {
-      // ChildWithAlert = withAlert(Child)
-      // tree = getRenderedTree(AlertTemplate)
-
-      const message = 'Some Message'
-      const child = TestUtils.findRenderedComponentWithType(tree, Child)
       child.props.alert.show(message)
 
       const alertTemplate = TestUtils.findRenderedComponentWithType(
@@ -93,87 +87,37 @@ describe('public api', () => {
       )
       expect(alertTemplate).toBeDefined()
     })
+  })
 
-    function renderWrapper(options) {
-      // ChildWithAlert = withAlert(Child)
-      // tree = getRenderedTree(AlertTemplate, ...options)
+  describe('Wrapper', () => {
+    const options = [
+      { position: 'bottom left' },
+      { position: 'bottom right' },
+      { position: 'bottom center' },
+      { position: 'top left' },
+      { position: 'top right' },
+      { position: 'top center' }
+    ]
 
-      const message = 'Some Message'
-      const child = TestUtils.findRenderedComponentWithType(tree, Child)
-      child.props.alert.show(message, options)
-
-      return TestUtils.findRenderedComponentWithType(tree, Wrapper)
-    }
-
-    it('should use the given position option', () => {
-      const options = [
-        {
-          position: 'bottom left',
-          zIndex: 100
-        },
-        {
-          position: 'bottom right',
-          zIndex: 1
-        },
-        {
-          position: 'bottom center',
-          zIndex: 2
-        },
-        {
-          position: 'top left',
-          zIndex: 34
-        },
-        {
-          position: 'top right',
-          zIndex: 56
-        },
-        {
-          position: 'top center',
-          zIndex: 101
-        }
-      ]
-
-      options.forEach(option => {
-        expect(renderWrapper(option).styles).toEqual(getStyles(option))
+    options.forEach(option => {
+      it('should use the given position "' + option.position + '"', () => {
+        child.props.alert.show(message, option)
+        const wrapper = TestUtils.findRenderedComponentWithType(tree, Wrapper)
+        expect(wrapper.styles).toEqual(getStyles({ ...option, zIndex: 100 }))
       })
     })
   })
 
   describe('show', () => {
     it('should add an alert and return the object representing it', () => {
-      // const ChildWithAlert = withAlert(Child)
-      // const tree = TestUtils.renderIntoDocument(
-      //   <Provider template={AlertTemplate}>
-      //     <ChildWithAlert />
-      //   </Provider>
-      // )
-
-      const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
-      const child = TestUtils.findRenderedComponentWithType(tree, Child)
-
-      const message = 'Some Message'
       const alert = child.props.alert.show(message)
-
       expect(provider.state.alerts[0].message).toEqual(message)
       expect(provider.state.alerts[0]).toEqual(alert)
     })
 
     it('should accept type and timeout options', () => {
-      // const ChildWithAlert = withAlert(Child)
-      // const tree = TestUtils.renderIntoDocument(
-      //   <Provider template={AlertTemplate}>
-      //     <ChildWithAlert />
-      //   </Provider>
-      // )
-
-      const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
-      const child = TestUtils.findRenderedComponentWithType(tree, Child)
-
-      const message = 'Some Message'
       const options = { type: 'success', timeout: 2000 }
-
       child.props.alert.show(message, options)
-
       const { type, timeout } = provider.state.alerts[0].options
 
       expect(type).toEqual(options.type)
@@ -181,18 +125,7 @@ describe('public api', () => {
     })
 
     it('should call custom onOpen function if provided', () => {
-      // const ChildWithAlert = withAlert(Child)
-      // const tree = TestUtils.renderIntoDocument(
-      //   <Provider template={AlertTemplate}>
-      //     <ChildWithAlert />
-      //   </Provider>
-      // )
-
-      const child = TestUtils.findRenderedComponentWithType(tree, Child)
-
-      const message = 'Some Message'
       const onOpen = jest.fn()
-
       child.props.alert.show(message)
 
       expect(onOpen).not.toHaveBeenCalled()
@@ -203,18 +136,6 @@ describe('public api', () => {
     })
 
     it('should remove the alert after the given timeout', () => {
-      // const ChildWithAlert = withAlert(Child)
-      // const tree = TestUtils.renderIntoDocument(
-      //   <Provider template={AlertTemplate}>
-      //     <ChildWithAlert />
-      //   </Provider>
-      // )
-
-      const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
-
-      const message = 'Some Message'
-      const child = TestUtils.findRenderedComponentWithType(tree, Child)
-
       const timeout = 2000
 
       child.props.alert.show(message, { timeout })
@@ -229,16 +150,6 @@ describe('public api', () => {
 
   describe('info, success and error', () => {
     it('should add an alert', () => {
-      // const ChildWithAlert = withAlert(Child)
-      // const tree = TestUtils.renderIntoDocument(
-      //   <Provider template={AlertTemplate}>
-      //     <ChildWithAlert />
-      //   </Provider>
-      // )
-
-      const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
-      const child = TestUtils.findRenderedComponentWithType(tree, Child)
-
       child.props.alert.info('info')
       expect(provider.state.alerts[0].message).toEqual('info')
 
@@ -250,18 +161,7 @@ describe('public api', () => {
     })
 
     it('should accept timeout option', () => {
-      // const ChildWithAlert = withAlert(Child)
-      // const tree = TestUtils.renderIntoDocument(
-      //   <Provider template={AlertTemplate}>
-      //     <ChildWithAlert />
-      //   </Provider>
-      // )
-
-      const message = 'Some Message'
       const options = { timeout: 2000 }
-
-      const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
-      const child = TestUtils.findRenderedComponentWithType(tree, Child)
 
       child.props.alert.info(message, options)
       expect(provider.state.alerts[0].options.timeout).toEqual(options.timeout)
@@ -276,18 +176,8 @@ describe('public api', () => {
 
   describe('remove', () => {
     it('should remove the alert matching the id', () => {
-      // const ChildWithAlert = withAlert(Child)
-      // const tree = TestUtils.renderIntoDocument(
-      //   <Provider template={AlertTemplate}>
-      //     <ChildWithAlert />
-      //   </Provider>
-      // )
-
-      const provider = TestUtils.findRenderedComponentWithType(tree, Provider)
-      const child = TestUtils.findRenderedComponentWithType(tree, Child)
-      const message = 'Some Message'
-
       const alert = child.props.alert.show(message)
+
       expect(provider.state.alerts).toHaveLength(1)
 
       child.props.alert.remove(alert)
@@ -295,16 +185,6 @@ describe('public api', () => {
     })
 
     it('should call onClose callback', () => {
-      // const ChildWithAlert = withAlert(Child)
-      // const tree = TestUtils.renderIntoDocument(
-      //   <Provider template={AlertTemplate}>
-      //     <ChildWithAlert />
-      //   </Provider>
-      // )
-
-      const message = 'Some Message'
-      const child = TestUtils.findRenderedComponentWithType(tree, Child)
-
       const onClose = jest.fn()
       const alert = child.props.alert.show(message, { onClose })
 
@@ -312,14 +192,25 @@ describe('public api', () => {
       expect(onClose).toHaveBeenCalled()
     })
 
-    it(`lifecycle method should have been called`, () => {
+    it(`lifecycle componentWillUnmount method should have been called`, () => {
       const componentWillUnmount = jest.fn()
 
-      const renderer = new ShallowRenderer()
-      renderer.render(<Provider template={AlertTemplate} />)
+      class Foo extends Provider {
+        constructor(props) {
+          super(props)
+          this.componentWillUnmount = componentWillUnmount
+        }
 
+        render() {
+          return <Provider {...this.props} />
+        }
+      }
+
+      const renderer = new ShallowRenderer()
+      renderer.render(<Foo template={AlertTemplate} />)
       renderer.unmount()
-      expect(componentWillUnmount.mock.calls.length).toBe(0)
+
+      expect(componentWillUnmount).toHaveBeenCalled()
     })
   })
 })
