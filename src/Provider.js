@@ -16,7 +16,9 @@ class Provider extends Component {
       'top center',
       'bottom left',
       'bottom right',
-      'bottom center'
+      'bottom center',
+      'center right',
+      'center left'
     ]),
     timeout: PropTypes.number,
     type: PropTypes.oneOf(['info', 'success', 'error']),

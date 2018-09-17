@@ -44,6 +44,18 @@ export const getStyles = ({ position, zIndex }) => {
         transform: 'translate(-50%, 0%)',
         ...initialStyles
       }
+    case 'center right':
+      return {
+        bottom: '50%',
+        right: 0,
+        ...initialStyles
+      }
+    case 'center left':
+      return {
+        bottom: '50%',
+        left: 0,
+        ...initialStyles
+      }
   }
 }
 
