@@ -167,10 +167,7 @@ class Provider extends Component {
               <TransitionGroup>
                 {alerts.map(alert => (
                   <Transition type={options.transition} key={alert.id}>
-                    <AlertComponent
-                      style={{ margin: options.offset }}
-                      {...alert}
-                    />
+                    <AlertComponent {...alert} />
                   </Transition>
                 ))}
               </TransitionGroup>
