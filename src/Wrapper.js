@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export const getStyles = ({ offset, position, zIndex }) => {
+export const getStyles = ({ offset = '10px', position, zIndex }) => {
   switch (position) {
     case 'top left':
       return {
