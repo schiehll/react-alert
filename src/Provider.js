@@ -9,6 +9,7 @@ import Transition from './Transition'
 class Provider extends Component {
   static propTypes = {
     offset: PropTypes.string,
+    alertSpacing: PropTypes.string,
     position: PropTypes.oneOf([
       'top left',
       'top right',
@@ -27,6 +28,7 @@ class Provider extends Component {
 
   static defaultProps = {
     offset: '10px',
+    alertSpacing: '10px',
     position: 'top center',
     timeout: 0,
     type: 'info',
@@ -132,6 +134,7 @@ class Provider extends Component {
     const {
       children,
       offset,
+      alertSpacing,
       position,
       timeout,
       type,
@@ -142,6 +145,7 @@ class Provider extends Component {
 
     const options = {
       offset,
+      alertSpacing,
       position,
       timeout,
       type,
@@ -167,7 +171,10 @@ class Provider extends Component {
               <TransitionGroup>
                 {alerts.map(alert => (
                   <Transition type={options.transition} key={alert.id}>
-                    <AlertComponent {...alert} />
+                    <AlertComponent
+                      {...alert}
+                      style={{ margin: options.alertSpacing }}
+                    />
                   </Transition>
                 ))}
               </TransitionGroup>

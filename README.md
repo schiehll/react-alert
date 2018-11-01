@@ -19,10 +19,10 @@ $ npm install --save react-alert
 
 You can provide your own alert template if you need to. Otherwise you can just plug in one of the following:
 
-- [Basic](https://github.com/schiehll/react-alert-template-basic)
-- [Dark](https://github.com/schiehll/react-alert-template-oldschool-dark)
+* [Basic](https://github.com/schiehll/react-alert-template-basic)
+* [Dark](https://github.com/schiehll/react-alert-template-oldschool-dark)
 
-Feel free to submit a PR with the link for your own template. 
+Feel free to submit a PR with the link for your own template.
 
 To get started, try installing the basic one:
 
@@ -63,8 +63,8 @@ const options = {
   transition: 'scale'
 }
 
-class Root extends Component  {
-  render () {
+class Root extends Component {
+  render() {
     return (
       <AlertProvider template={AlertTemplate} {...options}>
         <App />
@@ -83,8 +83,8 @@ Then you wrap the components that you want to be able to show alerts:
 import React, { Component } from 'react'
 import { withAlert } from 'react-alert'
 
-class App extends Component  {
-  render () {
+class App extends Component {
+  render() {
     return (
       <button
         onClick={() => {
@@ -109,8 +109,8 @@ You can also use it with a render props api:
 import React, { Component } from 'react'
 import { Alert } from 'react-alert'
 
-class App extends Component  {
-  render () {
+class App extends Component {
+  render() {
     return (
       <Alert>
         {alert => (
@@ -135,7 +135,8 @@ export default App
 You can pass the following options as props to `Provider`:
 
 ```js
-offset: PropTypes.string // the margin of each alert
+offset: PropTypes.string // offset from position '200px'
+alertSpacing: PropTypes.string // spacing between alerts '20px'
 position: PropTypes.oneOf([
   'top left',
   'top right',
@@ -155,6 +156,7 @@ Here's the defaults:
 
 ```js
 offset: '10px'
+alertSpacing: '10px',
 position: 'top center'
 timeout: 0
 type: 'info'
@@ -171,34 +173,50 @@ When you wrap a component using `withAlert` you receive the `alert` prop. Here's
 ```js
 // show
 const alert = this.props.alert.show('Some message', {
-  timeout: 2000 , // custom timeout just for this one alert
+  timeout: 2000, // custom timeout just for this one alert
   type: 'success',
-  onOpen: () => { console.log('hey') }, // callback that will be executed after this alert open
-  onClose: () => { console.log('closed') } // callback that will be executed after this alert is removed
+  onOpen: () => {
+    console.log('hey')
+  }, // callback that will be executed after this alert open
+  onClose: () => {
+    console.log('closed')
+  } // callback that will be executed after this alert is removed
 })
 
 // info
 // just an alias to this.props.alert.show(msg, { type: 'info' })
 const alert = this.props.alert.info('Some info', {
-  timeout: 2000 , // custom timeout just for this one alert
-  onOpen: () => { console.log('hey') }, // callback that will be executed after this alert open
-  onClose: () => { console.log('closed') } // callback that will be executed after this alert is removed
+  timeout: 2000, // custom timeout just for this one alert
+  onOpen: () => {
+    console.log('hey')
+  }, // callback that will be executed after this alert open
+  onClose: () => {
+    console.log('closed')
+  } // callback that will be executed after this alert is removed
 })
 
 // success
 // just an alias to this.props.alert.show(msg, { type: 'success' })
 const alert = this.props.alert.success('Some success', {
-  timeout: 2000 , // custom timeout just for this one alert
-  onOpen: () => { console.log('hey') }, // callback that will be executed after this alert open
-  onClose: () => { console.log('closed') } // callback that will be executed after this alert is removed
+  timeout: 2000, // custom timeout just for this one alert
+  onOpen: () => {
+    console.log('hey')
+  }, // callback that will be executed after this alert open
+  onClose: () => {
+    console.log('closed')
+  } // callback that will be executed after this alert is removed
 })
 
 // error
 // just an alias to this.props.alert.show(msg, { type: 'error' })
 const alert = this.props.alert.error('Some error', {
-  timeout: 2000 , // custom timeout just for this one alert
-  onOpen: () => { console.log('hey') }, // callback that will be executed after this alert open
-  onClose: () => { console.log('closed') } // callback that will be executed after this alert is removed
+  timeout: 2000, // custom timeout just for this one alert
+  onOpen: () => {
+    console.log('hey')
+  }, // callback that will be executed after this alert open
+  onClose: () => {
+    console.log('closed')
+  } // callback that will be executed after this alert is removed
 })
 
 // remove
@@ -218,7 +236,7 @@ import { Provider as AlertProvider } from 'react-alert'
 import App from './App'
 
 class AlertTemplate extends Component {
-  render () {
+  render() {
     // the style contains only the margin given as offset
     // options contains all alert given options
     // message is the alert message...
@@ -237,8 +255,8 @@ class AlertTemplate extends Component {
   }
 }
 
-class Root extends Component  {
-  render () {
+class Root extends Component {
+  render() {
     return (
       <AlertProvider template={AlertTemplate}>
         <App />
