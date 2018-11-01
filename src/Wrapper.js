@@ -30,7 +30,7 @@ export const getStyles = ({ offset = '10px', position, zIndex }) => {
         right: `${offset}`,
         zIndex
       }
-    case 'top center': {
+    case 'top center':
       return {
         position: 'fixed',
         top: `${offset}`,
@@ -38,7 +38,6 @@ export const getStyles = ({ offset = '10px', position, zIndex }) => {
         transform: 'translate(-50%, 0%)',
         zIndex
       }
-    }
     case 'bottom center':
       return {
         position: 'fixed',
