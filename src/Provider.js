@@ -42,7 +42,7 @@ class Provider extends Component {
   timerId = []
 
   show = (message = '', options = {}) => {
-    const id = Math.random()
+    const id = options.id || Math.random()
       .toString(36)
       .substr(2, 9)
 
@@ -86,14 +86,23 @@ class Provider extends Component {
 
   remove = alert => {
     this.setState(prevState => {
-      const lengthBeforeRemove = prevState.alerts.length
-      const alerts = prevState.alerts.filter(a => a.id !== alert.id)
-
-      if (lengthBeforeRemove > alerts.length && alert.options.onClose) {
-        alert.options.onClose()
+      const remainingAlerts = []
+      const removedAlerts = [] // in case multiple alerts shares the same id
+      for (let a of prevState.alerts) {
+        if (a.id === alert.id) {
+          removedAlerts.push(a)
+        } else {
+          remainingAlerts.push(a)
+        }
       }
 
-      return { alerts }
+      for (let removedAlert of removedAlerts) {
+        if (removedAlert.options.onClose) {
+           removedAlert.options.onClose()
+        }
+      }
+
+      return { remainingAlerts }
     })
   }
 
