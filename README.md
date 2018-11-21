@@ -204,6 +204,8 @@ const alert = this.props.alert.error('Some error', {
 // remove
 // use it to remove an alert programmatically
 this.props.alert.remove(alert)
+
+Under the hood, every alerts gets a unique id upon generation. If for some reasons you want to handle the id generation process you can specify the id field in the alert options { id: 'whatever', ... }.
 ```
 
 ## Using a custom alert template
