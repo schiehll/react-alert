@@ -42,9 +42,11 @@ class Provider extends Component {
   timerId = []
 
   show = (message = '', options = {}) => {
-    const id = options.id || Math.random()
-      .toString(36)
-      .substr(2, 9)
+    const id =
+      options.id ||
+      Math.random()
+        .toString(36)
+        .substr(2, 9)
 
     const { timeout, type } = this.props
 
@@ -98,11 +100,11 @@ class Provider extends Component {
 
       for (let removedAlert of removedAlerts) {
         if (removedAlert.options.onClose) {
-           removedAlert.options.onClose()
+          removedAlert.options.onClose()
         }
       }
 
-      return { remainingAlerts }
+      return { alerts: remainingAlerts }
     })
   }
 
