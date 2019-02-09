@@ -1,52 +1,55 @@
-import React, { Component } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionGroup } from 'react-transition-group'
 import { createPortal } from 'react-dom'
-import { Context } from './Context'
+import DefaultContext from './Context'
 import Wrapper from './Wrapper'
 import Transition from './Transition'
 
-class Provider extends Component {
-  static propTypes = {
-    offset: PropTypes.string,
-    position: PropTypes.oneOf([
-      'top left',
-      'top right',
-      'top center',
-      'bottom left',
-      'bottom right',
-      'bottom center'
-    ]),
-    timeout: PropTypes.number,
-    type: PropTypes.oneOf(['info', 'success', 'error']),
-    transition: PropTypes.oneOf(['fade', 'scale']),
-    zIndex: PropTypes.number,
-    template: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
-      .isRequired
+const Provider = ({
+  children,
+  offset,
+  position,
+  timeout,
+  type,
+  transition,
+  containerStyle,
+  template: AlertComponent,
+  context: Context,
+  ...props
+}) => {
+  const root = useRef(null)
+  const timersId = useRef([])
+  const [alerts, setAlerts] = useState([])
+
+  useEffect(() => {
+    root.current = document.createElement('div')
+    document.body.appendChild(root.current)
+
+    return () => {
+      timersId.current.forEach(clearTimeout)
+
+      if (root.current) document.body.removeChild(root.current)
+    }
+  }, [])
+
+  const remove = alert => {
+    setAlerts(prevState => {
+      const lengthBeforeRemove = prevState.length
+      const alerts = prevState.filter(a => a.id !== alert.id)
+
+      if (lengthBeforeRemove > alerts.length && alert.options.onClose) {
+        alert.options.onClose()
+      }
+
+      return alerts
+    })
   }
 
-  static defaultProps = {
-    offset: '10px',
-    position: 'top center',
-    timeout: 0,
-    type: 'info',
-    transition: 'fade',
-    zIndex: 100
-  }
-
-  state = {
-    root: null,
-    alerts: []
-  }
-
-  timerId = []
-
-  show = (message = '', options = {}) => {
+  const show = (message = '', options = {}) => {
     const id = Math.random()
       .toString(36)
       .substr(2, 9)
-
-    const { timeout, type } = this.props
 
     const alertOptions = {
       timeout,
@@ -60,126 +63,100 @@ class Provider extends Component {
       options: alertOptions
     }
 
-    alert.close = () => this.remove(alert)
+    alert.close = () => remove(alert)
 
     if (alert.options.timeout) {
       const timerId = setTimeout(() => {
-        this.remove(alert)
+        remove(alert)
 
-        this.timerId.splice(this.timerId.indexOf(timerId), 1)
+        timersId.current.splice(timersId.current.indexOf(timerId), 1)
       }, alert.options.timeout)
 
-      this.timerId.push(timerId)
+      timersId.current.push(timerId)
     }
 
-    this.setState(
-      prevState => ({
-        alerts: prevState.alerts.concat(alert)
-      }),
-      () => {
-        alert.options.onOpen && alert.options.onOpen()
-      }
-    )
+    setAlerts(alerts => alerts.concat(alert))
+    if (alert.options.onOpen) alert.options.onOpen()
 
     return alert
   }
 
-  remove = alert => {
-    this.setState(prevState => {
-      const lengthBeforeRemove = prevState.alerts.length
-      const alerts = prevState.alerts.filter(a => a.id !== alert.id)
-
-      if (lengthBeforeRemove > alerts.length && alert.options.onClose) {
-        alert.options.onClose()
-      }
-
-      return { alerts }
-    })
-  }
-
-  success = (message = '', options = {}) => {
+  const success = (message = '', options = {}) => {
     options.type = 'success'
-    return this.show(message, options)
+    return show(message, options)
   }
 
-  error = (message = '', options = {}) => {
+  const error = (message = '', options = {}) => {
     options.type = 'error'
-    return this.show(message, options)
+    return show(message, options)
   }
 
-  info = (message = '', options = {}) => {
+  const info = (message = '', options = {}) => {
     options.type = 'info'
-    return this.show(message, options)
+    return show(message, options)
   }
 
-  componentDidMount() {
-    const root = document.createElement('div')
-    document.body.appendChild(root)
-
-    this.setState({ root })
+  const alertContext = {
+    root: root.current,
+    alerts,
+    show,
+    remove,
+    success,
+    error,
+    info
   }
 
-  componentWillUnmount() {
-    this.timerId.forEach(clearTimeout)
+  return (
+    <Context.Provider value={alertContext}>
+      {children}
+      {root.current &&
+        createPortal(
+          <Wrapper options={{ position, containerStyle }} {...props}>
+            <TransitionGroup>
+              {alerts.map(alert => (
+                <Transition type={transition} key={alert.id} appear={true}>
+                  <AlertComponent style={{ margin: offset }} {...alert} />
+                </Transition>
+              ))}
+            </TransitionGroup>
+          </Wrapper>,
+          root.current
+        )}
+    </Context.Provider>
+  )
+}
 
-    const { root } = this.state
-    if (root) document.body.removeChild(root)
-  }
+Provider.propTypes = {
+  offset: PropTypes.string,
+  position: PropTypes.oneOf([
+    'top left',
+    'top right',
+    'top center',
+    'bottom left',
+    'bottom right',
+    'bottom center'
+  ]),
+  timeout: PropTypes.number,
+  type: PropTypes.oneOf(['info', 'success', 'error']),
+  transition: PropTypes.oneOf(['fade', 'scale']),
+  containerStyle: PropTypes.object,
+  template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
+  context: PropTypes.shape({
+    Provider: PropTypes.object,
+    Consumer: PropTypes.object
+  })
+}
 
-  render() {
-    const { root, alerts } = this.state
-
-    const {
-      children,
-      offset,
-      position,
-      timeout,
-      type,
-      transition,
-      zIndex,
-      template: AlertComponent
-    } = this.props
-
-    const options = {
-      offset,
-      position,
-      timeout,
-      type,
-      transition,
-      zIndex
-    }
-
-    const alert = {
-      ...this.state,
-      show: this.show,
-      remove: this.remove,
-      success: this.success,
-      error: this.error,
-      info: this.info
-    }
-
-    return (
-      <Context.Provider value={alert}>
-        {children}
-        {root &&
-          createPortal(
-            <Wrapper options={options}>
-              <TransitionGroup>
-                {alerts.map(alert => (
-                  <Transition type={options.transition} key={alert.id}>
-                    <AlertComponent
-                      style={{ margin: options.offset }}
-                      {...alert}
-                    />
-                  </Transition>
-                ))}
-              </TransitionGroup>
-            </Wrapper>,
-            root
-          )}
-      </Context.Provider>
-    )
-  }
+Provider.defaultProps = {
+  offset: '10px',
+  position: 'top center',
+  timeout: 0,
+  type: 'info',
+  transition: 'fade',
+  containerStyle: {
+    zIndex: 100
+  },
+  context: DefaultContext
 }
 
 export default Provider

@@ -1,3 +1,5 @@
-export Provider from './Provider'
-export Alert from './Alert'
-export withAlert from './withAlert'
+import Provider from './Provider'
+import useAlert from './useAlert'
+import withAlert from './withAlert'
+
+export { Provider, useAlert, withAlert }
