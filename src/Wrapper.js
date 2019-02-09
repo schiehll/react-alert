@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { useMemo } from 'react'
 
-export const getStyles = ({ position, zIndex }) => {
+export const getStyles = position => {
   switch (position) {
     case 'top left':
       return {
@@ -8,8 +8,7 @@ export const getStyles = ({ position, zIndex }) => {
         top: 0,
         right: 'auto',
         bottom: 'auto',
-        left: 0,
-        zIndex
+        left: 0
       }
     case 'top right':
       return {
@@ -17,8 +16,7 @@ export const getStyles = ({ position, zIndex }) => {
         top: 0,
         right: 0,
         bottom: 'auto',
-        left: 'auto',
-        zIndex
+        left: 'auto'
       }
     case 'bottom left':
       return {
@@ -26,8 +24,7 @@ export const getStyles = ({ position, zIndex }) => {
         top: 'auto',
         right: 'auto',
         bottom: 0,
-        left: 0,
-        zIndex
+        left: 0
       }
     case 'bottom right':
       return {
@@ -35,8 +32,7 @@ export const getStyles = ({ position, zIndex }) => {
         top: 'auto',
         right: 0,
         bottom: 0,
-        left: 'auto',
-        zIndex
+        left: 'auto'
       }
     case 'top center':
       return {
@@ -45,8 +41,7 @@ export const getStyles = ({ position, zIndex }) => {
         right: 'auto',
         bottom: 'auto',
         left: '50%',
-        transform: 'translate(-50%, 0%)',
-        zIndex
+        transform: 'translate(-50%, 0%)'
       }
     case 'bottom center':
       return {
@@ -55,24 +50,23 @@ export const getStyles = ({ position, zIndex }) => {
         right: 'auto',
         bottom: 0,
         left: '50%',
-        transform: 'translate(-50%, 0%)',
-        zIndex
+        transform: 'translate(-50%, 0%)'
       }
   }
 }
 
-class Wrapper extends Component {
-  styles = getStyles(this.props.options)
+const Wrapper = ({
+  children,
+  options: { position, containerStyle },
+  ...props
+}) => {
+  const styles = useMemo(() => getStyles(position), [position])
 
-  render() {
-    const { children, options, ...props } = this.props
-
-    return (
-      <div style={this.styles} {...props}>
-        {children}
-      </div>
-    )
-  }
+  return (
+    <div style={{ ...styles, ...containerStyle }} {...props}>
+      {children}
+    </div>
+  )
 }
 
 export default Wrapper

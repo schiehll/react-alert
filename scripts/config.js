@@ -2,7 +2,7 @@ const resolve = require('rollup-plugin-node-resolve')
 const replace = require('rollup-plugin-replace')
 const babel = require('rollup-plugin-babel')
 const commonjs = require('rollup-plugin-commonjs')
-const uglify = require('rollup-plugin-uglify')
+const { uglify } = require('rollup-plugin-uglify')
 
 const getPlugins = env => {
   const plugins = [resolve()]
@@ -19,8 +19,10 @@ const getPlugins = env => {
     babel({
       exclude: 'node_modules/**',
       babelrc: false,
-      presets: [['env', { modules: false }], 'stage-1', 'react'],
-      plugins: ['external-helpers']
+      presets: [
+        ['@babel/preset-env', { modules: false }],
+        '@babel/preset-react'
+      ]
     }),
     commonjs({
       include: /node_modules/
