@@ -254,7 +254,7 @@ You can also pass in a component as a message, like this:
 alert.show(<div style={{ color: 'blue' }}>Some Message</div>)
 ```
 
-## Using multiple Poviders
+## Using multiple Providers
 
 You can use different Contexts to show alerts in different style and position:
 
