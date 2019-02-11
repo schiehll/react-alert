@@ -1,6 +1,6 @@
 # react-alert
 
-> Alerts for React
+> 2kb alerts for React
 
 [![travis build](https://img.shields.io/travis/schiehll/react-alert.svg?style=flat-square)](https://travis-ci.org/schiehll/react-alert)
 [![version](https://img.shields.io/npm/v/react-alert.svg?style=flat-square)](http://npm.im/react-alert)
@@ -254,7 +254,7 @@ You can also pass in a component as a message, like this:
 alert.show(<div style={{ color: 'blue' }}>Some Message</div>)
 ```
 
-## Using multiple Poviders
+## Using multiple Providers
 
 You can use different Contexts to show alerts in different style and position:
 
