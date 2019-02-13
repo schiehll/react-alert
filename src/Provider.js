@@ -132,6 +132,9 @@ Provider.propTypes = {
     'top left',
     'top right',
     'top center',
+    'middle left',
+    'middle right',
+    'middle',
     'bottom left',
     'bottom right',
     'bottom center'
