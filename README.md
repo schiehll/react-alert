@@ -77,7 +77,7 @@ Then import the `useAlert` hook to be able to show alerts:
 ```js
 // App.js
 import React from 'react'
-import { useLaert } from 'react-alert'
+import { useAlert } from 'react-alert'
 
 const App = () => {
   const alert = useAlert()
