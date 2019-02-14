@@ -1,56 +1,67 @@
 import React, { useMemo } from 'react'
+import { positions } from './options'
 
 export const getStyles = position => {
+  const initialStyles = { position: 'fixed' }
   switch (position) {
-    case 'top left':
+    case positions.TOP_LEFT:
       return {
-        position: 'fixed',
         top: 0,
-        right: 'auto',
-        bottom: 'auto',
-        left: 0
+        left: 0,
+        ...initialStyles
       }
-    case 'top right':
+    case positions.TOP_CENTER:
       return {
-        position: 'fixed',
+        top: 0,
+        left: '50%',
+        transform: 'translate(-50%, 0%)',
+        ...initialStyles
+      }
+    case positions.TOP_RIGHT:
+      return {
         top: 0,
         right: 0,
-        bottom: 'auto',
-        left: 'auto'
+        ...initialStyles
       }
-    case 'bottom left':
+    case positions.MIDDLE_LEFT:
       return {
-        position: 'fixed',
-        top: 'auto',
-        right: 'auto',
+        bottom: '50%',
+        left: 0,
+        ...initialStyles
+      }
+    case positions.MIDDLE: {
+      return {
+        bottom: '50%',
+        left: '50%',
+        transform: 'translate(-50%, 0%)',
+        ...initialStyles
+      }
+    }
+    case positions.MIDDLE_RIGHT:
+      return {
+        bottom: '50%',
+        right: 0,
+        ...initialStyles
+      }
+
+    case positions.BOTTOM_LEFT:
+      return {
         bottom: 0,
-        left: 0
+        left: 0,
+        ...initialStyles
       }
-    case 'bottom right':
+    case positions.BOTTOM_CENTER:
       return {
-        position: 'fixed',
-        top: 'auto',
+        bottom: 0,
+        left: '50%',
+        transform: 'translate(-50%, 0%)',
+        ...initialStyles
+      }
+    case positions.BOTTOM_RIGHT:
+      return {
         right: 0,
         bottom: 0,
-        left: 'auto'
-      }
-    case 'top center':
-      return {
-        position: 'fixed',
-        top: 0,
-        right: 'auto',
-        bottom: 'auto',
-        left: '50%',
-        transform: 'translate(-50%, 0%)'
-      }
-    case 'bottom center':
-      return {
-        position: 'fixed',
-        top: 'auto',
-        right: 'auto',
-        bottom: 0,
-        left: '50%',
-        transform: 'translate(-50%, 0%)'
+        ...initialStyles
       }
   }
 }

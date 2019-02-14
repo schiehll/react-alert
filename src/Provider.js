@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom'
 import DefaultContext from './Context'
 import Wrapper from './Wrapper'
 import Transition from './Transition'
+import { positions, transitions, types } from './options'
 
 const Provider = ({
   children,
@@ -82,17 +83,17 @@ const Provider = ({
   }
 
   const success = (message = '', options = {}) => {
-    options.type = 'success'
+    options.type = types.SUCCESS
     return show(message, options)
   }
 
   const error = (message = '', options = {}) => {
-    options.type = 'error'
+    options.type = types.ERROR
     return show(message, options)
   }
 
   const info = (message = '', options = {}) => {
-    options.type = 'info'
+    options.type = types.INFO
     return show(message, options)
   }
 
@@ -128,17 +129,10 @@ const Provider = ({
 
 Provider.propTypes = {
   offset: PropTypes.string,
-  position: PropTypes.oneOf([
-    'top left',
-    'top right',
-    'top center',
-    'bottom left',
-    'bottom right',
-    'bottom center'
-  ]),
+  position: PropTypes.oneOf(Object.values(positions)),
   timeout: PropTypes.number,
-  type: PropTypes.oneOf(['info', 'success', 'error']),
-  transition: PropTypes.oneOf(['fade', 'scale']),
+  type: PropTypes.oneOf(Object.values(types)),
+  transition: PropTypes.oneOf(Object.values(transitions)),
   containerStyle: PropTypes.object,
   template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
   context: PropTypes.shape({
@@ -149,10 +143,10 @@ Provider.propTypes = {
 
 Provider.defaultProps = {
   offset: '10px',
-  position: 'top center',
+  position: positions.TOP_CENTER,
   timeout: 0,
-  type: 'info',
-  transition: 'fade',
+  type: types.INFO,
+  transition: transitions.FADE,
   containerStyle: {
     zIndex: 100
   },
