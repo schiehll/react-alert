@@ -1,40 +1,35 @@
 import React, { useMemo } from 'react'
+import { positions } from './options'
 
 export const getStyles = position => {
   const initialStyles = { position: 'fixed' }
   switch (position) {
-    case 'top left':
+    case positions.TOP_LEFT:
       return {
         top: 0,
         left: 0,
         ...initialStyles
       }
-    case 'top right':
-      return {
-        top: 0,
-        right: 0,
-        ...initialStyles
-      }
-    case 'top center':
+    case positions.TOP_CENTER:
       return {
         top: 0,
         left: '50%',
         transform: 'translate(-50%, 0%)',
         ...initialStyles
       }
-    case 'middle left':
+    case positions.TOP_RIGHT:
+      return {
+        top: 0,
+        right: 0,
+        ...initialStyles
+      }
+    case positions.MIDDLE_LEFT:
       return {
         bottom: '50%',
         left: 0,
         ...initialStyles
       }
-    case 'middle right':
-      return {
-        bottom: '50%',
-        right: 0,
-        ...initialStyles
-      }
-    case 'middle': {
+    case positions.MIDDLE: {
       return {
         bottom: '50%',
         left: '50%',
@@ -42,23 +37,30 @@ export const getStyles = position => {
         ...initialStyles
       }
     }
-    case 'bottom left':
+    case positions.MIDDLE_RIGHT:
+      return {
+        bottom: '50%',
+        right: 0,
+        ...initialStyles
+      }
+
+    case positions.BOTTOM_LEFT:
       return {
         bottom: 0,
         left: 0,
         ...initialStyles
       }
-    case 'bottom right':
-      return {
-        right: 0,
-        bottom: 0,
-        ...initialStyles
-      }
-    case 'bottom center':
+    case positions.BOTTOM_CENTER:
       return {
         bottom: 0,
         left: '50%',
         transform: 'translate(-50%, 0%)',
+        ...initialStyles
+      }
+    case positions.BOTTOM_RIGHT:
+      return {
+        right: 0,
+        bottom: 0,
         ...initialStyles
       }
   }
