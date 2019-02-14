@@ -51,16 +51,18 @@ First you have to wrap your app with the Provider giving it the alert template a
 // index.js
 import React from 'react'
 import { render } from 'react-dom'
-import { Provider as AlertProvider } from 'react-alert'
+import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 import App from './App'
 
 // optional cofiguration
 const options = {
-  position: 'bottom center',
+  // you can also just use 'bottom center'
+  position: positions.BOTTOM_CENTER,
   timeout: 5000,
   offset: '30px',
-  transition: 'scale'
+  // you can also just use 'scale'
+  transition: transitions.SCALE
 }
 
 const Root = () => (
@@ -127,6 +129,9 @@ position: PropTypes.oneOf([
   'top left',
   'top right',
   'top center',
+  'middle left',
+  'middle',
+  'middle right',
   'bottom left',
   'bottom right',
   'bottom center'
@@ -261,7 +266,7 @@ You can use different Contexts to show alerts in different style and position:
 ```js
 import React, { createContext } from 'react'
 import { render } from 'react-dom'
-import { Provider as AlertProvider, useAlert } from 'react-alert'
+import { useAlert, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 
 const TopRightAlertContext = createContext()
@@ -290,7 +295,7 @@ const Root = () => (
   <AlertProvider template={AlertTemplate}>
     <AlertProvider
       template={AlertTemplate}
-      position="top right"
+      position={positions.TOP_RIGHT}
       context={TopRightAlertContext}
     >
       <App />
