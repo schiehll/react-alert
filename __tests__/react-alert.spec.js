@@ -1,6 +1,6 @@
 import React, { useRef, createContext } from 'react'
 import 'jest-dom/extend-expect'
-import { render, fireEvent, cleanup, act } from 'react-testing-library'
+import { render, fireEvent, cleanup, act, waitForElement } from 'react-testing-library'
 import { positions, Provider, useAlert, withAlert } from '../src'
 import { getStyles } from '../src/Wrapper'
 
@@ -220,6 +220,84 @@ describe('react-alert', () => {
       fireEvent.click(getByText(/show alert/i))
       const alertElement = getByTestId('alert')
       expect(alertElement).toHaveStyle('margin: 30px')
+    })
+
+    it('should render an alert in position passed to alert directly', () => {
+      const alertPosition = positions.BOTTOM_LEFT
+      Child = () => {
+        const alert = useAlert()
+        return <button onClick={() => alert.show('Message', { position: alertPosition })}>Show Alert</button>
+      }
+
+      const App = props => (
+        <Provider
+          data-testid="provider"
+          template={Template}
+          position={positions.BOTTOM_RIGHT}
+        >
+          <Child/>
+        </Provider>
+      )
+
+      const { getByText, getByTestId } = render(<App/>)
+      fireEvent.click(getByText(/show alert/i))
+
+      const providerElement = getByTestId('provider')
+      const alertElement = getByTestId('alert')
+      expect(alertElement).toBeInTheDocument()
+      const styles = styleString(getStyles(alertPosition))
+      expect(providerElement).toHaveStyle(styles)
+    })
+
+    it('should render multiple wrappers relying on amount of positions giving to alerts', () => {
+      const parentPosition = positions.TOP_CENTER;
+      Child = () => {
+        const alert = useAlert()
+        return (
+          <div>
+            <button
+              onClick={() => alert.show('Message', { position: positions.BOTTOM_LEFT })}
+            >
+              Bottom left
+            </button>
+            <button
+              onClick={() => alert.show('Message', { position: positions.BOTTOM_RIGHT })}
+            >
+              Bottom right
+            </button>
+            <button
+              onClick={() => alert.show('Message')}
+            >
+              Parent position
+            </button>
+          </div>
+        )
+      }
+
+      const App = props => (
+        <Provider
+          data-testid="provider"
+          template={Template}
+          position={parentPosition}
+        >
+          <Child/>
+        </Provider>
+      )
+
+      const { getByText, getByTestId } = render(<App/>)
+      fireEvent.click(getByText(/bottom right/i))
+      fireEvent.click(getByText(/bottom left/i))
+      waitForElement(() => {
+        const provider = getByTestId('provider')
+        expect(provider).toHaveLength(2)
+      })
+      fireEvent.click(getByText(/parent position/i))
+      waitForElement(() => {
+        const provider = getByTestId('provider')
+        expect(provider).toHaveLength(1)
+        const styles = styleString(getStyles(parentPosition))
+        expect(provider).toHaveStyle(styles)
+      })
     })
 
     it('should remove the alert matching the given id on remove call', () => {
