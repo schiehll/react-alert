@@ -6,6 +6,7 @@ import DefaultContext from './Context'
 import Wrapper from './Wrapper'
 import Transition from './Transition'
 import { positions, transitions, types } from './options'
+import { groupBy } from './helpers'
 
 const Provider = ({
   children,
@@ -53,6 +54,7 @@ const Provider = ({
       .substr(2, 9)
 
     const alertOptions = {
+      position: options.position || position,
       timeout,
       type,
       ...options
@@ -107,20 +109,30 @@ const Provider = ({
     info
   }
 
+  const alertsByPosition = groupBy(alerts, alert => alert.options.position)
+
   return (
     <Context.Provider value={alertContext}>
       {children}
       {root.current &&
         createPortal(
-          <Wrapper options={{ position, containerStyle }} {...props}>
-            <TransitionGroup>
-              {alerts.map(alert => (
-                <Transition type={transition} key={alert.id} appear={true}>
-                  <AlertComponent style={{ margin: offset }} {...alert} />
-                </Transition>
-              ))}
-            </TransitionGroup>
-          </Wrapper>,
+          <>
+            {Object.keys(alertsByPosition).map(position => (
+              <Wrapper
+                options={{ position, containerStyle }}
+                key={position}
+                {...props}
+              >
+                <TransitionGroup>
+                  {alertsByPosition[position].map(alert => (
+                    <Transition type={transition} key={alert.id} appear={true}>
+                      <AlertComponent style={{ margin: offset }} {...alert} />
+                    </Transition>
+                  ))}
+                </TransitionGroup>
+              </Wrapper>
+            ))}
+          </>,
           root.current
         )}
     </Context.Provider>
