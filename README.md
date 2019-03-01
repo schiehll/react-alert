@@ -187,7 +187,7 @@ containerStyle: {
 }
 ```
 
-Those options will be applied to all alerts.
+Those options will be applied to all alerts (please, also have a look at [edge-cases](#showing-alerts-in-different-positions-at-the-same-time))
 
 ## Api
 
