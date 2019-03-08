@@ -2,9 +2,11 @@ import React from 'react'
 import DefaultContext from './Context'
 
 const withAlert = (Context = DefaultContext) => WrappedComponent => {
-  const WithAlert = props => (
+  const WithAlert = (props, forwardedRef) => (
     <Context.Consumer>
-      {alert => <WrappedComponent {...props} alert={alert} />}
+      {alert => (
+        <WrappedComponent ref={forwardedRef} {...props} alert={alert} />
+      )}
     </Context.Consumer>
   )
 
@@ -12,7 +14,7 @@ const withAlert = (Context = DefaultContext) => WrappedComponent => {
     WrappedComponent.name ||
     'Component'})`
 
-  return WithAlert
+  return React.forwardRef(WithAlert)
 }
 
 export default withAlert
