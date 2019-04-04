@@ -122,8 +122,8 @@ const Provider = ({
                 appear
                 key={position}
                 options={{ position, containerStyle }}
-                {...props}
                 component={Wrapper}
+                {...props}
               >
                 {alertsByPosition[position]
                   ? alertsByPosition[position].map(alert => (

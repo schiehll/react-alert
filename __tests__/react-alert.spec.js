@@ -12,8 +12,11 @@ const styleString = style =>
 jest.useFakeTimers()
 
 jest.mock('react-transition-group', () => {
+  const mockStyles = require('../src/Wrapper').getStyles;
   const FakeTransition = ({ children }) => children('entered')
-  const FakeTransitionGroup = ({ children }) => children
+  const FakeWrapper = ({ children, options: { position, containerStyle }, ...props }) =>
+    <div style={{ ...mockStyles(position), ...containerStyle }} {...props}>{children}</div>
+  const FakeTransitionGroup = ({ children, appear, component, ...props }) => <FakeWrapper {...props}>{children}</FakeWrapper>
 
   return { TransitionGroup: FakeTransitionGroup, Transition: FakeTransition }
 })
@@ -94,7 +97,7 @@ describe('react-alert', () => {
         const alert = useAlert()
         return <button onClick={() => alert.success('Message')}>Show Alert</button>
       }
-      const { getByText } = renderApp(SuccessChild);
+      const { getByText } = renderApp(SuccessChild)
 
       fireEvent.click(getByText(/show alert/i))
       expect(getByText(/type: success/i)).toBeInTheDocument()
@@ -106,7 +109,7 @@ describe('react-alert', () => {
         return <button onClick={() => alert.error('Message')}>Show Alert</button>
       }
 
-      const { getByText } = renderApp(ErrorChild);
+      const { getByText } = renderApp(ErrorChild)
 
       fireEvent.click(getByText(/show alert/i))
       expect(getByText(/type: error/i)).toBeInTheDocument()
@@ -118,7 +121,7 @@ describe('react-alert', () => {
         return <button onClick={() => alert.info('Message')}>Show Alert</button>
       }
 
-      const { getByText } = renderApp(InfoChild);
+      const { getByText } = renderApp(InfoChild)
 
       fireEvent.click(getByText(/show alert/i))
       expect(getByText(/type: info/i)).toBeInTheDocument()
@@ -138,7 +141,7 @@ describe('react-alert', () => {
         )
       }
 
-      const { getByText } = renderApp(InfoChild);
+      const { getByText } = renderApp(InfoChild)
 
       fireEvent.click(getByText(/show alert/i))
       expect(onOpen).toHaveBeenCalledTimes(1)
@@ -250,7 +253,7 @@ describe('react-alert', () => {
     })
 
     it('should render multiple wrappers relying on amount of positions giving to alerts', () => {
-      const parentPosition = positions.TOP_CENTER;
+      const parentPosition = positions.TOP_CENTER
       Child = () => {
         const alert = useAlert()
         return (
