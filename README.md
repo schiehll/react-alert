@@ -1,6 +1,6 @@
 # react-alert
 
-> 2kb alerts for React
+> alerts for React
 
 [![travis build](https://img.shields.io/travis/schiehll/react-alert.svg?style=flat-square)](https://travis-ci.org/schiehll/react-alert)
 [![version](https://img.shields.io/npm/v/react-alert.svg?style=flat-square)](http://npm.im/react-alert)

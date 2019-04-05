@@ -28,17 +28,16 @@ describe('react-alert', () => {
   afterEach(cleanup)
 
   describe('react-alert with one Provider and minimum needed options', () => {
-
     let tree
     let getByText, getByTestId, queryAllByText
 
     let renderApp = () => {
       const App = () => (
         <Provider template={Template}>
-          <Child/>
+          <Child />
         </Provider>
       )
-      return render(<App/>)
+      return render(<App />)
     }
 
     beforeEach(() => {
@@ -71,24 +70,24 @@ describe('react-alert', () => {
 
       expect(queryAllByText(/message/i)).toHaveLength(2)
     })
-
   })
 
   describe('react-alert with one Provider and different types of alerts', () => {
-
-    let renderApp = (CustomChild) => {
+    let renderApp = CustomChild => {
       const App = () => (
         <Provider template={Template}>
-          <CustomChild/>
+          <CustomChild />
         </Provider>
       )
-      return render(<App/>)
+      return render(<App />)
     }
 
     it('should be able to show an alert calling success', () => {
       let SuccessChild = () => {
         const alert = useAlert()
-        return <button onClick={() => alert.success('Message')}>Show Alert</button>
+        return (
+          <button onClick={() => alert.success('Message')}>Show Alert</button>
+        )
       }
       const { getByText } = renderApp(SuccessChild)
 
@@ -99,7 +98,9 @@ describe('react-alert', () => {
     it('should be able to show an alert calling error', () => {
       let ErrorChild = () => {
         const alert = useAlert()
-        return <button onClick={() => alert.error('Message')}>Show Alert</button>
+        return (
+          <button onClick={() => alert.error('Message')}>Show Alert</button>
+        )
       }
 
       const { getByText } = renderApp(ErrorChild)
@@ -145,7 +146,6 @@ describe('react-alert', () => {
   })
 
   describe('react-alert with one Provider and custom options', () => {
-
     it('should close an alert automatic after the given timeout', () => {
       const timeout = 2000;
       const App = () => (
@@ -153,7 +153,7 @@ describe('react-alert', () => {
           <Child/>
         </Provider>
       )
-      const { getByText } = render(<App/>)
+      const { getByText } = render(<App />)
 
       fireEvent.click(getByText(/show alert/i))
       const alertElement = getByText(/message/i)
@@ -166,7 +166,6 @@ describe('react-alert', () => {
     })
 
     it('should accept different position options', () => {
-
       Object.values(positions).forEach(position => {
         const App = props => (
           <Provider
@@ -174,11 +173,11 @@ describe('react-alert', () => {
             template={Template}
             position={position}
           >
-            <Child/>
+            <Child />
           </Provider>
         )
 
-        const { getByText, getByTestId } = render(<App/>)
+        const { getByText, getByTestId } = render(<App />)
         fireEvent.click(getByText(/show alert/i))
 
         const providerElement = getByTestId('provider')
@@ -197,11 +196,11 @@ describe('react-alert', () => {
           template={Template}
           containerStyle={containerStyle}
         >
-          <Child/>
+          <Child />
         </Provider>
       )
 
-      const { getByText, getByTestId } = render(<App/>)
+      const { getByText, getByTestId } = render(<App />)
       fireEvent.click(getByText(/show alert/i))
 
       const providerElement = getByTestId('provider')
@@ -212,11 +211,11 @@ describe('react-alert', () => {
     it('should respect the given offset option', () => {
       const App = props => (
         <Provider template={Template} offset="30px">
-          <Child/>
+          <Child />
         </Provider>
       )
 
-      const { getByText, getByTestId } = render(<App/>)
+      const { getByText, getByTestId } = render(<App />)
       fireEvent.click(getByText(/show alert/i))
       const alertElement = getByTestId('alert')
       expect(alertElement).toHaveStyle('margin: 30px')
@@ -327,11 +326,11 @@ describe('react-alert', () => {
 
       const App = props => (
         <Provider template={Template}>
-          <Child/>
+          <Child />
         </Provider>
       )
 
-      const { getByText } = render(<App/>)
+      const { getByText } = render(<App />)
       fireEvent.click(getByText(/show alert/i))
       const alertElement = getByText(/message/i)
       expect(getByText(/message/i)).toBeInTheDocument()
@@ -350,11 +349,11 @@ describe('react-alert', () => {
 
       const App = props => (
         <Provider template={Template}>
-          <Child/>
+          <Child />
         </Provider>
       )
 
-      const { getByText } = render(<App/>)
+      const { getByText } = render(<App />)
       fireEvent.click(getByText(/show alert/i))
 
       expect(getByText(/message/i)).toBeInTheDocument()
@@ -362,7 +361,6 @@ describe('react-alert', () => {
   })
 
   describe('react-alert with multiple Providers', () => {
-
     it('should accept a context option', () => {
       const BottomLeftAlertContext = createContext()
 
@@ -395,12 +393,12 @@ describe('react-alert', () => {
             context={BottomLeftAlertContext}
             position="bottom left"
           >
-            <ComplexChild/>
+            <ComplexChild />
           </Provider>
         </Provider>
       )
 
-      const { getByText, getByTestId } = render(<App/>)
+      const { getByText, getByTestId } = render(<App />)
 
       fireEvent.click(getByTestId('default-context'))
       expect(getByText(/message/i)).toBeInTheDocument()
