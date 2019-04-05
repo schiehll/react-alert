@@ -34,7 +34,7 @@ describe('react-alert', () => {
 
     let renderApp = () => {
       const App = () => (
-        <Provider template={Template} data-testid="provider">
+        <Provider template={Template}>
           <Child/>
         </Provider>
       )
