@@ -4,22 +4,12 @@ import { render, fireEvent, cleanup, act, waitForElement } from 'react-testing-l
 import { positions, Provider, useAlert, withAlert } from '../src'
 import { getStyles } from '../src/Wrapper'
 
+const transitionTime = 250;
+
 const styleString = style =>
   Object.entries(style).reduce((styleString, [propName, propValue]) => {
     return `${styleString}${propName}:${propValue};`
   }, '')
-
-jest.useFakeTimers()
-
-jest.mock('react-transition-group', () => {
-  const mockStyles = require('../src/Wrapper').getStyles;
-  const FakeTransition = ({ children }) => children('entered')
-  const FakeWrapper = ({ children, options: { position, containerStyle }, ...props }) =>
-    <div style={{ ...mockStyles(position), ...containerStyle }} {...props}>{children}</div>
-  const FakeTransitionGroup = ({ children, appear, component, ...props }) => <FakeWrapper {...props}>{children}</FakeWrapper>
-
-  return { TransitionGroup: FakeTransitionGroup, Transition: FakeTransition }
-})
 
 describe('react-alert', () => {
   const Template = ({ message, close, options: { type }, style }) => (
@@ -44,7 +34,7 @@ describe('react-alert', () => {
 
     let renderApp = () => {
       const App = () => (
-        <Provider template={Template}>
+        <Provider template={Template} data-testid="provider">
           <Child/>
         </Provider>
       )
@@ -69,7 +59,10 @@ describe('react-alert', () => {
       expect(getByText(/message/i)).toBeInTheDocument()
 
       fireEvent.click(getByText(/close/i))
-      expect(alertElement).not.toBeInTheDocument()
+
+      setTimeout(()=> {
+        expect(alertElement).not.toBeInTheDocument()
+      },transitionTime)
     })
 
     it('should show multiple alerts', () => {
@@ -154,8 +147,9 @@ describe('react-alert', () => {
   describe('react-alert with one Provider and custom options', () => {
 
     it('should close an alert automatic after the given timeout', () => {
+      const timeout = 2000;
       const App = () => (
-        <Provider template={Template} timeout={2000}>
+        <Provider template={Template} timeout={timeout}>
           <Child/>
         </Provider>
       )
@@ -164,9 +158,11 @@ describe('react-alert', () => {
       fireEvent.click(getByText(/show alert/i))
       const alertElement = getByText(/message/i)
 
-      expect(alertElement).toBeInTheDocument()
-      act(() => jest.runAllTimers())
-      expect(alertElement).not.toBeInTheDocument()
+      expect(alertElement).toBeInTheDocument();
+
+      setTimeout(()=> {
+        expect(alertElement).not.toBeInTheDocument()
+      },timeout)
     })
 
     it('should accept different position options', () => {
@@ -186,6 +182,7 @@ describe('react-alert', () => {
         fireEvent.click(getByText(/show alert/i))
 
         const providerElement = getByTestId('provider')
+
         const styles = styleString(getStyles(position))
         expect(providerElement).toHaveStyle(styles)
         cleanup()
@@ -340,7 +337,10 @@ describe('react-alert', () => {
       expect(getByText(/message/i)).toBeInTheDocument()
 
       fireEvent.click(getByText(/remove alert/i))
-      expect(alertElement).not.toBeInTheDocument()
+
+      setTimeout(()=> {
+        expect(alertElement).not.toBeInTheDocument()
+      },transitionTime)
     })
 
     it('should work with withAlert HOC', () => {
