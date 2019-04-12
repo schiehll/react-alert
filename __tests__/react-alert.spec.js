@@ -4,7 +4,7 @@ import { render, fireEvent, cleanup, act, wait } from 'react-testing-library'
 import { positions, Provider, useAlert, withAlert } from '../src'
 import { getStyles } from '../src/Wrapper'
 
-jest.useFakeTimers();
+jest.useFakeTimers()
 
 const styleString = style =>
   Object.entries(style).reduce((styleString, [propName, propValue]) => {
@@ -156,12 +156,12 @@ describe('react-alert', () => {
       fireEvent.click(getByText(/show alert/i))
       const alertElement = getByText(/message/i)
 
-      expect(alertElement).toBeInTheDocument();
+      expect(alertElement).toBeInTheDocument()
 
-      act(jest.runAllTimers)
-      act(jest.runOnlyPendingTimers)
-
-      expect(alertElement).not.toBeInTheDocument()
+      wait(() => {
+        act(jest.runOnlyPendingTimers)
+        expect(alertElement).not.toBeInTheDocument()
+      })
     })
 
     it('should accept different position options', () => {
@@ -330,7 +330,7 @@ describe('react-alert', () => {
       expect(getByText(/message/i)).toBeInTheDocument()
 
       fireEvent.click(getByText(/remove alert/i))
-      act(jest.runOnlyPendingTimers);
+      act(jest.runOnlyPendingTimers)
 
       expect(alertElement).not.toBeInTheDocument()
     })
