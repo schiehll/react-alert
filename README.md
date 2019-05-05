@@ -143,20 +143,51 @@ containerStyle: PropTypes.Object // style to be applied in the alerts container
 template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired // the alert template to be used
 ```
 
+Note that the position, type and transition strings are available as constants which can be imported the next way: 
+```js
+import { positions, transitions, types } from 'react-alert'
+```
+
+and have such values: 
+```js
+export const positions = {
+  TOP_LEFT: 'top left',
+  TOP_CENTER: 'top center',
+  TOP_RIGHT: 'top right',
+  MIDDLE_LEFT: 'middle left',
+  MIDDLE: 'middle',
+  MIDDLE_RIGHT: 'middle right',
+  BOTTOM_LEFT: 'bottom left',
+  BOTTOM_CENTER: 'bottom center',
+  BOTTOM_RIGHT: 'bottom right'
+}
+
+export const types = {
+  INFO: 'info',
+  SUCCESS: 'success',
+  ERROR: 'error'
+}
+
+export const transitions = {
+  FADE: 'fade',
+  SCALE: 'scale'
+}
+```
+
 Here's the defaults:
 
 ```js
 offset: '10px'
-position: 'top center'
+position: positions.TOP_CENTER
 timeout: 0
-type: 'info'
-transition: 'fade',
+type: types.INFO
+transition: transitions.FADE,
 containerStyle: {
   zIndex: 100
 }
 ```
 
-Those options will be applied to all alerts.
+Those options will be applied to all alerts (please, also have a look at [edge-cases](#showing-alerts-in-different-positions-at-the-same-time))
 
 ## Api
 
@@ -259,9 +290,13 @@ You can also pass in a component as a message, like this:
 alert.show(<div style={{ color: 'blue' }}>Some Message</div>)
 ```
 
-## Using multiple Providers
+## Showing alerts in different positions at the same time
 
-You can use different Contexts to show alerts in different style and position:
+First of all, if have a need to separate the logic of showing alerts in different
+positions at the same time it is possible to use multiple AlertProviders in one project and 
+nest them across the DOM tree. Also you can use different Contexts to get the references
+to each type of alert separately. 
+
 
 ```js
 import React, { createContext } from 'react'
@@ -301,6 +336,64 @@ const Root = () => (
       <App />
     </AlertProvider>
   </AlertProvider>
+)
+
+render(<Root />, document.getElementById('root'))
+```
+
+Another use case is when you don't want to nest a couple of AlertProviders
+because it will somehow complicate management of alerts (for example when you 
+need to show alerts in more than three different positions). 
+
+In this case you can pass the position directly to the alert. The alerts without
+individual position property will take it from the Provider. 
+Instead, passing the position to methods `show`, `success`, `info`, `error` will 
+overlap the Provider's position.
+
+Passing the property `position` will look like this: 
+```js
+alert.show('Oh look, an alert!', {position: positions.BOTTOM_LEFT})
+```
+
+An example of showing alerts simultaneously in three different positions: 
+```js
+import React from 'react';
+import { render } from 'react-dom'
+import { Provider as AlertProvider, useAlert, positions, transitions } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic'
+
+const alertOptions = {
+    offset: '25px',
+    timeout: 3000,
+    transition: transitions.SCALE
+};
+
+const App = () => {
+    const alert = useAlert()
+
+    const showAlert = () => {
+            alert.show('Oh look, an alert!', {position: positions.BOTTOM_LEFT}) //alert will be shown in bottom left
+            alert.show('Oh look, an alert!', {position: positions.BOTTOM_RIGHT}) //alert will be shown in bottom right
+            alert.show('Oh look, an alert!') //alert will use the Provider's position `top right`
+    }
+
+    return (
+        <button onClick={showAlert}>
+            Show Alert
+        </button>
+    )
+}
+
+const Root = () => (
+    <AlertProvider template={AlertTemplate}>
+        <AlertProvider
+            template={AlertTemplate}
+            position={positions.TOP_RIGHT} //default position for all alerts without individual position
+            {...alertOptions}
+        >
+            <App />
+        </AlertProvider>
+    </AlertProvider>
 )
 
 render(<Root />, document.getElementById('root'))

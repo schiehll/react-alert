@@ -1,22 +1,15 @@
 import React, { useRef, createContext } from 'react'
 import 'jest-dom/extend-expect'
-import { render, fireEvent, cleanup, act } from 'react-testing-library'
+import { render, fireEvent, cleanup, act, wait } from 'react-testing-library'
 import { positions, Provider, useAlert, withAlert } from '../src'
 import { getStyles } from '../src/Wrapper'
+
+jest.useFakeTimers()
 
 const styleString = style =>
   Object.entries(style).reduce((styleString, [propName, propValue]) => {
     return `${styleString}${propName}:${propValue};`
   }, '')
-
-jest.useFakeTimers()
-
-jest.mock('react-transition-group', () => {
-  const FakeTransition = ({ children }) => children('entered')
-  const FakeTransitionGroup = ({ children }) => children
-
-  return { TransitionGroup: FakeTransitionGroup, Transition: FakeTransition }
-})
 
 describe('react-alert', () => {
   const Template = ({ message, close, options: { type }, style }) => (
@@ -36,21 +29,20 @@ describe('react-alert', () => {
 
   describe('react-alert with one Provider and minimum needed options', () => {
     let tree
-    let getByText, getByTestId, queryAllByText
+    let getByText, queryAllByText
 
     let renderApp = () => {
       const App = () => (
         <Provider template={Template}>
-          <Child />
+          <Child/>
         </Provider>
       )
-      return render(<App />)
+      return render(<App/>)
     }
 
     beforeEach(() => {
       tree = renderApp()
       getByText = tree.getByText
-      getByTestId = tree.getByTestId
       queryAllByText = tree.queryAllByText
     })
 
@@ -65,6 +57,9 @@ describe('react-alert', () => {
       expect(getByText(/message/i)).toBeInTheDocument()
 
       fireEvent.click(getByText(/close/i))
+
+      act(jest.runAllTimers)
+
       expect(alertElement).not.toBeInTheDocument()
     })
 
@@ -80,10 +75,10 @@ describe('react-alert', () => {
     let renderApp = CustomChild => {
       const App = () => (
         <Provider template={Template}>
-          <CustomChild />
+          <CustomChild/>
         </Provider>
       )
-      return render(<App />)
+      return render(<App/>)
     }
 
     it('should be able to show an alert calling success', () => {
@@ -153,17 +148,20 @@ describe('react-alert', () => {
     it('should close an alert automatic after the given timeout', () => {
       const App = () => (
         <Provider template={Template} timeout={2000}>
-          <Child />
+          <Child/>
         </Provider>
       )
-      const { getByText } = render(<App />)
+      const { getByText } = render(<App/>)
 
       fireEvent.click(getByText(/show alert/i))
       const alertElement = getByText(/message/i)
 
       expect(alertElement).toBeInTheDocument()
-      act(() => jest.runAllTimers())
-      expect(alertElement).not.toBeInTheDocument()
+
+      wait(() => {
+        act(jest.runOnlyPendingTimers)
+        expect(alertElement).not.toBeInTheDocument()
+      })
     })
 
     it('should accept different position options', () => {
@@ -174,14 +172,15 @@ describe('react-alert', () => {
             template={Template}
             position={position}
           >
-            <Child />
+            <Child/>
           </Provider>
         )
 
-        const { getByText, getByTestId } = render(<App />)
+        const { getByText, getByTestId } = render(<App/>)
         fireEvent.click(getByText(/show alert/i))
 
         const providerElement = getByTestId('provider')
+
         const styles = styleString(getStyles(position))
         expect(providerElement).toHaveStyle(styles)
         cleanup()
@@ -196,11 +195,11 @@ describe('react-alert', () => {
           template={Template}
           containerStyle={containerStyle}
         >
-          <Child />
+          <Child/>
         </Provider>
       )
 
-      const { getByText, getByTestId } = render(<App />)
+      const { getByText, getByTestId } = render(<App/>)
       fireEvent.click(getByText(/show alert/i))
 
       const providerElement = getByTestId('provider')
@@ -211,14 +210,87 @@ describe('react-alert', () => {
     it('should respect the given offset option', () => {
       const App = props => (
         <Provider template={Template} offset="30px">
-          <Child />
+          <Child/>
         </Provider>
       )
 
-      const { getByText, getByTestId } = render(<App />)
+      const { getByText, getByTestId } = render(<App/>)
       fireEvent.click(getByText(/show alert/i))
       const alertElement = getByTestId('alert')
       expect(alertElement).toHaveStyle('margin: 30px')
+    })
+
+    it('should render an alert in position passed to alert directly', () => {
+      const alertPosition = positions.BOTTOM_LEFT
+      Child = () => {
+        const alert = useAlert()
+        return <button onClick={() => alert.show('Message', { position: alertPosition })}>Show Alert</button>
+      }
+
+      const App = props => (
+        <Provider
+          data-testid="provider"
+          template={Template}
+          position={positions.BOTTOM_RIGHT}
+        >
+          <Child/>
+        </Provider>
+      )
+
+      const { getByText, getByTestId } = render(<App/>)
+      fireEvent.click(getByText(/show alert/i))
+
+      const providerElement = getByTestId('provider')
+      const alertElement = getByTestId('alert')
+
+      expect(alertElement).toBeInTheDocument()
+      const styles = styleString(getStyles(alertPosition))
+      expect(providerElement).toHaveStyle(styles)
+    })
+
+    it('should render multiple wrappers relying on amount of positions giving to alerts', () => {
+      const parentPosition = positions.TOP_CENTER
+      Child = () => {
+        const alert = useAlert()
+        return (
+          <div>
+            <button onClick={() => alert.show('Message', { position: positions.BOTTOM_LEFT })}>
+              Bottom left
+            </button>
+            <button onClick={() => alert.show('Message', { position: positions.BOTTOM_RIGHT })}>
+              Bottom right
+            </button>
+            <button onClick={() => alert.show('Message')}>
+              Parent position
+            </button>
+          </div>
+        )
+      }
+
+      const App = props => (
+        <Provider
+          data-testid="provider"
+          template={Template}
+          position={parentPosition}
+        >
+          <Child/>
+        </Provider>
+      )
+
+      const { getByText, getByTestId } = render(<App/>)
+      fireEvent.click(getByText(/bottom right/i))
+      fireEvent.click(getByText(/bottom left/i))
+      wait (() => {
+        const provider = getByTestId('provider')
+        expect(provider).toHaveLength(2)
+      })
+      fireEvent.click(getByText(/parent position/i))
+      wait(() => {
+        const provider = getByTestId('provider')
+        expect(provider).toHaveLength(1)
+        const styles = styleString(getStyles(parentPosition))
+        expect(provider).toHaveStyle(styles)
+      })
     })
 
     it('should remove the alert matching the given id on remove call', () => {
@@ -247,17 +319,19 @@ describe('react-alert', () => {
       }
 
       const App = props => (
-        <Provider template={Template}>
-          <Child />
+        <Provider template={Template} data-testid="provider">
+          <Child/>
         </Provider>
       )
 
-      const { getByText } = render(<App />)
+      const { getByText } = render(<App/>)
       fireEvent.click(getByText(/show alert/i))
       const alertElement = getByText(/message/i)
       expect(getByText(/message/i)).toBeInTheDocument()
 
       fireEvent.click(getByText(/remove alert/i))
+      act(jest.runOnlyPendingTimers)
+
       expect(alertElement).not.toBeInTheDocument()
     })
 
@@ -268,11 +342,11 @@ describe('react-alert', () => {
 
       const App = props => (
         <Provider template={Template}>
-          <Child />
+          <Child/>
         </Provider>
       )
 
-      const { getByText } = render(<App />)
+      const { getByText } = render(<App/>)
       fireEvent.click(getByText(/show alert/i))
 
       expect(getByText(/message/i)).toBeInTheDocument()
@@ -312,12 +386,12 @@ describe('react-alert', () => {
             context={BottomLeftAlertContext}
             position="bottom left"
           >
-            <ComplexChild />
+            <ComplexChild/>
           </Provider>
         </Provider>
       )
 
-      const { getByText, getByTestId } = render(<App />)
+      const { getByText, getByTestId } = render(<App/>)
 
       fireEvent.click(getByTestId('default-context'))
       expect(getByText(/message/i)).toBeInTheDocument()

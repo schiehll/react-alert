@@ -74,9 +74,11 @@ const Wrapper = ({
   const styles = useMemo(() => getStyles(position), [position])
 
   return (
-    <div style={{ ...styles, ...containerStyle }} {...props}>
-      {children}
-    </div>
+    children.length > 0 && (
+      <div style={{ ...styles, ...containerStyle }} {...props}>
+        {children}
+      </div>
+    )
   )
 }
 
