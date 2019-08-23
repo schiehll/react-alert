@@ -13,6 +13,7 @@ export const positions = {
 export const types = {
   INFO: 'info',
   SUCCESS: 'success',
+  WARNING: 'warning',
   ERROR: 'error'
 }
 
