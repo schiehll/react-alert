@@ -35,10 +35,8 @@ $ npm install --save react-alert react-alert-template-basic
 This package expect the following peer dependencies:
 
 ```
-  "prop-types": "^15.6.2"
   "react": "^16.8.1"
   "react-dom": "^16.8.1"
-  "react-transition-group": "^2.5.3"
 ```
 
 So make sure that you have those installed too!
@@ -143,12 +141,14 @@ containerStyle: PropTypes.Object // style to be applied in the alerts container
 template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired // the alert template to be used
 ```
 
-Note that the position, type and transition strings are available as constants which can be imported the next way: 
+Note that the position, type and transition strings are available as constants which can be imported the next way:
+
 ```js
 import { positions, transitions, types } from 'react-alert'
 ```
 
-and have such values: 
+and have such values:
+
 ```js
 export const positions = {
   TOP_LEFT: 'top left',
@@ -245,6 +245,10 @@ const alert = alert.error('Some error', {
 // remove
 // use it to remove an alert programmatically
 alert.remove(alert)
+
+// removeAll
+// use it to remove all alerts programmatically
+alert.removeAll()
 ```
 
 ## Using a custom alert template
@@ -293,10 +297,9 @@ alert.show(<div style={{ color: 'blue' }}>Some Message</div>)
 ## Showing alerts in different positions at the same time
 
 First of all, if have a need to separate the logic of showing alerts in different
-positions at the same time it is possible to use multiple AlertProviders in one project and 
+positions at the same time it is possible to use multiple AlertProviders in one project and
 nest them across the DOM tree. Also you can use different Contexts to get the references
-to each type of alert separately. 
-
+to each type of alert separately.
 
 ```js
 import React, { createContext } from 'react'
@@ -342,58 +345,61 @@ render(<Root />, document.getElementById('root'))
 ```
 
 Another use case is when you don't want to nest a couple of AlertProviders
-because it will somehow complicate management of alerts (for example when you 
-need to show alerts in more than three different positions). 
+because it will somehow complicate management of alerts (for example when you
+need to show alerts in more than three different positions).
 
 In this case you can pass the position directly to the alert. The alerts without
-individual position property will take it from the Provider. 
-Instead, passing the position to methods `show`, `success`, `info`, `error` will 
+individual position property will take it from the Provider.
+Instead, passing the position to methods `show`, `success`, `info`, `error` will
 overlap the Provider's position.
 
-Passing the property `position` will look like this: 
+Passing the property `position` will look like this:
+
 ```js
-alert.show('Oh look, an alert!', {position: positions.BOTTOM_LEFT})
+alert.show('Oh look, an alert!', { position: positions.BOTTOM_LEFT })
 ```
 
-An example of showing alerts simultaneously in three different positions: 
+An example of showing alerts simultaneously in three different positions:
+
 ```js
-import React from 'react';
+import React from 'react'
 import { render } from 'react-dom'
-import { Provider as AlertProvider, useAlert, positions, transitions } from 'react-alert';
+import {
+  Provider as AlertProvider,
+  useAlert,
+  positions,
+  transitions
+} from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 
 const alertOptions = {
-    offset: '25px',
-    timeout: 3000,
-    transition: transitions.SCALE
-};
+  offset: '25px',
+  timeout: 3000,
+  transition: transitions.SCALE
+}
 
 const App = () => {
-    const alert = useAlert()
+  const alert = useAlert()
 
-    const showAlert = () => {
-            alert.show('Oh look, an alert!', {position: positions.BOTTOM_LEFT}) //alert will be shown in bottom left
-            alert.show('Oh look, an alert!', {position: positions.BOTTOM_RIGHT}) //alert will be shown in bottom right
-            alert.show('Oh look, an alert!') //alert will use the Provider's position `top right`
-    }
+  const showAlert = () => {
+    alert.show('Oh look, an alert!', { position: positions.BOTTOM_LEFT }) //alert will be shown in bottom left
+    alert.show('Oh look, an alert!', { position: positions.BOTTOM_RIGHT }) //alert will be shown in bottom right
+    alert.show('Oh look, an alert!') //alert will use the Provider's position `top right`
+  }
 
-    return (
-        <button onClick={showAlert}>
-            Show Alert
-        </button>
-    )
+  return <button onClick={showAlert}>Show Alert</button>
 }
 
 const Root = () => (
-    <AlertProvider template={AlertTemplate}>
-        <AlertProvider
-            template={AlertTemplate}
-            position={positions.TOP_RIGHT} //default position for all alerts without individual position
-            {...alertOptions}
-        >
-            <App />
-        </AlertProvider>
+  <AlertProvider template={AlertTemplate}>
+    <AlertProvider
+      template={AlertTemplate}
+      position={positions.TOP_RIGHT} //default position for all alerts without individual position
+      {...alertOptions}
+    >
+      <App />
     </AlertProvider>
+  </AlertProvider>
 )
 
 render(<Root />, document.getElementById('root'))

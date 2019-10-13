@@ -5,7 +5,7 @@ const withAlert = (Context = DefaultContext) => WrappedComponent => {
   const WithAlert = (props, forwardedRef) => (
     <Context.Consumer>
       {alert => (
-        <WrappedComponent ref={forwardedRef} {...props} alert={alert} />
+        <WrappedComponent ref={forwardedRef} {...props} alert={alert.current} />
       )}
     </Context.Consumer>
   )

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { Fragment, useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionGroup } from 'react-transition-group'
 import { createPortal } from 'react-dom'
@@ -21,31 +21,36 @@ const Provider = ({
   ...props
 }) => {
   const root = useRef(null)
+  const alertContext = useRef(null)
   const timersId = useRef([])
   const [alerts, setAlerts] = useState([])
 
   useEffect(() => {
     root.current = document.createElement('div')
     document.body.appendChild(root.current)
+    const timersIdRef = timersId.current
 
     return () => {
-      timersId.current.forEach(clearTimeout)
-
+      timersIdRef.forEach(clearTimeout)
       if (root.current) document.body.removeChild(root.current)
     }
   }, [])
 
   const remove = alert => {
-    setAlerts(prevState => {
-      const lengthBeforeRemove = prevState.length
-      const alerts = prevState.filter(a => a.id !== alert.id)
+    setAlerts(currentAlerts => {
+      const lengthBeforeRemove = currentAlerts.length
+      const filteredAlerts = currentAlerts.filter(a => a.id !== alert.id)
 
-      if (lengthBeforeRemove > alerts.length && alert.options.onClose) {
+      if (lengthBeforeRemove > filteredAlerts.length && alert.options.onClose) {
         alert.options.onClose()
       }
 
-      return alerts
+      return filteredAlerts
     })
+  }
+
+  const removeAll = () => {
+    alertContext.current.alerts.forEach(remove)
   }
 
   const show = (message = '', options = {}) => {
@@ -99,11 +104,11 @@ const Provider = ({
     return show(message, options)
   }
 
-  const alertContext = {
-    root: root.current,
+  alertContext.current = {
     alerts,
     show,
     remove,
+    removeAll,
     success,
     error,
     info
@@ -116,7 +121,7 @@ const Provider = ({
       {children}
       {root.current &&
         createPortal(
-          <>
+          <Fragment>
             {Object.values(positions).map(position => (
               <TransitionGroup
                 appear
@@ -134,7 +139,7 @@ const Provider = ({
                   : null}
               </TransitionGroup>
             ))}
-          </>,
+          </Fragment>,
           root.current
         )}
     </Context.Provider>
@@ -143,10 +148,14 @@ const Provider = ({
 
 Provider.propTypes = {
   offset: PropTypes.string,
-  position: PropTypes.oneOf(Object.values(positions)),
+  position: PropTypes.oneOf(
+    Object.keys(positions).map(position => positions[position])
+  ),
   timeout: PropTypes.number,
-  type: PropTypes.oneOf(Object.values(types)),
-  transition: PropTypes.oneOf(Object.values(transitions)),
+  type: PropTypes.oneOf(Object.keys(types).map(type => types[type])),
+  transition: PropTypes.oneOf(
+    Object.keys(transitions).map(transition => transitions[transition])
+  ),
   containerStyle: PropTypes.object,
   template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
   context: PropTypes.shape({
