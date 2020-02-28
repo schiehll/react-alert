@@ -1,0 +1,13 @@
+__tests__
+coverage
+scripts
+src
+
+# dot files
+.editorconfig
+.eslintrc
+.gitignore
+.lintstagedrc
+.prettierrc
+.travis.yml
+.huskyrc.json
