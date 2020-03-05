@@ -1,4 +1,10 @@
-import React, { Fragment, useState, useRef, useEffect } from 'react'
+import React, {
+  Fragment,
+  useState,
+  useRef,
+  useEffect,
+  useCallback
+} from 'react'
 import PropTypes from 'prop-types'
 import { TransitionGroup } from 'react-transition-group'
 import { createPortal } from 'react-dom'
@@ -36,7 +42,7 @@ const Provider = ({
     }
   }, [])
 
-  const remove = alert => {
+  const remove = useCallback(alert => {
     setAlerts(currentAlerts => {
       const lengthBeforeRemove = currentAlerts.length
       const filteredAlerts = currentAlerts.filter(a => a.id !== alert.id)
@@ -47,62 +53,74 @@ const Provider = ({
 
       return filteredAlerts
     })
-  }
+  }, [])
 
-  const removeAll = () => {
+  const removeAll = useCallback(() => {
     alertContext.current.alerts.forEach(remove)
-  }
+  }, [remove])
 
-  const show = (message = '', options = {}) => {
-    const id = Math.random()
-      .toString(36)
-      .substr(2, 9)
+  const show = useCallback(
+    (message = '', options = {}) => {
+      const id = Math.random()
+        .toString(36)
+        .substr(2, 9)
 
-    const alertOptions = {
-      position: options.position || position,
-      timeout,
-      type,
-      ...options
-    }
+      const alertOptions = {
+        position: options.position || position,
+        timeout,
+        type,
+        ...options
+      }
 
-    const alert = {
-      id,
-      message,
-      options: alertOptions
-    }
+      const alert = {
+        id,
+        message,
+        options: alertOptions
+      }
 
-    alert.close = () => remove(alert)
+      alert.close = () => remove(alert)
 
-    if (alert.options.timeout) {
-      const timerId = setTimeout(() => {
-        remove(alert)
+      if (alert.options.timeout) {
+        const timerId = setTimeout(() => {
+          remove(alert)
 
-        timersId.current.splice(timersId.current.indexOf(timerId), 1)
-      }, alert.options.timeout)
+          timersId.current.splice(timersId.current.indexOf(timerId), 1)
+        }, alert.options.timeout)
 
-      timersId.current.push(timerId)
-    }
+        timersId.current.push(timerId)
+      }
 
-    setAlerts(alerts => alerts.concat(alert))
-    if (alert.options.onOpen) alert.options.onOpen()
+      setAlerts(state => state.concat(alert))
+      if (alert.options.onOpen) alert.options.onOpen()
 
-    return alert
-  }
+      return alert
+    },
+    [position, remove, timeout, type]
+  )
 
-  const success = (message = '', options = {}) => {
-    options.type = types.SUCCESS
-    return show(message, options)
-  }
+  const success = useCallback(
+    (message = '', options = {}) => {
+      options.type = types.SUCCESS
+      return show(message, options)
+    },
+    [show]
+  )
 
-  const error = (message = '', options = {}) => {
-    options.type = types.ERROR
-    return show(message, options)
-  }
+  const error = useCallback(
+    (message = '', options = {}) => {
+      options.type = types.ERROR
+      return show(message, options)
+    },
+    [show]
+  )
 
-  const info = (message = '', options = {}) => {
-    options.type = types.INFO
-    return show(message, options)
-  }
+  const info = useCallback(
+    (message = '', options = {}) => {
+      options.type = types.INFO
+      return show(message, options)
+    },
+    [show]
+  )
 
   alertContext.current = {
     alerts,
@@ -122,23 +140,30 @@ const Provider = ({
       {root.current &&
         createPortal(
           <Fragment>
-            {Object.values(positions).map(position => (
-              <TransitionGroup
-                appear
-                key={position}
-                options={{ position, containerStyle }}
-                component={Wrapper}
-                {...props}
-              >
-                {alertsByPosition[position]
-                  ? alertsByPosition[position].map(alert => (
-                      <Transition type={transition} key={alert.id}>
-                        <AlertComponent style={{ margin: offset }} {...alert} />
-                      </Transition>
-                    ))
-                  : null}
-              </TransitionGroup>
-            ))}
+            {Object.keys(positions).map(key => {
+              const position = positions[key]
+
+              return (
+                <TransitionGroup
+                  appear
+                  key={position}
+                  options={{ position, containerStyle }}
+                  component={Wrapper}
+                  {...props}
+                >
+                  {alertsByPosition[position]
+                    ? alertsByPosition[position].map(alert => (
+                        <Transition type={transition} key={alert.id}>
+                          <AlertComponent
+                            style={{ margin: offset }}
+                            {...alert}
+                          />
+                        </Transition>
+                      ))
+                    : null}
+                </TransitionGroup>
+              )
+            })}
           </Fragment>,
           root.current
         )}
