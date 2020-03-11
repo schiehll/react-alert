@@ -1,6 +1,7 @@
 import React, { useRef, createContext } from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent, cleanup, act, wait } from '@testing-library/react'
+import kebabCase from 'lodash.kebabcase'
 import { positions, Provider, useAlert, withAlert } from '../src'
 import { getStyles } from '../src/Wrapper'
 
@@ -8,7 +9,7 @@ jest.useFakeTimers()
 
 const styleString = style =>
   Object.entries(style).reduce((styleString, [propName, propValue]) => {
-    return `${styleString}${propName}:${propValue};`
+    return `${styleString}${kebabCase(propName)}:${propValue};`
   }, '')
 
 describe('react-alert', () => {
@@ -51,14 +52,14 @@ describe('react-alert', () => {
       expect(getByText(/message/i)).toBeInTheDocument()
     })
 
-    it('should remove an alert on close click', () => {
+    it('should remove an alert on close click', async () => {
       fireEvent.click(getByText(/show alert/i))
       const alertElement = getByText(/message/i)
       expect(getByText(/message/i)).toBeInTheDocument()
 
       fireEvent.click(getByText(/close/i))
 
-      act(jest.runAllTimers)
+      await act(async () => jest.runAllTimers())
 
       expect(alertElement).not.toBeInTheDocument()
     })
@@ -145,7 +146,7 @@ describe('react-alert', () => {
   })
 
   describe('react-alert with one Provider and custom options', () => {
-    it('should close an alert automatic after the given timeout', () => {
+    it('should close an alert automatic after the given timeout', async () => {
       const App = () => (
         <Provider template={Template} timeout={2000}>
           <Child />
@@ -158,8 +159,8 @@ describe('react-alert', () => {
 
       expect(alertElement).toBeInTheDocument()
 
-      wait(() => {
-        act(jest.runOnlyPendingTimers)
+      await wait(async () => {
+        await act(async () => jest.runOnlyPendingTimers())
         expect(alertElement).not.toBeInTheDocument()
       })
     })
@@ -182,6 +183,7 @@ describe('react-alert', () => {
         const providerElement = getByTestId('provider')
 
         const styles = styleString(getStyles(position))
+
         expect(providerElement).toHaveStyle(styles)
         cleanup()
       })
@@ -253,7 +255,7 @@ describe('react-alert', () => {
       expect(providerElement).toHaveStyle(styles)
     })
 
-    it('should close an alert automatic after the given alert timeout', () => {
+    it('should close an alert automatic after the given alert timeout', async () => {
       const ChildWithConfig = () => {
         const alert = useAlert()
 
@@ -277,8 +279,8 @@ describe('react-alert', () => {
 
       expect(alertElement).toBeInTheDocument()
 
-      wait(() => {
-        act(jest.runOnlyPendingTimers)
+      await wait(async () => {
+        await act(async () => jest.runOnlyPendingTimers())
         expect(alertElement).not.toBeInTheDocument()
       })
     })
@@ -336,7 +338,7 @@ describe('react-alert', () => {
       })
     })
 
-    it('should remove the alert matching the given id on remove call', () => {
+    it('should remove the alert matching the given id on remove call', async () => {
       Child = () => {
         const alert = useAlert()
         const alertRef = useRef(null)
@@ -373,12 +375,12 @@ describe('react-alert', () => {
       expect(getByText(/message/i)).toBeInTheDocument()
 
       fireEvent.click(getByText(/remove alert/i))
-      act(jest.runOnlyPendingTimers)
+      await act(async () => jest.runOnlyPendingTimers())
 
       expect(alertElement).not.toBeInTheDocument()
     })
 
-    it('should remove all alerts on removeAll call', () => {
+    it('should remove all alerts on removeAll call', async () => {
       Child = () => {
         const alert = useAlert()
 
@@ -426,7 +428,7 @@ describe('react-alert', () => {
       expect(getByText(/message 1/i)).toBeInTheDocument()
 
       fireEvent.click(getByText(/remove all alerts/i))
-      act(jest.runOnlyPendingTimers)
+      await act(async () => jest.runOnlyPendingTimers())
 
       expect(alert0Element).not.toBeInTheDocument()
       expect(alert1Element).not.toBeInTheDocument()

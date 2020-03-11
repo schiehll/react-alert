@@ -30,6 +30,8 @@
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.5.0",
     "babel-eslint": "10.0.3",
     "babel-preset-stage-1": "^6.24.1",
     "eslint": "^6.5.1",
@@ -38,6 +40,7 @@
     "husky": "^3.0.9",
     "jest-cli": "^24.9.0",
     "lint-staged": "^9.4.2",
+    "lodash.kebabcase": "^4.1.1",
     "pascal-case": "^2.0.1",
     "prettier": "^1.18.2",
     "react": "^16.13.0",
@@ -60,8 +63,6 @@
     ]
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^4.1.2",
-    "@testing-library/react": "^9.3.0",
     "prop-types": "^15.7.2",
     "react-transition-group": "^4.3.0"
   }

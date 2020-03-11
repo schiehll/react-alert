@@ -33,6 +33,7 @@ const Provider = ({
 
   useEffect(() => {
     root.current = document.createElement('div')
+    root.current.id = '__react-alert__'
     document.body.appendChild(root.current)
     const timersIdRef = timersId.current
 
@@ -155,7 +156,7 @@ const Provider = ({
                     ? alertsByPosition[position].map(alert => (
                         <Transition type={transition} key={alert.id}>
                           <AlertComponent
-                            style={{ margin: offset }}
+                            style={{ margin: offset, pointerEvents: 'all' }}
                             {...alert}
                           />
                         </Transition>
@@ -182,7 +183,11 @@ Provider.propTypes = {
     Object.keys(transitions).map(transition => transitions[transition])
   ),
   containerStyle: PropTypes.object,
-  template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
+  template: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.func,
+    PropTypes.elementType
+  ]).isRequired,
   context: PropTypes.shape({
     Provider: PropTypes.object,
     Consumer: PropTypes.object
