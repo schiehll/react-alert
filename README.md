@@ -19,8 +19,9 @@ $ npm install --save react-alert
 
 You can provide your own alert template if you need to. Otherwise you can just plug in one of the following:
 
-* [Basic](https://github.com/schiehll/react-alert-template-basic)
-* [Dark](https://github.com/schiehll/react-alert-template-oldschool-dark)
+- [Basic](https://github.com/schiehll/react-alert-template-basic)
+- [Dark](https://github.com/schiehll/react-alert-template-oldschool-dark)
+- [Material UI](https://github.com/MMMayC/react-alert-template-mui)
 
 Feel free to submit a PR with the link for your own template.
 
