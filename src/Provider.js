@@ -157,7 +157,7 @@ const Provider = ({
                         <Transition
                           type={transition}
                           key={alert.id}
-                          domRef={root}
+                          nodeRef={root}
                         >
                           <AlertComponent
                             style={{ margin: offset, pointerEvents: 'all' }}

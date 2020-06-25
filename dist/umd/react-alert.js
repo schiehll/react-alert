@@ -446,7 +446,7 @@
         return React__default.createElement(Transtion, {
           type: transition,
           key: alert.id,
-          domRef: root
+          nodeRef: root
         }, React__default.createElement(AlertComponent, _extends({
           style: {
             margin: offset,

@@ -442,7 +442,7 @@ var Provider = function Provider(_ref) {
       return React.createElement(Transtion, {
         type: transition,
         key: alert.id,
-        domRef: root
+        nodeRef: root
       }, React.createElement(AlertComponent, _extends({
         style: {
           margin: offset,
