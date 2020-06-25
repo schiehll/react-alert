@@ -107,7 +107,7 @@ function _objectWithoutProperties(source, excluded) {
 }
 
 function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
 }
 
 function _arrayWithHoles(arr) {
@@ -115,7 +115,10 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -141,28 +144,11 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
-  return arr2;
-}
-
 function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
 }
 
-var Context = /*#__PURE__*/createContext();
+var Context = createContext();
 
 var positions = {
   TOP_LEFT: 'top left',
@@ -199,54 +185,54 @@ var getStyles = function getStyles(position) {
 
   switch (position) {
     case positions.TOP_LEFT:
-      return _objectSpread2(_objectSpread2({}, initialStyles), {}, {
+      return _objectSpread2({}, initialStyles, {
         top: 0,
         alignItems: 'flex-start'
       });
 
     case positions.TOP_CENTER:
-      return _objectSpread2(_objectSpread2({}, initialStyles), {}, {
+      return _objectSpread2({}, initialStyles, {
         top: 0
       });
 
     case positions.TOP_RIGHT:
-      return _objectSpread2(_objectSpread2({}, initialStyles), {}, {
+      return _objectSpread2({}, initialStyles, {
         top: 0,
         alignItems: 'flex-end'
       });
 
     case positions.MIDDLE_LEFT:
-      return _objectSpread2(_objectSpread2({}, initialStyles), {}, {
+      return _objectSpread2({}, initialStyles, {
         top: '50%',
         alignItems: 'flex-start'
       });
 
     case positions.MIDDLE:
       {
-        return _objectSpread2(_objectSpread2({}, initialStyles), {}, {
+        return _objectSpread2({}, initialStyles, {
           top: '50%'
         });
       }
 
     case positions.MIDDLE_RIGHT:
-      return _objectSpread2(_objectSpread2({}, initialStyles), {}, {
+      return _objectSpread2({}, initialStyles, {
         top: '50%',
         alignItems: 'flex-end'
       });
 
     case positions.BOTTOM_LEFT:
-      return _objectSpread2(_objectSpread2({}, initialStyles), {}, {
+      return _objectSpread2({}, initialStyles, {
         bottom: 0,
         alignItems: 'flex-start'
       });
 
     case positions.BOTTOM_CENTER:
-      return _objectSpread2(_objectSpread2({}, initialStyles), {}, {
+      return _objectSpread2({}, initialStyles, {
         bottom: 0
       });
 
     case positions.BOTTOM_RIGHT:
-      return _objectSpread2(_objectSpread2({}, initialStyles), {}, {
+      return _objectSpread2({}, initialStyles, {
         bottom: 0,
         alignItems: 'flex-end'
       });
@@ -268,8 +254,8 @@ var Wrapper = function Wrapper(_ref) {
   var styles = useMemo(function () {
     return getStyles(position);
   }, [position]);
-  return children.length > 0 && /*#__PURE__*/React.createElement("div", _extends({
-    style: _objectSpread2(_objectSpread2({}, styles), containerStyle)
+  return children.length > 0 && React.createElement("div", _extends({
+    style: _objectSpread2({}, styles, {}, containerStyle)
   }, props), children);
 };
 
@@ -309,11 +295,11 @@ var Transtion = function Transtion(_ref) {
       type = _ref.type,
       props = _objectWithoutProperties(_ref, ["children", "type"]);
 
-  return /*#__PURE__*/React.createElement(Transition, _extends({}, props, {
+  return React.createElement(Transition, _extends({}, props, {
     timeout: duration
   }), function (state) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: _objectSpread2(_objectSpread2({}, defaultStyle[type]), transitionStyles[type][state])
+    return React.createElement("div", {
+      style: _objectSpread2({}, defaultStyle[type], {}, transitionStyles[type][state])
     }, children);
   });
 };
@@ -440,11 +426,11 @@ var Provider = function Provider(_ref) {
   var alertsByPosition = groupBy(alerts, function (alert) {
     return alert.options.position;
   });
-  return /*#__PURE__*/React.createElement(Context.Provider, {
+  return React.createElement(Context.Provider, {
     value: alertContext
-  }, children, root.current && /*#__PURE__*/createPortal( /*#__PURE__*/React.createElement(Fragment, null, Object.keys(positions).map(function (key) {
+  }, children, root.current && createPortal(React.createElement(Fragment, null, Object.keys(positions).map(function (key) {
     var position = positions[key];
-    return /*#__PURE__*/React.createElement(TransitionGroup, _extends({
+    return React.createElement(TransitionGroup, _extends({
       appear: true,
       key: position,
       options: {
@@ -453,10 +439,10 @@ var Provider = function Provider(_ref) {
       },
       component: Wrapper
     }, props), alertsByPosition[position] ? alertsByPosition[position].map(function (alert) {
-      return /*#__PURE__*/React.createElement(Transtion, {
+      return React.createElement(Transtion, {
         type: transition,
         key: alert.id
-      }, /*#__PURE__*/React.createElement(AlertComponent, _extends({
+      }, React.createElement(AlertComponent, _extends({
         style: {
           margin: offset,
           pointerEvents: 'all'
@@ -509,8 +495,8 @@ var withAlert = function withAlert() {
   var Context$1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Context;
   return function (WrappedComponent) {
     var WithAlert = function WithAlert(props, forwardedRef) {
-      return /*#__PURE__*/React.createElement(Context$1.Consumer, null, function (alert) {
-        return /*#__PURE__*/React.createElement(WrappedComponent, _extends({
+      return React.createElement(Context$1.Consumer, null, function (alert) {
+        return React.createElement(WrappedComponent, _extends({
           ref: forwardedRef
         }, props, {
           alert: alert.current
@@ -519,7 +505,7 @@ var withAlert = function withAlert() {
     };
 
     WithAlert.displayName = "WithAlert(".concat(WrappedComponent.displayName || WrappedComponent.name || 'Component', ")");
-    return /*#__PURE__*/React.forwardRef(WithAlert);
+    return React.forwardRef(WithAlert);
   };
 };
 
