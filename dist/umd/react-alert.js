@@ -445,7 +445,8 @@
       }, props), alertsByPosition[position] ? alertsByPosition[position].map(function (alert) {
         return React__default.createElement(Transtion, {
           type: transition,
-          key: alert.id
+          key: alert.id,
+          domRef: root
         }, React__default.createElement(AlertComponent, _extends({
           style: {
             margin: offset,

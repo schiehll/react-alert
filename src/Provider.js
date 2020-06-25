@@ -154,7 +154,11 @@ const Provider = ({
                 >
                   {alertsByPosition[position]
                     ? alertsByPosition[position].map(alert => (
-                        <Transition type={transition} key={alert.id}>
+                        <Transition
+                          type={transition}
+                          key={alert.id}
+                          domRef={root}
+                        >
                           <AlertComponent
                             style={{ margin: offset, pointerEvents: 'all' }}
                             {...alert}

@@ -441,7 +441,8 @@ var Provider = function Provider(_ref) {
     }, props), alertsByPosition[position] ? alertsByPosition[position].map(function (alert) {
       return React.createElement(Transtion, {
         type: transition,
-        key: alert.id
+        key: alert.id,
+        domRef: root
       }, React.createElement(AlertComponent, _extends({
         style: {
           margin: offset,
