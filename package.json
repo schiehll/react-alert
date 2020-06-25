@@ -64,6 +64,6 @@
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "react-transition-group": "^4.3.0"
+    "react-transition-group": "^4.4.1"
   }
 }
