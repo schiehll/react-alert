@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Transition as AlertTransition } from 'react-transition-group'
 import { transitions } from './options'
 
@@ -28,19 +28,24 @@ const transitionStyles = {
   }
 }
 
-const Transtion = ({ children, type, ...props }) => (
-  <AlertTransition {...props} timeout={duration}>
-    {state => (
-      <div
-        style={{
-          ...defaultStyle[type],
-          ...transitionStyles[type][state]
-        }}
-      >
-        {children}
-      </div>
-    )}
-  </AlertTransition>
-)
+const Transtion = ({ children, type, ...props }) => {
+  const ref = useRef(null)
+
+  return (
+    <AlertTransition nodeRef={ref} {...props} timeout={duration}>
+      {state => (
+        <div
+          ref={ref}
+          style={{
+            ...defaultStyle[type],
+            ...transitionStyles[type][state]
+          }}
+        >
+          {children}
+        </div>
+      )}
+    </AlertTransition>
+  )
+}
 
 export default Transtion
