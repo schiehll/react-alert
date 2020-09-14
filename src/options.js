@@ -18,5 +18,9 @@ export const types = {
 
 export const transitions = {
   FADE: 'fade',
-  SCALE: 'scale'
+  SCALE: 'scale',
+  ENTER_FROM_RIGHT: 'enter_from_right',
+  ENTER_FROM_LEFT: 'enter_from_left',
+  ENTER_FROM_TOP: 'enter_from_top',
+  ENTER_FROM_BOTTOM: 'enter_from_bottom'
 }

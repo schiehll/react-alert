@@ -137,7 +137,7 @@ position: PropTypes.oneOf([
 ]) // the position of the alerts in the page
 timeout: PropTypes.number // timeout to alert remove itself, if  set to 0 it never removes itself
 type: PropTypes.oneOf(['info', 'success', 'error']) // the default alert type used when calling this.props.alert.show
-transition: PropTypes.oneOf(['fade', 'scale']) // the transition animation
+transition: PropTypes.oneOf(['fade', 'scale', 'enter_from_right' 'enter_from_left' 'enter_from_top' 'enter_from_bottom']) // the transition animation
 containerStyle: PropTypes.Object // style to be applied in the alerts container
 template: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired // the alert template to be used
 ```
@@ -171,7 +171,11 @@ export const types = {
 
 export const transitions = {
   FADE: 'fade',
-  SCALE: 'scale'
+  SCALE: 'scale',
+  ENTER_FROM_RIGHT: 'enter_from_right',
+  ENTER_FROM_LEFT: 'enter_from_left',
+  ENTER_FROM_TOP: 'enter_from_top',
+  ENTER_FROM_BOTTOM: 'enter_from_bottom',
 }
 ```
 
