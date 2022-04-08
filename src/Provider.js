@@ -39,7 +39,8 @@ const Provider = ({
 
     return () => {
       timersIdRef.forEach(clearTimeout)
-      if (root.current) document.body.removeChild(root.current)
+      if (root.current && document.body.contains(root.current))
+        document.body.removeChild(root.current)
     }
   }, [])
 
